@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import tabs from './tabs'
+import category from './category'
 
 export default combineReducers({
-  tabs
+  category
 })
