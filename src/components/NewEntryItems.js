@@ -16,7 +16,7 @@ export default class NewEntryItems extends React.Component {
           renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
           keyExtractor={(item, index) => ('article' + index)}
         />
-        <ModalWebview {...this.props.webview} />
+        <ModalWebview {...this.props} />
       </ScrollView>
     )
   }
