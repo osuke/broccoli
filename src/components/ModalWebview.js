@@ -4,27 +4,9 @@ import { EvilIcons } from '@expo/vector-icons'
 
 export default class ModalWebview extends React.Component {
   render () {
+    console.log(this.props.url)
     return (
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={this.props.webview.visible}
-      >
-        <View style={styles.header}>
-          <TouchableOpacity
-            onPress={ () => { this.props.hidePage() } }
-            style={styles.backBtn}
-          >
-            <EvilIcons
-              name="chevron-left"
-              size={44}
-              color="#a0a0a0"
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-        </View>
-        <WebView source={{uri: this.props.webview.url}} />
-      </Modal>
+        <WebView source={{uri: this.props.url}} />
     )
   }
 }
