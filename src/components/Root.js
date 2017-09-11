@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import NewEntryItems from '../containers/NewEntryItems'
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view'
 
@@ -7,7 +7,7 @@ export default class Root extends React.Component {
   render () {
     return (
       <ScrollableTabView
-        style={{marginTop: 20}}
+        style={styles.tabs}
         tabBarUnderlineStyle={{display: 'none'}}
         renderTabBar={ () => <ScrollableTabBar /> }
       >
@@ -24,3 +24,10 @@ export default class Root extends React.Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  tabs: {
+    marginTop: 20,
+    backgroundColor: '#fff'
+  },
+})

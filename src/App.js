@@ -5,20 +5,24 @@ import Root from './containers/Root'
 import ModalWebview from './containers/ModalWebview'
 
 const App = () => (
-  <Router>
+  <Router getSceneStyle={getSceneStyle}>
     <Scene key="wrap">
       <Scene key="root" component={Root} hideNavBar initial />
-      <Scene key="externalPage" component={ModalWebview} navBarButtonColor="#a0a0a0" sceneStyle={styles.scene} navigationBarStyle={styles.navBar} />
+      <Scene key="externalPage" component={ModalWebview} navBarButtonColor="#a0a0a0" navigationBarStyle={styles.navBar} />
     </Scene>
   </Router>
 )
 export default App
 
 const styles = StyleSheet.create({
-  scene: {
-    backgroundColor: '#fff'
-  },
   navBar: {
     backgroundColor: '#fff'
   }
 })
+
+const getSceneStyle = (props, computedProps) => {
+  const style = {
+    backgroundColor: '#fff',
+  };
+  return style;
+}

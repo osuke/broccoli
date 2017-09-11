@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView, Text, FlatList } from 'react-native'
+import { View, ScrollView, FlatList, StyleSheet } from 'react-native'
 import Article from './Article'
 import ModalWebview from '../components/ModalWebview'
 
@@ -10,7 +10,7 @@ export default class NewEntryItems extends React.Component {
 
   render () {
     return (
-      <ScrollView>
+      <ScrollView style={styles.wrap}>
         <FlatList
           data={this.props.data.items}
           renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
@@ -20,3 +20,9 @@ export default class NewEntryItems extends React.Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  wrap: {
+    backgroundColor: '#fff'
+  },
+})
