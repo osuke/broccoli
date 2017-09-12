@@ -8,7 +8,8 @@ export default class Root extends React.Component {
     return (
       <ScrollableTabView
         style={styles.tabs}
-        tabBarUnderlineStyle={{display: 'none'}}
+        tabBarUnderlineStyle={styles.tab}
+        tabBarActiveTextColor="#f57f17"
         renderTabBar={ () => <ScrollableTabBar /> }
       >
         {
@@ -30,4 +31,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: '#fff'
   },
+  tab: {
+    height: 2,
+    backgroundColor: '#f57f17',
+  }
 })
