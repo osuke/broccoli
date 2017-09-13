@@ -2,13 +2,13 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Router, Scene } from 'react-native-router-flux'
 import Root from './containers/Root'
-import ModalWebview from './containers/ModalWebview'
+import ArticleDetail from './containers/ArticleDetail'
 
 const App = () => (
   <Router getSceneStyle={getSceneStyle}>
     <Scene key="wrap">
       <Scene key="root" component={Root} hideNavBar initial />
-      <Scene key="externalPage" component={ModalWebview} navBarButtonColor="#a0a0a0" navigationBarStyle={styles.navBar} />
+      <Scene key="externalPage" component={ArticleDetail} navBarButtonColor="#a0a0a0" navigationBarStyle={styles.navBar} />
     </Scene>
   </Router>
 )

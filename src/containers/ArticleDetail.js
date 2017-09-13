@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ModalWebview from '../components/ModalWebview'
+import ArticleDetail from '../components/ArticleDetail'
 const mapStateToProps = (state) => {
   return state.webview
 }
 
-export default connect(mapStateToProps)(ModalWebview)
+export default connect(mapStateToProps)(ArticleDetail)

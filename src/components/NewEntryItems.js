@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, ScrollView, FlatList, StyleSheet } from 'react-native'
 import Article from './Article'
-import ModalWebview from '../components/ModalWebview'
 
 export default class NewEntryItems extends React.Component {
   componentDidMount () {
