@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     color: '#14171a',
-    marginBottom: 2
+    marginBottom: 2,
+    lineHeight: 20
   },
   count: {
     fontSize: 14,

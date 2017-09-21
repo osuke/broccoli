@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text, WebView, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, WebView, TouchableOpacity, Modal, StyleSheet } from 'react-native'
 import { EvilIcons } from '@expo/vector-icons'
+import CommentList from '../containers/CommentList'
 
-export default class ModalWebview extends React.Component {
+export default class ArticleDetail extends React.Component {
   render () {
     return (
       <View style={styles.container}>
@@ -12,15 +13,18 @@ export default class ModalWebview extends React.Component {
         />
         <View style={styles.tabBar}>
           <TouchableOpacity style={styles.tabBtn}>
-            <EvilIcons name="share-apple" size={32} />
+            <EvilIcons name="share-apple" size={32} color="#f6b02c" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.tabBtn}>
-            <EvilIcons name="plus" size={32} />
+            <EvilIcons name="plus" size={32} color="#f6b02c" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabBtn}>
-            <EvilIcons name="comment" size={32} />
+          <TouchableOpacity
+            onPress={() => { this.props.getCommentsFromApi(this.props.url) }}
+            style={styles.tabBtn}>
+            <EvilIcons name="comment" size={32} color="#f6b02c" />
           </TouchableOpacity>
         </View>
+        <CommentList />
       </View>
     )
   }
@@ -35,8 +39,9 @@ const styles = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     height: 49,
-    borderTopColor: '#dfdfdf',
-    borderTopWidth: 1
+    borderTopColor: '#e5e5e5',
+    borderTopWidth: 1,
+    backgroundColor: '#fafafa'
   },
   tabBtn: {
     flex: 1,
