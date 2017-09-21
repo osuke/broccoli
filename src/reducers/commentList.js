@@ -8,7 +8,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SHOW_COMMENTS:
-      console.log(action)
       return Object.assign({}, state,
         {
           visible: true,
