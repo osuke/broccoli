@@ -1,6 +1,6 @@
 export const SHOW_COMMENTS = 'SHOW_COMMENTS'
 export const CLOSE_COMMENTS = 'CLOSE_COMMENTS'
-const apiUrl = 'http://b.hatena.ne.jp/entry/jsonlite/?url='
+const apiUrl = 'https://b.hatena.ne.jp/entry/jsonlite/?url='
 
 export const showComments = (item) => (
   {
