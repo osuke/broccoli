@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import NewEntryItems from '../containers/NewEntryItems'
+import Setting from '../containers/Setting'
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view'
 const renderTabBar = props => (<ScrollableTabBar {...props} style={{ borderBottomColor: '#f6b02c' }} />)
 
@@ -23,6 +24,10 @@ export default class Root extends React.Component {
             )
           })
         }
+
+        <View tabLabel="設定">
+          <Setting />
+        </View>
       </ScrollableTabView>
     )
   }
