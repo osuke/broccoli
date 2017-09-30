@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, WebView, TouchableOpacity, Modal, StyleSheet } from 'react-native'
+import { View, WebView, TouchableOpacity, Share, StyleSheet } from 'react-native'
 import { EvilIcons } from '@expo/vector-icons'
 import CommentList from '../containers/CommentList'
 
@@ -12,7 +12,16 @@ export default class ArticleDetail extends React.Component {
           style={styles.webview}
         />
         <View style={styles.tabBar}>
-          <TouchableOpacity style={styles.tabBtn}>
+          <TouchableOpacity
+            style={styles.tabBtn}
+            onPress={() => {
+              Share.share({
+                title: 'Share with',
+                message: this.props.title,
+                url: this.props.url
+              })
+            }}
+            >
             <EvilIcons name="share-apple" size={32} color="#f6b02c" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.tabBtn}>

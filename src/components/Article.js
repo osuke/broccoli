@@ -8,7 +8,7 @@ export default class Article extends React.Component {
       <TouchableOpacity
         style={styles.container}
         onPress={() => {
-          this.props.showPage(this.props.link)
+          this.props.showPage(this.props)
           Actions.externalPage()
         }}
       >
