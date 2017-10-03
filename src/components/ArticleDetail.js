@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, WebView, TouchableOpacity, Share, StyleSheet } from 'react-native'
-import { EvilIcons } from '@expo/vector-icons'
+import { View, WebView, TouchableOpacity, Share, Linking, StyleSheet } from 'react-native'
+import { EvilIcons, Ionicons } from '@expo/vector-icons'
 import CommentList from '../containers/CommentList'
 
 export default class ArticleDetail extends React.Component {
@@ -31,6 +31,11 @@ export default class ArticleDetail extends React.Component {
             onPress={() => { this.props.getCommentsFromApi(this.props.url) }}
             style={styles.tabBtn}>
             <EvilIcons name="comment" size={32} color="#f6b02c" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => { Linking.openURL(this.props.url) }}
+            style={styles.tabBtn}>
+            <Ionicons name="ios-browsers-outline" size={32} color="#f6b02c" />
           </TouchableOpacity>
         </View>
         <CommentList />
