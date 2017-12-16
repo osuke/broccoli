@@ -11,7 +11,6 @@ export default class Login extends React.Component {
     } else {
       return (
         <TouchableOpacity
-          style={styles.container}
           onPress={() => {
             Actions.login()
           }}

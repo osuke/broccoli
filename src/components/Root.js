@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import NewEntryItems from '../containers/NewEntryItems'
+import FavItems from '../containers/FavItems'
 import Setting from '../containers/Setting'
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view'
 const renderTabBar = props => (<ScrollableTabBar {...props} style={{ borderBottomColor: '#f6b02c' }} />)
@@ -17,11 +18,19 @@ export default class Root extends React.Component {
       >
         {
           this.props.category.items.map((data, index) => {
-            return (
-              <View tabLabel={data.name} key={('catTab' + index)} >
-                <NewEntryItems data={data} index={index} key={('cat' + index)} />
-              </View>
-            )
+            if (data.name === 'お気に入り') {
+              return (
+                <View tabLabel={data.name} key={('catTab' + index)}>
+                  <FavItems data={data} index={index} key={('cat' + index)} />
+                </View>
+              )
+            } else {
+              return (
+                <View tabLabel={data.name} key={('catTab' + index)}>
+                  <NewEntryItems data={data} index={index} key={('cat' + index)} />
+                </View>
+              )
+            }
           })
         }
 

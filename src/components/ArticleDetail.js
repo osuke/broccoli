@@ -2,6 +2,7 @@ import React from 'react'
 import { View, WebView, TouchableOpacity, Share, Linking, StyleSheet } from 'react-native'
 import { EvilIcons, Ionicons } from '@expo/vector-icons'
 import CommentList from '../containers/CommentList'
+import BookmarkForm from '../containers/BookmarkForm'
 
 export default class ArticleDetail extends React.Component {
   render () {
@@ -24,7 +25,9 @@ export default class ArticleDetail extends React.Component {
             >
             <EvilIcons name="share-apple" size={32} color="#f6b02c" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabBtn}>
+          <TouchableOpacity
+            onPress={this.props.addBookmark}
+            style={styles.tabBtn}>
             <EvilIcons name="plus" size={32} color="#f6b02c" />
           </TouchableOpacity>
           <TouchableOpacity
@@ -39,6 +42,7 @@ export default class ArticleDetail extends React.Component {
           </TouchableOpacity>
         </View>
         <CommentList />
+        <BookmarkForm />
       </View>
     )
   }
