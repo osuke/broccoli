@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import NewEntryItems from '../components/NewEntryItems'
-import { getArticlesFromApi } from '../actions/fetchArticles'
+import { getArticlesFromApi, clearArticles } from '../actions/fetchArticles'
 import { showPage, hidePage } from '../actions/webview'
 
 const mapStateToProps = (state) => {
@@ -10,7 +10,18 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getArticlesFromApi: (url, index) => { dispatch(getArticlesFromApi(url, index)) },
+    getArticlesFromApi: (url, index) => (
+      new Promise((resolve) => {
+        dispatch(getArticlesFromApi(url, index))
+        resolve()
+      })
+    ),
+    clearArticles: (index) => (
+      new Promise((resolve) => {
+        dispatch(clearArticles(index))
+        resolve()
+      })
+    ),
     showPage: (url) => { dispatch(showPage(url)) },
     hidePage: () => { dispatch(hidePage()) }
   }

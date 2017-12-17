@@ -1,4 +1,4 @@
-import { FETCH_ARTICLES, FETCH_FAV_ARTICLES } from '../actions/fetchArticles'
+import { FETCH_ARTICLES, FETCH_FAV_ARTICLES, CLEAR_ARTICLES } from '../actions/fetchArticles'
 
 const initialState = {
   items: [
@@ -57,10 +57,16 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_ARTICLES:
       newState.items[action.payload.index].items.push(...action.payload.item.query.results.item)
+
+      return Object.assign({}, state, newState)
+    case CLEAR_ARTICLES:
+      newState.items[action.payload.index].items = []
+
       return Object.assign({}, state, newState)
     case FETCH_FAV_ARTICLES:
       newState.items[action.payload.index].items.push(...action.payload.item.query.results.item)
       newState.items[action.payload.index].offset = action.payload.offset
+
       return Object.assign({}, state, newState)
     default:
       return state

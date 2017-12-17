@@ -1,11 +1,21 @@
 export const FETCH_ARTICLES = 'FETCH_ARTICLES'
 export const FETCH_FAV_ARTICLES = 'FETCH_FAV_ARTICLES'
+export const CLEAR_ARTICLES = 'CLEAR_ARTICLES'
 
 export const fetchArticles = (item, index) => (
   {
     type: FETCH_ARTICLES,
     payload: {
       item: item,
+      index: index
+    }
+  }
+)
+
+export const clearArticles = (index) => (
+  {
+    type: CLEAR_ARTICLES,
+    payload: {
       index: index
     }
   }
@@ -23,13 +33,16 @@ export const fetchFavArticles = (item, index, offset) => (
 )
 
 export const getArticlesFromApi = (url, index) => (
-  (dispatch) => {          
-    return fetch(url)
+  (dispatch) => (
+    fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
         dispatch(fetchArticles(responseJson, index))
       })
-  }
+      .catch(() => {
+        alert('error')
+      })
+  )
 )
 
 export const getFavArticlesFromApi = (url, index, userName, offset) => (
