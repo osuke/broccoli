@@ -72,6 +72,7 @@ console.log(items)
             items[index].link = data.link[0]
             items[index].title = data.title[0]
             items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
+            items[index].creator = data['dc:creator'][0]
 
           })
           dispatch(fetchFavArticles(items, index, offset + 25))
