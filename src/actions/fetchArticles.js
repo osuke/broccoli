@@ -48,12 +48,19 @@ export const fetchBookmarkArticles = (item, index, offset) => (
 export const getArticlesFromApi = (url, index) => (
   (dispatch) => (
     fetch(url)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        dispatch(fetchArticles(responseJson, index))
-      })
-      .catch(() => {
-        alert('error')
+      .then((res) => {
+        parseString(res._bodyInit, (err, result) => {
+          let items = result['rdf:RDF'].item
+console.log(items)
+
+          items.map((data, index) => {
+            items[index].link = data.link[0]
+            items[index].title = data.title[0]
+            items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
+
+          })
+          dispatch(fetchArticles(items, index))
+        })
       })
   )
 )

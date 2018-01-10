@@ -3,43 +3,53 @@ import { FETCH_ARTICLES, FETCH_FAV_ARTICLES, FETCH_BOOKMARK_ARTICLES, CLEAR_ARTI
 const initialState = {
   items: [
     {
+      name: '総合',
+      url: 'http://b.hatena.ne.jp/hotentry.rss',
+      items: []
+    },
+    {
+      name: '一般',
+      url: 'http://b.hatena.ne.jp/hotentry/general.rss',
+      items: []
+    },
+    {
       name: '世の中',
-      url: 'https://query.yahooapis.com/v1/public/yql?q=select%20title%2C%20link%2C%20hatena%3Abookmarkcount%20from%20rss%20where%20url%3D%27http%3A%2F%2Fb.hatena.ne.jp%2Fhotentry%2Fsocial.rss%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
+      url: 'http://b.hatena.ne.jp/hotentry/social.rss',
       items: []
     },
     {
       name: '政治と経済',
-      url: 'https://query.yahooapis.com/v1/public/yql?q=select%20title%2C%20link%2C%20hatena%3Abookmarkcount%20from%20rss%20where%20url%3D%27http%3A%2F%2Fb.hatena.ne.jp%2Fhotentry%2Feconomics.rss%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
+      url: 'http://b.hatena.ne.jp/hotentry/economics.rss',
       items: []
     },
     {
       name: '暮らし',
-      url: 'https://query.yahooapis.com/v1/public/yql?q=select%20title%2C%20link%2C%20hatena%3Abookmarkcount%20from%20rss%20where%20url%3D%27http%3A%2F%2Fb.hatena.ne.jp%2Fhotentry%2Flife.rss%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
+      url: 'http://b.hatena.ne.jp/hotentry/life.rss',
       items: []
     },
     {
       name: '学び',
-      url: 'https://query.yahooapis.com/v1/public/yql?q=select%20title%2C%20link%2C%20hatena%3Abookmarkcount%20from%20rss%20where%20url%3D%27http%3A%2F%2Fb.hatena.ne.jp%2Fhotentry%2Fknowledge.rss%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
+      url: 'http://b.hatena.ne.jp/hotentry/knowledge.rss',
       items: []
     },
     {
       name: 'テクノロジー',
-      url: 'https://query.yahooapis.com/v1/public/yql?q=select%20title%2C%20link%2C%20hatena%3Abookmarkcount%20from%20%20rss%20where%20url%3D%27http%3A%2F%2Fb.hatena.ne.jp%2Fhotentry%2Fit.rss%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
-      items: []
-    },
-    {
-      name: 'エンタメ',
-      url: 'https://query.yahooapis.com/v1/public/yql?q=select%20title%2C%20link%2C%20hatena%3Abookmarkcount%20from%20rss%20where%20url%3D%27http%3A%2F%2Fb.hatena.ne.jp%2Fhotentry%2Fentertainment.rss%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
-      items: []
-    },
-    {
-      name: 'アニメとゲーム',
-      url: 'https://query.yahooapis.com/v1/public/yql?q=select%20title%2C%20link%2C%20hatena%3Abookmarkcount%20from%20rss%20where%20url%3D%27http%3A%2F%2Fb.hatena.ne.jp%2Fhotentry%2Fgame.rss%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
+      url: 'http://b.hatena.ne.jp/hotentry/it.rss',
       items: []
     },
     {
       name: 'おもしろ',
-      url: 'https://query.yahooapis.com/v1/public/yql?q=select%20title%2C%20link%2C%20hatena%3Abookmarkcount%20from%20rss%20where%20url%3D%27http%3A%2F%2Fb.hatena.ne.jp%2Fhotentry%2Ffun.rss%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
+      url: 'http://b.hatena.ne.jp/hotentry/fun.rss',
+      items: []
+    },
+    {
+      name: 'エンタメ',
+      url: 'http://b.hatena.ne.jp/hotentry/entertainment.rss',
+      items: []
+    },
+    {
+      name: 'アニメとゲーム',
+      url: 'http://b.hatena.ne.jp/hotentry/game.rss',
       items: []
     },
     {
@@ -49,7 +59,6 @@ const initialState = {
     },
     {
       name: 'お気に入り',
-      url: 'https://query.yahooapis.com/v1/public/yql?q=select%20title%2C%20description%2C%20link%2C%20dc%3Acreator%2C%20hatena%3Abookmarkcount%20from%20rss%20where%20url%3D%27',
       items: [],
       offset: 0
     }
@@ -61,7 +70,7 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case FETCH_ARTICLES:
-      newState.items[action.payload.index].items.push(...action.payload.item.query.results.item)
+      newState.items[action.payload.index].items.push(...action.payload.item)
 
       return Object.assign({}, state, newState)
     case CLEAR_ARTICLES:

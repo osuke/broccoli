@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 
 export default class FavArticle extends React.Component {
