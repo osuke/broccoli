@@ -1,5 +1,7 @@
+import { parseString } from 'react-native-xml2js'
 export const FETCH_ARTICLES = 'FETCH_ARTICLES'
 export const FETCH_FAV_ARTICLES = 'FETCH_FAV_ARTICLES'
+export const FETCH_BOOKMARK_ARTICLES = 'FETCH_BOOKMARK_ARTICLES'
 export const CLEAR_ARTICLES = 'CLEAR_ARTICLES'
 
 export const fetchArticles = (item, index) => (
@@ -32,6 +34,17 @@ export const fetchFavArticles = (item, index, offset) => (
   }
 )
 
+export const fetchBookmarkArticles = (item, index, offset) => (
+  {
+    type: FETCH_BOOKMARK_ARTICLES,
+    payload: {
+      item: item,
+      index: index,
+      offset: offset
+    }
+  }
+)
+
 export const getArticlesFromApi = (url, index) => (
   (dispatch) => (
     fetch(url)
@@ -45,13 +58,45 @@ export const getArticlesFromApi = (url, index) => (
   )
 )
 
-export const getFavArticlesFromApi = (url, index, userName, offset) => (
+export const getFavArticlesFromApi = (index, userName, offset) => (
   (dispatch) => {
-    const favUrl = url + 'http%3a%2f%2fb%2ehatena%2ene%2ejp%2f' + userName + '%2ffavorite%2erss?of=' + offset + '%27&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys'
-    return fetch(favUrl)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        dispatch(fetchFavArticles(responseJson, index, offset))
+    const apiUrl = 'http://b.hatena.ne.jp/' + userName + '/favorite.rss?of=' + offset
+
+    fetch(apiUrl)
+      .then((res) => {
+        parseString(res._bodyInit, (err, result) => {
+          let items = result['rdf:RDF'].item
+console.log(items)
+
+          items.map((data, index) => {
+            items[index].link = data.link[0]
+            items[index].title = data.title[0]
+            items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
+
+          })
+          dispatch(fetchFavArticles(items, index, offset + 25))
+        })
+      })
+  }
+)
+
+export const getBookmarkArticlesFromApi = (index, userName, offset) => (
+  (dispatch) => {
+    const apiUrl = 'http://b.hatena.ne.jp/' + userName + '/rss?of=' + offset
+
+    fetch(apiUrl)
+      .then((res) => {
+        parseString(res._bodyInit, (err, result) => {
+          let items = result['rdf:RDF'].item
+
+          items.map((data, index) => {
+            items[index].link = data.link[0]
+            items[index].title = data.title[0]
+            items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
+
+          })
+          dispatch(fetchBookmarkArticles(result['rdf:RDF'].item, index, offset + 20))
+        })
       })
   }
 )

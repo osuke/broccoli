@@ -14,7 +14,7 @@ export default class NewEntryItems extends React.Component {
     this.props.getArticlesFromApi(this.props.data.url, this.props.index)
   }
 
-  _onRefresh() {
+  onRefreshHandler () {
     this.setState({refreshing: true})
     this.props.clearArticles(this.props.index).then(() => {
       setTimeout(() => {
@@ -27,24 +27,17 @@ export default class NewEntryItems extends React.Component {
 
   render () {
     return (
-      <ScrollView
-        style={styles.wrap}
+      <FlatList
+        data={this.props.data.items}
+        renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
+        keyExtractor={(item, index) => ('article' + index)}
         refreshControl={
           <RefreshControl
             refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh.bind(this)}
+            onRefresh={this.onRefreshHandler.bind(this)}
           />
-        }>
-        {this.props.data.items.length > 0 ? (
-          <FlatList
-            data={this.props.data.items}
-            renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
-            keyExtractor={(item, index) => ('article' + index)}
-          />
-        ) : (
-          null
-        )}
-      </ScrollView>
+        }
+      />
     )
   }
 }

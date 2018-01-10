@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
 const getSceneStyle = (props, computedProps) => {
   const style = {
-    backgroundColor: '#fafafa',
+    backgroundColor: '#fff',
   };
   return style;
 }

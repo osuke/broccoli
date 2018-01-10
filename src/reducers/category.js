@@ -1,4 +1,4 @@
-import { FETCH_ARTICLES, FETCH_FAV_ARTICLES, CLEAR_ARTICLES } from '../actions/fetchArticles'
+import { FETCH_ARTICLES, FETCH_FAV_ARTICLES, FETCH_BOOKMARK_ARTICLES, CLEAR_ARTICLES } from '../actions/fetchArticles'
 
 const initialState = {
   items: [
@@ -43,6 +43,11 @@ const initialState = {
       items: []
     },
     {
+      name: 'マイブックマーク',
+      items: [],
+      offset: 0
+    },
+    {
       name: 'お気に入り',
       url: 'https://query.yahooapis.com/v1/public/yql?q=select%20title%2C%20description%2C%20link%2C%20dc%3Acreator%2C%20hatena%3Abookmarkcount%20from%20rss%20where%20url%3D%27',
       items: [],
@@ -64,7 +69,12 @@ export default (state = initialState, action) => {
 
       return Object.assign({}, state, newState)
     case FETCH_FAV_ARTICLES:
-      newState.items[action.payload.index].items.push(...action.payload.item.query.results.item)
+      newState.items[action.payload.index].items.push(...action.payload.item)
+      newState.items[action.payload.index].offset = action.payload.offset
+
+      return Object.assign({}, state, newState)
+    case FETCH_BOOKMARK_ARTICLES:
+      newState.items[action.payload.index].items.push(...action.payload.item)
       newState.items[action.payload.index].offset = action.payload.offset
 
       return Object.assign({}, state, newState)

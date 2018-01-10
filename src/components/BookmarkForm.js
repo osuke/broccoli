@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Modal } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, TextInput, Modal } from 'react-native'
+import { Container, Button, Text } from 'native-base'
 import { Ionicons } from '@expo/vector-icons'
 
 export default class BookmarkForm extends React.Component {
@@ -28,21 +29,21 @@ export default class BookmarkForm extends React.Component {
               color="#f6b02c" />
           </TouchableOpacity>
         </View>
-        <View style={styles.container}>
+        <Container style={styles.container}>
           <TextInput
             style={styles.comment}
             onChangeText={(text) => { this.setState({text})}}
             value={this.state.text}
           />
-
-          <TouchableOpacity
+          <Button
+            style={styles.addButton}
             onPress={() => {
               this.props.saveBookmark(this.props.login, this.props.webview.url, this.state.text)
             }}
-          >
-            <Text>ブックマークする</Text>
-          </TouchableOpacity>
-        </View>
+            block>
+            <Text style={styles.addButtonText}>ブックマークする</Text>
+          </Button>
+        </Container>
       </Modal>
     )
   }
@@ -56,7 +57,8 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    marginTop: 100
+    marginBottom: 16,
+    borderColor: '#e5e5e5',
   },
   header: {
     height: 65,
@@ -70,5 +72,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginRight: 16,
     marginTop: 28
+  },
+  addButton: {
+    backgroundColor: '#f6b02c'
+  },
+  addButtonText: {
+    color: '#fff'
   }
 })

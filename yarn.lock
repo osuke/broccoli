@@ -1055,7 +1055,7 @@ base64-js@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.2.0.tgz#a39992d723584811982be5e290bb6a53d86700f1"
 
-base64-js@^1.1.2:
+base64-js@^1.0.2, base64-js@^1.1.2:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.2.1.tgz#a91947da1f4a516ea38e5b4ec0ec3773675e0886"
 
@@ -1278,6 +1278,13 @@ buffer-fill@^0.1.0:
 buffer-xor@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/buffer-xor/-/buffer-xor-1.0.3.tgz#26e61ed1422fb70dd42e6e36729ed51d855fe8d9"
+
+buffer@5.0.x:
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.0.8.tgz#84daa52e7cf2fa8ce4195bc5cf0f7809e0930b24"
+  dependencies:
+    base64-js "^1.0.2"
+    ieee754 "^1.1.4"
 
 builtin-modules@^1.0.0:
   version "1.1.1"
@@ -1941,6 +1948,10 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
+emitter-component@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/emitter-component/-/emitter-component-1.1.1.tgz#065e2dbed6959bf470679edabeaf7981d1003ab6"
+
 encodeurl@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.1.tgz#79e3d58655346909fe6f0f45a5de68103b294d20"
@@ -2062,6 +2073,10 @@ etag@~1.8.1:
 event-target-shim@^1.0.5:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-1.1.1.tgz#a86e5ee6bdaa16054475da797ccddf0c55698491"
+
+events@1.1.x:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
 
 evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
   version "1.0.3"
@@ -2869,6 +2884,10 @@ iconv-lite@0.4.19, iconv-lite@^0.4.17, iconv-lite@^0.4.8, iconv-lite@~0.4.13:
 idx@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/idx/-/idx-2.2.0.tgz#8544749f9faba6409822b5d9488ba5bc77b8fbfe"
+
+ieee754@^1.1.4:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
 
 image-size@^0.6.0:
   version "0.6.2"
@@ -5071,6 +5090,17 @@ react-native-vector-icons@4.4.2, react-native-vector-icons@~4.4.2:
     prop-types "^15.5.10"
     yargs "^8.0.2"
 
+react-native-xml2js:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-xml2js/-/react-native-xml2js-1.0.3.tgz#7ec64263e04303174326710be3f4ed32d2e8b00b"
+  dependencies:
+    buffer "5.0.x"
+    events "1.1.x"
+    sax "0.6.x"
+    stream "0.0.x"
+    timers "0.1.x"
+    xmlbuilder "8.2.x"
+
 react-native@0.50.3:
   version "0.50.3"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.50.3.tgz#91282bd5356cc7d794969cdc443cc764389b9af4"
@@ -5536,6 +5566,10 @@ sane@^2.0.0:
   optionalDependencies:
     fsevents "^1.1.1"
 
+sax@0.6.x:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/sax/-/sax-0.6.1.tgz#563b19c7c1de892e09bfc4f2fc30e3c27f0952b9"
+
 sax@^1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
@@ -5856,6 +5890,12 @@ stream-parser@~0.3.1:
   dependencies:
     debug "2"
 
+stream@0.0.x:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/stream/-/stream-0.0.2.tgz#7f5363f057f6592c5595f00bc80a27f5cec1f0ef"
+  dependencies:
+    emitter-component "^1.1.1"
+
 strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
@@ -6078,6 +6118,10 @@ time-stamp@^1.0.0:
 timed-out@4.0.1, timed-out@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-4.0.1.tgz#f32eacac5a175bea25d7fab565ab3ed8741ef56f"
+
+timers@0.1.x:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/timers/-/timers-0.1.1.tgz#86ac5c78c1ee419694f35a58de4fd4183cfb9c1e"
 
 tiny-queue@^0.2.1:
   version "0.2.1"
@@ -6567,7 +6611,7 @@ xmlbuilder@4.0.0:
   dependencies:
     lodash "^3.5.0"
 
-xmlbuilder@8.2.2:
+xmlbuilder@8.2.2, xmlbuilder@8.2.x:
   version "8.2.2"
   resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-8.2.2.tgz#69248673410b4ba42e1a6136551d2922335aa773"
 

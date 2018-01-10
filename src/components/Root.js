@@ -1,7 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { Container, Text } from 'native-base'
 import NewEntryItems from '../containers/NewEntryItems'
 import FavItems from '../containers/FavItems'
+import MyBookmark from '../containers/MyBookmark'
 import Setting from '../containers/Setting'
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view'
 const renderTabBar = props => (<ScrollableTabBar {...props} style={{ borderBottomColor: '#f6b02c' }} />)
@@ -20,23 +22,29 @@ export default class Root extends React.Component {
           this.props.category.items.map((data, index) => {
             if (data.name === 'お気に入り') {
               return (
-                <View tabLabel={data.name} key={('catTab' + index)}>
+                <Container tabLabel={data.name} key={('catTab' + index)}>
                   <FavItems data={data} index={index} key={('cat' + index)} />
-                </View>
+                </Container>
+              )
+            } else if (data.name === 'マイブックマーク') {
+              return (
+                <Container tabLabel={data.name} key={('catTab' + index)}>
+                  <MyBookmark data={data} index={index} key={('cat' + index)} />
+                </Container>
               )
             } else {
               return (
-                <View tabLabel={data.name} key={('catTab' + index)}>
+                <Container tabLabel={data.name} key={('catTab' + index)}>
                   <NewEntryItems data={data} index={index} key={('cat' + index)} />
-                </View>
+                </Container>
               )
             }
           })
         }
 
-        <View tabLabel="設定">
+        <Container tabLabel="設定">
           <Setting />
-        </View>
+        </Container>
       </ScrollableTabView>
     )
   }
@@ -45,7 +53,7 @@ export default class Root extends React.Component {
 const styles = StyleSheet.create({
   tabs: {
     marginTop: 20,
-    backgroundColor: '#fafafa',
+    backgroundColor: '#fff',
   },
   tab: {
     height: 2,

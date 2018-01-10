@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import FavItems from '../components/FavItems'
-import { getFavArticlesFromApi, clearArticles } from '../actions/fetchArticles'
+import MyBookmark from '../components/MyBookmark'
+import { getBookmarkArticlesFromApi, clearArticles } from '../actions/fetchArticles'
 import { showPage, hidePage } from '../actions/webview'
 
 const mapStateToProps = (state) => {
@@ -10,9 +10,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getFavArticlesFromApi: (index, userName, offset) => (
+    getBookmarkArticlesFromApi: (index, userName, offset) => (
       new Promise((resolve) => {
-        dispatch(getFavArticlesFromApi(index, userName, offset))
+        dispatch(getBookmarkArticlesFromApi(index, userName, offset))
         resolve()
       })
     ),
@@ -27,4 +27,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FavItems)
+export default connect(mapStateToProps, mapDispatchToProps)(MyBookmark)
