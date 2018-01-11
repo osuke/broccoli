@@ -51,7 +51,6 @@ export const getArticlesFromApi = (url, index) => (
       .then((res) => {
         parseString(res._bodyInit, (err, result) => {
           let items = result['rdf:RDF'].item
-console.log(items)
 
           items.map((data, index) => {
             items[index].link = data.link[0]
@@ -73,7 +72,6 @@ export const getFavArticlesFromApi = (index, userName, offset) => (
       .then((res) => {
         parseString(res._bodyInit, (err, result) => {
           let items = result['rdf:RDF'].item
-console.log(items)
 
           items.map((data, index) => {
             items[index].link = data.link[0]

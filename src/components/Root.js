@@ -10,6 +10,31 @@ const renderTabBar = props => (<ScrollableTabBar {...props} style={{ borderBotto
 
 export default class Root extends React.Component {
   render () {
+    const items = this.props.category.items
+    let tabs = []
+
+    Object.keys(items).forEach((key, index) => {
+      if (key === 'fav') {
+        tabs.push(
+          <Container tabLabel={items[key].name} key={('catTab' + index)}>
+            <FavItems data={items[key]} index={key} key={key} />
+          </Container>
+        )
+      } else if (key === 'myBookmark') {
+        tabs.push(
+          <Container tabLabel={items[key].name} key={('catTab' + index)}>
+            <MyBookmark data={items[key]} index={key} key={key} />
+          </Container>
+        )
+      } else {
+        tabs.push(
+          <Container tabLabel={items[key].name} key={('catTab' + index)}>
+            <NewEntryItems data={items[key]} index={key} key={key} />
+          </Container>
+        )
+      }
+    })
+
     return (
       <ScrollableTabView
         style={styles.tabs}
@@ -18,30 +43,7 @@ export default class Root extends React.Component {
         tabBarInactiveTextColor="#b9b9b9"
         renderTabBar={renderTabBar}
       >
-        {
-          this.props.category.items.map((data, index) => {
-            if (data.name === 'お気に入り') {
-              return (
-                <Container tabLabel={data.name} key={('catTab' + index)}>
-                  <FavItems data={data} index={index} key={('cat' + index)} />
-                </Container>
-              )
-            } else if (data.name === 'マイブックマーク') {
-              return (
-                <Container tabLabel={data.name} key={('catTab' + index)}>
-                  <MyBookmark data={data} index={index} key={('cat' + index)} />
-                </Container>
-              )
-            } else {
-              return (
-                <Container tabLabel={data.name} key={('catTab' + index)}>
-                  <NewEntryItems data={data} index={index} key={('cat' + index)} />
-                </Container>
-              )
-            }
-          })
-        }
-
+        {tabs}
         <Container tabLabel="設定">
           <Setting />
         </Container>
