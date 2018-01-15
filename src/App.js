@@ -3,14 +3,16 @@ import { StyleSheet } from 'react-native'
 import { Router, Scene } from 'react-native-router-flux'
 import Root from './containers/Root'
 import ArticleDetail from './containers/ArticleDetail'
-import Login from './containers/Login'
+import OAuth from './containers/OAuth'
+import OrderCategories from './containers/OrderCategories'
 
 const App = () => (
   <Router getSceneStyle={getSceneStyle}>
     <Scene key="wrap">
       <Scene key="root" component={Root} hideNavBar initial />
       <Scene key="externalPage" component={ArticleDetail} navBarButtonColor="#f6b02c" navigationBarStyle={styles.navBar} />
-      <Scene key="login" component={Login} navBarButtonColor="#f6b02c" navigationBarStyle={styles.navBar} />
+      <Scene key="login" component={OAuth} navBarButtonColor="#f6b02c" navigationBarStyle={styles.navBar} />
+      <Scene key="order" component={OrderCategories} navBarButtonColor="#f6b02c" navigationBarStyle={styles.navBar} />
     </Scene>
   </Router>
 )

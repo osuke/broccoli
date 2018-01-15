@@ -1,20 +1,18 @@
 import React from 'react'
-import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import reducer from './src/reducers/app'
-import thunk from 'redux-thunk';
+import { PersistGate } from 'redux-persist/es/integration/react'
 import App from './src/App'
+import configureStore from './src/configureStore'
 
-const store = createStore(
-  reducer,
-  applyMiddleware(thunk)
-)
+const { persistor, store } = configureStore()
 
 export default class Bagle extends React.Component {
   render () {
     return (
       <Provider store={store}>
-      	<App />
+        <PersistGate persistor={persistor}>
+      	  <App />
+        </PersistGate>
       </Provider>
     )
   }

@@ -4,11 +4,13 @@ import webview from './webview'
 import commentList from './commentList'
 import login from './login'
 import bookmark from './bookmark'
+import order from './order'
 
-export default combineReducers({
+export default {
   category,
+  order,
   webview,
   commentList,
   login,
   bookmark
-})
+}

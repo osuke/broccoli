@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, WebView } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 
-export default class Login extends React.Component {
+export default class OAuth extends React.Component {
   componentDidMount () {
     this.props.getRequestToken()
   }

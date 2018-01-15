@@ -11,9 +11,10 @@ const renderTabBar = props => (<ScrollableTabBar {...props} style={{ borderBotto
 export default class Root extends React.Component {
   render () {
     const items = this.props.category.items
+    const order = this.props.order.items
     let tabs = []
 
-    Object.keys(items).forEach((key, index) => {
+    Object.keys(order).forEach((key, index) => {
       if (key === 'fav') {
         tabs.push(
           <Container tabLabel={items[key].name} key={('catTab' + index)}>

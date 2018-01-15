@@ -4,7 +4,7 @@ import Setting from '../components/Setting'
 import { getRequestToken, getAccessToken } from '../actions/login'
 
 const mapStateToProps = (state) => {
-  return state.login
+  return state.category
 }
 
 export default connect(mapStateToProps)(Setting)
