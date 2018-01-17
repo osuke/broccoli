@@ -1,29 +1,37 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { StyleSheet, View, Text, Modal, FlatList, ScrollView, TouchableOpacity } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
+import {
+  Container,
+  Header,
+  Left,
+  Body,
+  Right,
+  Button,
+  Icon
+} from 'native-base'
 import Comment from './Comment'
+import { Actions } from 'react-native-router-flux'
 
-export default class CommentList extends React.Component {
+export default class CommentList extends Component {
   render () {
     return (
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={this.props.visible}
-      >
-        <View
-          style={styles.header}
-        >
-          <TouchableOpacity
-            onPress={() => { this.props.closeComments() }}
-            style={styles.closeBtn}
-          >
-            <Ionicons 
-              name="md-close" 
-              size={28} 
-              color="#f6b02c" />
-          </TouchableOpacity>
-        </View>
+      <Container>
+        <Header>
+          <Left />
+          <Body></Body>
+          <Right>
+            <Button
+              transparent
+              onPress={() => {
+                Actions.pop()
+              }}
+            >
+            <Icon
+              name="ios-close"
+            />
+            </Button>
+          </Right>
+        </Header>
         <ScrollView>
           <FlatList
             data={this.props.items}
@@ -31,23 +39,7 @@ export default class CommentList extends React.Component {
             keyExtractor={(item, index) => ('comment' + index)}
           />
         </ScrollView>
-      </Modal>
+      </Container>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  header: {
-    height: 65,
-    backgroundColor: '#fafafa',
-    borderBottomColor: '#e5e5e5',
-    borderBottomWidth: 1
-  },
-  closeBtn: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginRight: 16,
-    marginTop: 28
-  }
-})

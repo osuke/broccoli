@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
 import { Container, Text } from 'native-base'
 import NewEntryItems from '../containers/NewEntryItems'
@@ -8,7 +8,7 @@ import Setting from '../containers/Setting'
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view'
 const renderTabBar = props => (<ScrollableTabBar {...props} style={{ borderBottomColor: '#f6b02c' }} />)
 
-export default class Root extends React.Component {
+export default class Root extends Component {
   render () {
     const items = this.props.category.items
     const order = this.props.order.items

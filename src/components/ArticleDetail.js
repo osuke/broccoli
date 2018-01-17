@@ -1,73 +1,98 @@
-import React from 'react'
-import { View, WebView, TouchableOpacity, Share, Linking, StyleSheet } from 'react-native'
-import { EvilIcons, Ionicons } from '@expo/vector-icons'
-import CommentList from '../containers/CommentList'
-import BookmarkForm from '../containers/BookmarkForm'
+import React, { Component } from 'react'
+import {
+  WebView,
+  Share,
+  Linking,
+  StyleSheet
+} from 'react-native'
+import {
+  Container,
+  Content,
+  Header,
+  Left,
+  Body,
+  Right,
+  Button,
+  Icon,
+  Footer,
+  FooterTab
+} from 'native-base'
+import { Actions } from 'react-native-router-flux'
 
-export default class ArticleDetail extends React.Component {
+export default class ArticleDetail extends Component {
   render () {
+    const isLogin = this.props.login.isLogin
     return (
-      <View style={styles.container}>
-        <WebView
-          source={{uri: this.props.url}}
-          style={styles.webview}
-        />
-        <View style={styles.tabBar}>
-          <TouchableOpacity
-            style={styles.tabBtn}
-            onPress={() => {
-              Share.share({
-                title: 'Share with',
-                message: this.props.title,
-                url: this.props.url
-              })
-            }}
+      <Container>
+        <Header>
+          <Left>
+            <Button
+              transparent
+              onPress={() => {
+                Actions.pop()
+              }}
             >
-            <EvilIcons name="share-apple" size={32} color="#f6b02c" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.props.addBookmark}
-            style={styles.tabBtn}>
-            <EvilIcons name="plus" size={32} color="#f6b02c" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => { this.props.getCommentsFromApi(this.props.url) }}
-            style={styles.tabBtn}>
-            <EvilIcons name="comment" size={32} color="#f6b02c" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => { Linking.openURL(this.props.url) }}
-            style={styles.tabBtn}>
-            <Ionicons name="ios-browsers-outline" size={32} color="#f6b02c" />
-          </TouchableOpacity>
-        </View>
-        <CommentList />
-        <BookmarkForm />
-      </View>
+              <Icon
+                name="ios-arrow-back"
+              />
+            </Button>
+          </Left>
+          <Body></Body>
+          <Right></Right>
+        </Header>
+        <WebView
+          source={{uri: this.props.webview.url}}
+        />
+        <Footer>
+          <FooterTab>
+            <Button
+              onPress={() => {
+                Share.share({
+                  title: 'Share with',
+                  message: this.props.webview.title,
+                  url: this.props.webview.url
+                })
+              }}
+            >
+              <Icon
+                name="ios-share-outline"
+              />
+            </Button>
+            <Button
+              onPress={() => {
+                if (isLogin) {
+                  Actions.bookmarkForm()
+                } else {
+                  Actions.login()
+                }
+              }}
+            >
+              <Icon
+                name="ios-create-outline"
+              />
+            </Button>
+            <Button
+              onPress={() => {
+                this.props.getCommentsFromApi(this.props.webview.url)
+                Actions.comment()
+              }}
+            >
+              <Icon
+                name="ios-chatboxes-outline"
+              />
+            </Button>
+            <Button
+              onPress={() => {
+                Linking.openURL(this.props.webview.url) 
+              }}
+            >
+              <Icon
+                name="ios-browsers-outline"
+              />
+            </Button>
+          </FooterTab>
+        </Footer>
+      </Container>
     )
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  webview: {
-    flex: 1
-  },
-  tabBar: {
-    flexDirection: 'row',
-    height: 49,
-    borderTopColor: '#e5e5e5',
-    borderTopWidth: 1,
-    backgroundColor: '#fafafa'
-  },
-  tabBtn: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  tabText: {
-    textAlign: 'center'
-  }
-})

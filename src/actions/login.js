@@ -2,6 +2,7 @@ import HatenaLogin from '../utils/login'
 const hatenaLogin = new HatenaLogin()
 export const REQUEST_TOKEN = 'REQUEST_TOKEN'
 export const SET_USER_DATA = 'SET_USER_DATA'
+export const LOGOUT = 'LOGOUT'
 
 export const setOauthUrl = (tokenData) => {
   return (
@@ -26,6 +27,12 @@ export const setUserData = (userData) => {
     }
   )
 }
+
+export const logout = () => (
+  {
+    type: LOGOUT
+  }
+)
 
 export const getRequestToken = () => (
   (dispatch) => {

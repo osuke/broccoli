@@ -1,10 +1,9 @@
-import React from 'react'
-import { FlatList, RefreshControl, StyleSheet } from 'react-native'
-import { Container, Text, Button } from 'native-base'
+import React, { Component } from 'react'
+import { FlatList, RefreshControl } from 'react-native'
 import Article from './Article'
-import { Actions } from 'react-native-router-flux'
+import Login from './Login'
 
-export default class MyBookmark extends React.Component {
+export default class MyBookmark extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -49,30 +48,7 @@ export default class MyBookmark extends React.Component {
         />
       )
     } else {
-      return (
-        <Container style={styles.container}>
-          <Button
-            style={styles.btn}
-            onPress={() => {
-              Actions.login()
-            }}
-            block>
-            <Text style={styles.btnText}>ログインする</Text>
-          </Button>
-        </Container>
-      )
+      return <Login />
     }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16
-  },
-  btn: {
-    backgroundColor: '#f6b02c'
-  },
-  btnText: {
-    color: '#fff'
-  }
-})

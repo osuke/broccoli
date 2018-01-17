@@ -1,14 +1,40 @@
-import React from 'react'
-import { StyleSheet } from 'react-native'
+import React, { Component } from 'react'
+import {
+  Container,
+  Header,
+  Left,
+  Body,
+  Right,
+  Button,
+  Icon
+} from 'native-base'
+import { Actions } from 'react-native-router-flux'
 import SortableListView from 'react-native-sortable-listview'
 import OrderCategoryItem from './OrderCategoryItem'
 
-export default class OrderCategories extends React.Component {
+export default class OrderCategories extends Component {
   render () {
     let items = this.props.items
     let order = Object.keys(this.props.items)
 
     return (
+      <Container>
+        <Header>
+          <Left />
+          <Body></Body>
+          <Right>
+            <Button
+              transparent
+              onPress={() => {
+                Actions.pop()
+              }}
+            >
+            <Icon
+              name="ios-close"
+            />
+            </Button>
+          </Right>
+        </Header>
         <SortableListView
           style={{ flex: 1 }}
           data={this.props.items}
@@ -22,6 +48,7 @@ export default class OrderCategories extends React.Component {
             <OrderCategoryItem data={row}/>
           )}
         />
+      </Container>
     )
   }
 }

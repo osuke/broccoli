@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { StyleSheet, View, TouchableOpacity, TextInput, Modal } from 'react-native'
-import { Container, Button, Text } from 'native-base'
-import { Ionicons } from '@expo/vector-icons'
+import {
+  Container,
+  Content,
+  Header,
+  Left,
+  Body,
+  Right,
+  Button,
+  Icon,
+  Text
+} from 'native-base'
+import { Actions } from 'react-native-router-flux'
 
-export default class BookmarkForm extends React.Component {
+export default class BookmarkForm extends Component {
   constructor (props) {
     super(props)
     this.state = { text: '' }
@@ -11,25 +21,24 @@ export default class BookmarkForm extends React.Component {
 
   render () {
     return (
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={this.props.bookmark.visible}
-      >
-        <View
-          style={styles.header}
-        >
-          <TouchableOpacity
-            onPress={this.props.closeBookmark}
-            style={styles.closeBtn}
-          >
-            <Ionicons 
-              name="md-close" 
-              size={28} 
-              color="#f6b02c" />
-          </TouchableOpacity>
-        </View>
-        <Container style={styles.container}>
+      <Container>
+        <Header>
+          <Left />
+          <Body></Body>
+          <Right>
+            <Button
+              transparent
+              onPress={() => {
+                Actions.pop()
+              }}
+            >
+            <Icon
+              name="ios-close"
+            />
+            </Button>
+          </Right>
+        </Header>
+        <Content style={styles.content}>
           <TextInput
             style={styles.comment}
             onChangeText={(text) => { this.setState({text})}}
@@ -43,14 +52,14 @@ export default class BookmarkForm extends React.Component {
             block>
             <Text style={styles.addButtonText}>ブックマークする</Text>
           </Button>
-        </Container>
-      </Modal>
+        </Content>
+      </Container>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  content: {
     padding: 16,
   },
   comment: {

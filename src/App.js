@@ -5,24 +5,24 @@ import Root from './containers/Root'
 import ArticleDetail from './containers/ArticleDetail'
 import OAuth from './containers/OAuth'
 import OrderCategories from './containers/OrderCategories'
+import BookmarkForm from './containers/BookmarkForm'
+import CommentList from './containers/CommentList'
 
 const App = () => (
   <Router getSceneStyle={getSceneStyle}>
-    <Scene key="wrap">
-      <Scene key="root" component={Root} hideNavBar initial />
-      <Scene key="externalPage" component={ArticleDetail} navBarButtonColor="#f6b02c" navigationBarStyle={styles.navBar} />
-      <Scene key="login" component={OAuth} navBarButtonColor="#f6b02c" navigationBarStyle={styles.navBar} />
-      <Scene key="order" component={OrderCategories} navBarButtonColor="#f6b02c" navigationBarStyle={styles.navBar} />
+    <Scene modal>
+      <Scene hideNavBar>
+        <Scene key="root" component={Root} hideNavBar initial />
+        <Scene key="externalPage" component={ArticleDetail} />
+        <Scene key="order" component={OrderCategories} />
+      </Scene>
+      <Scene key="login" component={OAuth} hideNavBar />
+      <Scene key="bookmarkForm" component={BookmarkForm} hideNavBar />
+      <Scene key="comment" component={CommentList} hideNavBar />
     </Scene>
   </Router>
 )
 export default App
-
-const styles = StyleSheet.create({
-  navBar: {
-    backgroundColor: '#fafafa',
-  }
-})
 
 const getSceneStyle = (props, computedProps) => {
   const style = {

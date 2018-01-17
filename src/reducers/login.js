@@ -1,4 +1,4 @@
-import { REQUEST_TOKEN, SET_USER_DATA } from '../actions/login'
+import { REQUEST_TOKEN, SET_USER_DATA, LOGOUT } from '../actions/login'
 
 const initialState = {
   isLogin: false,
@@ -22,6 +22,8 @@ export default (state = initialState, action) => {
           userData: action.payload.userData
         }
       )
+    case LOGOUT:
+      return initialState
     default:
       return state
   }
