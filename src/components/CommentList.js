@@ -10,6 +10,7 @@ import {
   Icon
 } from 'native-base'
 import Comment from './Comment'
+import { Feather } from '@expo/vector-icons'
 import { Actions } from 'react-native-router-flux'
 
 export default class CommentList extends Component {
@@ -17,20 +18,21 @@ export default class CommentList extends Component {
     return (
       <Container>
         <Header>
-          <Left />
-          <Body></Body>
-          <Right>
+          <Left>
             <Button
               transparent
               onPress={() => {
                 Actions.pop()
               }}
             >
-            <Icon
-              name="ios-close"
-            />
+              <Feather
+                name="x"
+                style={styles.headerIcon}
+              />
             </Button>
-          </Right>
+          </Left>
+          <Body></Body>
+          <Right />
         </Header>
         <ScrollView>
           <FlatList
@@ -43,3 +45,9 @@ export default class CommentList extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  headerIcon: {
+    fontSize: 28
+  }
+})

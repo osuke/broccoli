@@ -11,6 +11,7 @@ import {
   Icon,
   Text
 } from 'native-base'
+import { Feather } from '@expo/vector-icons'
 import { Actions } from 'react-native-router-flux'
 
 export default class BookmarkForm extends Component {
@@ -23,20 +24,21 @@ export default class BookmarkForm extends Component {
     return (
       <Container>
         <Header>
-          <Left />
-          <Body></Body>
-          <Right>
+          <Left>
             <Button
               transparent
               onPress={() => {
                 Actions.pop()
               }}
             >
-            <Icon
-              name="ios-close"
-            />
+              <Feather
+                name="x"
+                style={styles.headerIcon}
+              />
             </Button>
-          </Right>
+          </Left>
+          <Body></Body>
+          <Right />
         </Header>
         <Content style={styles.content}>
           <TextInput
@@ -74,6 +76,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa',
     borderBottomColor: '#e5e5e5',
     borderBottomWidth: 1
+  },
+  headerIcon: {
+    fontSize: 28
   },
   closeBtn: {
     flex: 1,

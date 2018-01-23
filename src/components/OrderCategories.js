@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { StyleSheet } from 'react-native'
 import {
   Container,
   Header,
@@ -9,6 +10,7 @@ import {
   Icon
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
+import { Feather } from '@expo/vector-icons'
 import SortableListView from 'react-native-sortable-listview'
 import OrderCategoryItem from './OrderCategoryItem'
 
@@ -20,20 +22,21 @@ export default class OrderCategories extends Component {
     return (
       <Container>
         <Header>
-          <Left />
-          <Body></Body>
-          <Right>
+          <Left>
             <Button
               transparent
               onPress={() => {
                 Actions.pop()
               }}
             >
-            <Icon
-              name="ios-close"
-            />
+              <Feather
+                name="chevron-left"
+                style={styles.headerIcon}
+              />
             </Button>
-          </Right>
+          </Left>
+          <Body></Body>
+          <Right />
         </Header>
         <SortableListView
           style={{ flex: 1 }}
@@ -52,3 +55,9 @@ export default class OrderCategories extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  headerIcon: {
+    fontSize: 28
+  }
+})

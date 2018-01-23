@@ -17,6 +17,7 @@ import {
   Footer,
   FooterTab
 } from 'native-base'
+import { Feather } from '@expo/vector-icons'
 import { Actions } from 'react-native-router-flux'
 
 export default class ArticleDetail extends Component {
@@ -32,8 +33,9 @@ export default class ArticleDetail extends Component {
                 Actions.pop()
               }}
             >
-              <Icon
-                name="ios-arrow-back"
+              <Feather
+                name="chevron-left"
+                style={styles.headerIcon}
               />
             </Button>
           </Left>
@@ -54,8 +56,9 @@ export default class ArticleDetail extends Component {
                 })
               }}
             >
-              <Icon
-                name="ios-share-outline"
+              <Feather
+                name="share"
+                style={styles.footerIcon}
               />
             </Button>
             <Button
@@ -67,8 +70,9 @@ export default class ArticleDetail extends Component {
                 }
               }}
             >
-              <Icon
-                name="ios-create-outline"
+              <Feather
+                name="edit"
+                style={styles.footerIcon}
               />
             </Button>
             <Button
@@ -77,8 +81,9 @@ export default class ArticleDetail extends Component {
                 Actions.comment()
               }}
             >
-              <Icon
-                name="ios-chatboxes-outline"
+              <Feather
+                name="message-square"
+                style={styles.footerIcon}
               />
             </Button>
             <Button
@@ -86,8 +91,9 @@ export default class ArticleDetail extends Component {
                 Linking.openURL(this.props.webview.url) 
               }}
             >
-              <Icon
-                name="ios-browsers-outline"
+              <Feather
+                name="compass"
+                style={styles.footerIcon}
               />
             </Button>
           </FooterTab>
@@ -96,3 +102,12 @@ export default class ArticleDetail extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  headerIcon: {
+    fontSize: 28
+  },
+  footerIcon: {
+    fontSize: 24
+  }
+})
