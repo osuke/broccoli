@@ -13,12 +13,11 @@ import {
   Body,
   Right,
   Button,
-  Icon,
   Footer,
   FooterTab
 } from 'native-base'
-import { Feather } from '@expo/vector-icons'
 import { Actions } from 'react-native-router-flux'
+import Icon from './Icon'
 
 export default class ArticleDetail extends Component {
   render () {
@@ -33,10 +32,7 @@ export default class ArticleDetail extends Component {
                 Actions.pop()
               }}
             >
-              <Feather
-                name="chevron-left"
-                style={styles.headerIcon}
-              />
+              <Icon name="ios-arrow-back" />
             </Button>
           </Left>
           <Body></Body>
@@ -56,10 +52,7 @@ export default class ArticleDetail extends Component {
                 })
               }}
             >
-              <Feather
-                name="share"
-                style={styles.footerIcon}
-              />
+              <Icon name="ios-share-outline" />
             </Button>
             <Button
               onPress={() => {
@@ -70,10 +63,7 @@ export default class ArticleDetail extends Component {
                 }
               }}
             >
-              <Feather
-                name="edit"
-                style={styles.footerIcon}
-              />
+              <Icon name="ios-create-outline" />
             </Button>
             <Button
               onPress={() => {
@@ -81,20 +71,14 @@ export default class ArticleDetail extends Component {
                 Actions.comment()
               }}
             >
-              <Feather
-                name="message-square"
-                style={styles.footerIcon}
-              />
+              <Icon name="ios-text-outline" />
             </Button>
             <Button
               onPress={() => {
                 Linking.openURL(this.props.webview.url) 
               }}
             >
-              <Feather
-                name="compass"
-                style={styles.footerIcon}
-              />
+              <Icon name="ios-compass-outline" />
             </Button>
           </FooterTab>
         </Footer>
@@ -102,12 +86,3 @@ export default class ArticleDetail extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  headerIcon: {
-    fontSize: 28
-  },
-  footerIcon: {
-    fontSize: 24
-  }
-})

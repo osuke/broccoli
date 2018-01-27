@@ -8,10 +8,9 @@ import {
   Body,
   Right,
   Button,
-  Icon,
   Text
 } from 'native-base'
-import { Feather } from '@expo/vector-icons'
+import Icon from './Icon'
 import { Actions } from 'react-native-router-flux'
 
 export default class BookmarkForm extends Component {
@@ -31,10 +30,7 @@ export default class BookmarkForm extends Component {
                 Actions.pop()
               }}
             >
-              <Feather
-                name="x"
-                style={styles.headerIcon}
-              />
+              <Icon name="ios-close" />
             </Button>
           </Left>
           <Body></Body>

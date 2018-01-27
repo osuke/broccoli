@@ -6,10 +6,10 @@ import {
   Left,
   Body,
   Right,
-  Button,
-  Icon
+  Button
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
+import Icon from './Icon'
 
 export default class OAuth extends Component {
   componentDidMount () {
@@ -27,9 +27,7 @@ export default class OAuth extends Component {
       return (
         <Container>
           <Header>
-            <Left />
-            <Body></Body>
-            <Right>
+            <Left>
               <Button
                 transparent
                 onPress={() => {
@@ -40,6 +38,9 @@ export default class OAuth extends Component {
                 name="ios-close"
               />
               </Button>
+            </Left>
+            <Body></Body>
+            <Right>
             </Right>
           </Header>
           <WebView

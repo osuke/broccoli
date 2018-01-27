@@ -7,10 +7,9 @@ import {
   Body,
   Right,
   Button,
-  Icon
 } from 'native-base'
 import Comment from './Comment'
-import { Feather } from '@expo/vector-icons'
+import Icon from './Icon'
 import { Actions } from 'react-native-router-flux'
 
 export default class CommentList extends Component {
@@ -25,9 +24,8 @@ export default class CommentList extends Component {
                 Actions.pop()
               }}
             >
-              <Feather
-                name="x"
-                style={styles.headerIcon}
+              <Icon
+                name="ios-close"
               />
             </Button>
           </Left>

@@ -7,10 +7,9 @@ import {
   Body,
   Right,
   Button,
-  Icon
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
-import { Feather } from '@expo/vector-icons'
+import Icon from './Icon'
 import SortableListView from 'react-native-sortable-listview'
 import OrderCategoryItem from './OrderCategoryItem'
 
@@ -29,10 +28,7 @@ export default class OrderCategories extends Component {
                 Actions.pop()
               }}
             >
-              <Feather
-                name="chevron-left"
-                style={styles.headerIcon}
-              />
+              <Icon name="ios-arrow-back" />
             </Button>
           </Left>
           <Body></Body>
