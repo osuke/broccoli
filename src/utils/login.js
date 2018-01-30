@@ -58,8 +58,8 @@ export default class HatenaLogin {
       secret: this.tokenSecret,
     };
 
-    requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData, token));
-    requestData.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData, token))
+    requestData.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     return fetch(requestData.url, {
       method: requestData.method,
@@ -79,11 +79,11 @@ export default class HatenaLogin {
       const query = o.split('=')
 
       if (query[0] === 'oauth_token') {
-        data.requestToken = decodeURIComponent(query[1]);
+        data.requestToken = decodeURIComponent(query[1])
       }
 
       if (query[0] === 'oauth_token_secret') {
-        data.tokenSecret = decodeURIComponent(query[1]);
+        data.tokenSecret = decodeURIComponent(query[1])
       }
     })
 
@@ -91,39 +91,52 @@ export default class HatenaLogin {
   }
 
   sendRequest (method, url, accessToken, accessTokenSecret, options = {}) {
-    const requestData = {
-      url,
-      method,
-      data: options,
-    }
 
-    const token = {
-      key: accessToken,
-      secret: accessTokenSecret,
-    }
-    
-    requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData, token))
-
-    if (method.toUpperCase() !== 'GET') {
-      requestData.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-      requestData.headers['Access-Control-Allow-Methods'] = 'GET,POST,DELETE,HEAD,OPTIONS';
-    }
-
-    return fetch(url, {
-      method: requestData.method,
-      headers: requestData.headers,
-      body: qs.stringify(options)
-    }).then((resp) => {
-      if (resp._bodyText.match(/^401 Unauthorized/)) {
-        return {};
+    return new Promise((resolve, reject) => {
+      const requestData = {
+        url,
+        method,
+        data: options,
       }
 
-      if (resp._bodyText !== '') return resp.json();
+      const token = {
+        key: accessToken,
+        secret: accessTokenSecret,
+      }
+      
+      requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData, token))
 
-      return {};
-    }).catch((e) => {
-      console.log(e);
-      console.log('Error Occuered: request');
-    });
+      if (method.toUpperCase() !== 'GET') {
+        requestData.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        requestData.headers['Access-Control-Allow-Methods'] = 'GET,POST,DELETE,HEAD,OPTIONS'
+      }
+
+      const obj = {
+        method: requestData.method,
+        headers: requestData.headers
+      }
+
+      if (method === 'POST') {
+        obj.body = qs.stringify(options)
+      }
+
+      return fetch(url, obj).then((resp) => {
+        if (resp._bodyText.match(/^401 Unauthorized/)) {
+          resolve({})
+        }
+
+        if (resp._bodyText !== '') {
+          resolve(resp.json())
+        }
+
+        return {};
+      }).catch((e) => {
+        console.log(e)
+        console.log('Error Occuered: request')
+      })
+
+
+    })
+
   }
 }

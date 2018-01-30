@@ -16,7 +16,17 @@ import { Actions } from 'react-native-router-flux'
 export default class BookmarkForm extends Component {
   constructor (props) {
     super(props)
-    this.state = { text: '' }
+    this.state = { text: this.props.bookmark.comment }
+  }
+
+  componentDidMount () {
+    this.setState({
+      text: this.props.bookmark.comment
+    })
+  }
+  
+  componentWillUnmount () {
+    this.props.fetchBookmarkData(this.props.login, this.props.webview.url)
   }
 
   render () {
@@ -46,6 +56,7 @@ export default class BookmarkForm extends Component {
             style={styles.addButton}
             onPress={() => {
               this.props.saveBookmark(this.props.login, this.props.webview.url, this.state.text)
+              Actions.pop()
             }}
             block>
             <Text style={styles.addButtonText}>ブックマークする</Text>

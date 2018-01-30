@@ -1,7 +1,12 @@
-import { ADD_BOOKMARK, CLOSE_BOOKMARK } from '../actions/bookmarkForm'
+import {
+  ADD_BOOKMARK,
+  CLOSE_BOOKMARK,
+  SHOW_BOOKMARK_DATA
+} from '../actions/bookmarkForm'
 
 const initialState = {
-  visible: false
+  visible: false,
+  comment: ''
 }
 
 export default (state = initialState, action) => {
@@ -16,6 +21,12 @@ export default (state = initialState, action) => {
       return Object.assign({}, state,
         {
           visible: false
+        }
+      )
+    case SHOW_BOOKMARK_DATA:
+      return Object.assign({}, state,
+        {
+          comment: action.payload.comment
         }
       )
     default:
