@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { View, ScrollView, FlatList, RefreshControl, StyleSheet, Text } from 'react-native'
 import Article from './Article'
 
@@ -47,3 +48,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
 })
+
+NewEntryItems.propTypes = {
+  getArticlesFromApi: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  index: PropTypes.string.isRequired,
+  clearArticles: PropTypes.func.isRequired,
+  showPage: PropTypes.func.isRequired
+}

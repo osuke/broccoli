@@ -21,7 +21,9 @@ import Icon from './Icon'
 
 export default class ArticleDetail extends Component {
   componentDidMount () {
-    this.props.fetchBookmarkData(this.props.login, this.props.webview.url)
+    if (this.props.login.isLogin) {
+      this.props.fetchBookmarkData(this.props.login, this.props.webview.url)
+    }
   }
 
   render () {

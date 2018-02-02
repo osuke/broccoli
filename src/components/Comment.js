@@ -1,22 +1,30 @@
-import React from 'react'
-import { StyleSheet, View, Text, Image } from 'react-native'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet, View, Image } from 'react-native'
+import {
+  List,
+  ListItem,
+  Thumbnail,
+  Body,
+  Text
+} from 'native-base'
 
-export default class Comment extends React.Component {
+export default class Comment extends Component {
   render () {
     if (this.props.comment.length > 0) {
       const userImage = 'https://cdn1.www.st-hatena.com/users/sl/' + this.props.user + '/profile.gif'
       return (
-        <View style={styles.container}>
-          <View>
-            <Image
-              style={styles.image}
-              source={{uri: userImage}}
-            />
-          </View>
-          <View style={styles.textWrap}>
-            <Text style={styles.text}>{this.props.comment}</Text>
-          </View>
-        </View>
+        <ListItem>
+          <Thumbnail
+            small
+            source={{uri: userImage}}
+            style={styles.thumbnail}
+          />
+          <Body>
+            <Text style={styles.user}>{this.props.user}</Text>
+            <Text style={styles.comment}>{this.props.comment}</Text>
+          </Body>
+        </ListItem>
       )
     } else {
       return null
@@ -25,23 +33,21 @@ export default class Comment extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    borderBottomColor: '#e5e5e5',
-    borderBottomWidth: 1,
-    padding: 16,
-    paddingBottom: 16,
-    flexDirection: 'row',
+  thumbnail: {
+    alignSelf: 'flex-start'
   },
-  textWrap: {
-    flex: 1,
-    paddingLeft: 16
+  user: {
+    fontSize: 14,
+    marginBottom: 2
   },
-  text: {
-    fontSize: 16,
-    lineHeight: 20,
-  },
-  image: {
-    width: 32,
-    height: 32,
+  comment: {
+    alignSelf: 'flex-start',
+    fontSize: 14,
+    lineHeight: 20
   }
 })
+
+Comment.propTypes = {
+  comment: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired
+}

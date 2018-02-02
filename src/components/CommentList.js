@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { StyleSheet, View, Text, Modal, FlatList, ScrollView, TouchableOpacity } from 'react-native'
 import {
   Container,
@@ -32,20 +33,16 @@ export default class CommentList extends Component {
           <Body></Body>
           <Right />
         </Header>
-        <ScrollView>
-          <FlatList
-            data={this.props.items}
-            renderItem={({item}) => (<Comment {...item} />)}
-            keyExtractor={(item, index) => ('comment' + index)}
-          />
-        </ScrollView>
+        <FlatList
+          data={this.props.items}
+          renderItem={({item}) => (<Comment {...item} />)}
+          keyExtractor={(item, index) => ('comment' + index)}
+        />
       </Container>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  headerIcon: {
-    fontSize: 28
-  }
-})
+CommentList.propTypes = {
+  items: PropTypes.array.isRequired
+}
