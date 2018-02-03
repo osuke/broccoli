@@ -116,12 +116,13 @@ export default class HatenaLogin {
         headers: requestData.headers
       }
 
-      if (method === 'POST') {
+      if (method === 'POST' || method === 'DELETE') {
         obj.body = qs.stringify(options)
       }
 
       return fetch(url, obj).then((resp) => {
         if (resp._bodyText.match(/^401 Unauthorized/)) {
+          console.log(resp)
           resolve({})
         }
 

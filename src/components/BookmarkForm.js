@@ -53,14 +53,29 @@ export default class BookmarkForm extends Component {
             value={this.state.text}
           />
           <Button
-            style={styles.addButton}
+            light
             onPress={() => {
               this.props.saveBookmark(this.props.login, this.props.webview.url, this.state.text)
               Actions.pop()
             }}
-            block>
-            <Text style={styles.addButtonText}>ブックマークする</Text>
+            block
+          >
+            <Text>ブックマークする</Text>
           </Button>
+          {this.props.bookmark.isBookmark &&
+            (
+              <Button
+                danger
+                onPress={() => {
+                  this.props.deleteBookmark(this.props.login, this.props.webview.url)
+                  Actions.pop()
+                }}
+                block
+              >
+                <Text style={styles.addButtonText}>削除する</Text>
+              </Button>
+            )
+          }
         </Content>
       </Container>
     )

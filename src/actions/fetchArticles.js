@@ -88,7 +88,7 @@ export const getFavArticlesFromApi = (index, userName, offset) => (
 
 export const getBookmarkArticlesFromApi = (index, userName, offset) => (
   (dispatch) => {
-    const apiUrl = 'http://b.hatena.ne.jp/' + userName + '/rss?of=' + offset
+    const apiUrl = 'http://b.hatena.ne.jp/' + userName + '/rss?of=' + offset + '&d=' + Date.now()
 
     fetch(apiUrl)
       .then((res) => {

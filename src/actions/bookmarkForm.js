@@ -18,11 +18,12 @@ export const closeBookmark = () => (
   }
 )
 
-export const showBookmarkData = (comment) => (
+export const showBookmarkData = (obj) => (
   {
     type: SHOW_BOOKMARK_DATA,
     payload: {
-      comment: comment
+      comment: obj.comment,
+      isBookmark: obj.isBookmark
     }
   }
 )
@@ -44,6 +45,22 @@ export const saveBookmark = (userData, url, comment = '') => (
   }
 )
 
+export const deleteBookmark = (userData, url) => (
+  (dispatch) => {
+    hatenaLogin.sendRequest(
+      'DELETE',
+      'http://api.b.hatena.ne.jp/1/my/bookmark',
+      userData.userData.token,
+      userData.userData.secret,
+      {
+        url: url
+      }
+    )
+
+    dispatch(closeBookmark())
+  }
+)
+
 export const fetchBookmarkData = (userData, url) => (
   (dispatch) => {
     hatenaLogin.sendRequest(
@@ -52,13 +69,18 @@ export const fetchBookmarkData = (userData, url) => (
       userData.userData.token,
       userData.userData.secret,
     ).then((data) => {
-      let comment = ''
+      let obj = {
+        comment: '',
+        isBookmark: false
+      }
+
       data.bookmarks.map((val) => {
         if (val.user === userData.userData.urlName) {
-          comment = val.comment
+          obj.comment = val.comment,
+          obj.isBookmark = true
         }
       })
-      dispatch(showBookmarkData(comment))
+      dispatch(showBookmarkData(obj))
     })
   }
 )

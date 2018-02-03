@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   visible: false,
+  isBookmark: false,
   comment: ''
 }
 
@@ -26,6 +27,7 @@ export default (state = initialState, action) => {
     case SHOW_BOOKMARK_DATA:
       return Object.assign({}, state,
         {
+          isBookmark: action.payload.isBookmark,
           comment: action.payload.comment
         }
       )
