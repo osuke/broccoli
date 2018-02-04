@@ -1,6 +1,12 @@
 import React from 'react'
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import { Text } from 'native-base'
+import PropTypes from 'prop-types'
+import { View, StyleSheet } from 'react-native'
+import {
+  Text,
+  ListItem,
+  Thumbnail,
+  Body,
+} from 'native-base'
 import { Actions } from 'react-native-router-flux'
 
 export default class FavArticle extends React.Component {
@@ -8,55 +14,66 @@ export default class FavArticle extends React.Component {
     const userImage = 'https://cdn1.www.st-hatena.com/users/sl/' + this.props.creator + '/profile.gif'
 
     return (
-      <TouchableOpacity
-        style={styles.container}
+      <ListItem
+        style={styles.listItem}
         onPress={() => {
           this.props.showPage(this.props)
           Actions.externalPage()
         }}
       >
-        <View style={styles.title}>
-          <Text style={styles.text}>{this.props.title}</Text>
-        </View>
-        <View style={styles.user}>
-          <View>
-            <Image
-              style={styles.image}
+        <View>
+          <View style={styles.top}>
+            <Text style={styles.title}>{this.props.title}</Text>
+          </View>
+          <View style={styles.bottom}>
+            <Thumbnail
+              small
               source={{uri: userImage}}
+              style={styles.thumbnail}
             />
-          </View>
-          <View style={styles.textWrap}>
-            <Text style={styles.text}>{this.props.creator}</Text>
-            <Text style={styles.text}>{this.props.description}</Text>
+            <Body>
+              <Text style={styles.creator}>{this.props.creator}</Text>
+              <Text style={styles.description}>{this.props.description[0]}</Text>
+            </Body>
           </View>
         </View>
-      </TouchableOpacity>
+      </ListItem>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    borderBottomColor: '#e5e5e5',
-    borderBottomWidth: 1,
-    padding: 16,
+  listItem: {
+    backgroundColor: 'transparent'
+  },
+  thumbnail: {
+    alignSelf: 'flex-start'
+  },
+  top: {
+    marginBottom: 12
+  },
+  bottom: {
+    marginBottom: 12,
+    display: 'flex',
+    flexDirection: 'row'
   },
   title: {
+    lineHeight: 22
   },
-  user: {
-    paddingTop: 10,
-    flexDirection: 'row',
+  creator: {
+    marginBottom: 4,
+    fontSize: 14
   },
-  textWrap: {
-    flex: 1,
-    paddingLeft: 8
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 20,
-  },
-  image: {
-    width: 32,
-    height: 32,
+  description: {
+    marginBottom: 4,
+    lineHeight: 18,
+    fontSize: 14
   }
 })
+
+FavArticle.propTypes = {
+  showPage: PropTypes.func.isRequired,
+  creator: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.array.isRequired
+}

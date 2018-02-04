@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Text } from 'native-base'
 import NewEntryItems from '../containers/NewEntryItems'
@@ -63,3 +64,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#f6b02c',
   }
 })
+
+Root.propTypes = {
+  category: PropTypes.object.isRequired,
+  order: PropTypes.object.isRequired,
+}

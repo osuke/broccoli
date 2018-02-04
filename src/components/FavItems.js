@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { FlatList, RefreshControl } from 'react-native'
 import FavArticle from './FavArticle'
 import Login from './Login'
@@ -51,4 +52,12 @@ export default class FavItems extends Component {
       return <Login />
     }
   }
+}
+
+FavItems.propTypes = {
+  login: PropTypes.object.isRequired,
+  getFavArticlesFromApi: PropTypes.func.isRequired,
+  index: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  showPage: PropTypes.func.isRequired,
 }

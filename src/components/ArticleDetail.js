@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {
   WebView,
   Share,
@@ -7,7 +8,6 @@ import {
 } from 'react-native'
 import {
   Container,
-  Content,
   Header,
   Left,
   Body,
@@ -91,4 +91,11 @@ export default class ArticleDetail extends Component {
       </Container>
     )
   }
+}
+
+ArticleDetail.propTypes = {
+  login: PropTypes.object.isRequired,
+  fetchBookmarkData: PropTypes.func.isRequired,
+  webview: PropTypes.object.isRequired,
+  getCommentsFromApi: PropTypes.func.isRequired
 }

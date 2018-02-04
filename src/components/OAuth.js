@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { WebView } from 'react-native'
 import {
   Container,
@@ -53,4 +54,11 @@ export default class OAuth extends Component {
       return null
     }
   }
+}
+
+OAuth.propTypes = {
+  getRequestToken: PropTypes.func.isRequired,
+  isLogin: PropTypes.bool.isRequired,
+  url: PropTypes.string,
+  getAccessToken: PropTypes.func.isRequired
 }

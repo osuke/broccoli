@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import {
   Container,
@@ -15,7 +16,6 @@ import OrderCategoryItem from './OrderCategoryItem'
 
 export default class OrderCategories extends Component {
   render () {
-    let items = this.props.items
     let order = Object.keys(this.props.items)
 
     return (
@@ -35,7 +35,7 @@ export default class OrderCategories extends Component {
           <Right />
         </Header>
         <SortableListView
-          style={{ flex: 1 }}
+          style={styles.list}
           data={this.props.items}
           order={order}
           onRowMoved={e => {
@@ -53,7 +53,12 @@ export default class OrderCategories extends Component {
 }
 
 const styles = StyleSheet.create({
-  headerIcon: {
-    fontSize: 28
+  list: {
+    display: 'flex'
   }
 })
+
+OrderCategories.propTypes = {
+  items: PropTypes.object.isRequired,
+  updateOrder: PropTypes.func.isRequired
+}

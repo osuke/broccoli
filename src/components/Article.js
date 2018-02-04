@@ -1,38 +1,40 @@
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet } from 'react-native'
+import { Text, ListItem, Body, Right } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 
-export default class Article extends React.Component {
+export default class Article extends Component {
   render () {
     return (
-      <TouchableOpacity
-        style={styles.container}
+      <ListItem
         onPress={() => {
           this.props.showPage(this.props)
           Actions.externalPage()
         }}
+        style={styles.listItem}
       >
-        <Text style={styles.title}>{this.props.title}</Text>
-        <Text style={styles.count}>{this.props.bookmarkcount} users</Text>
-      </TouchableOpacity>
+        <Body>
+          <Text style={styles.title}>{this.props.title}</Text>
+          <Text note>{this.props.bookmarkcount} users</Text>
+        </Body>
+      </ListItem>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    borderBottomColor: '#e5e5e5',
-    borderBottomWidth: 1,
-    padding: 16,
+  listItem: {
+    backgroundColor: 'transparent'
   },
   title: {
-    fontSize: 16,
-    color: '#14171a',
-    marginBottom: 2,
-    lineHeight: 20
-  },
-  count: {
-    fontSize: 14,
-    color: '#999'
+    marginBottom: 8,
+    lineHeight: 22
   }
 })
+
+Article.propTypes = {
+  showPage: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  bookmarkcount: PropTypes.string.isRequired
+}

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, ScrollView, FlatList, RefreshControl, StyleSheet, Text } from 'react-native'
+import { FlatList, RefreshControl, StyleSheet } from 'react-native'
 import Article from './Article'
 
-export default class NewEntryItems extends React.Component {
+export default class NewEntryItems extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -46,7 +46,7 @@ export default class NewEntryItems extends React.Component {
 const styles = StyleSheet.create({
   wrap: {
     backgroundColor: '#fff'
-  },
+  }
 })
 
 NewEntryItems.propTypes = {

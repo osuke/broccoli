@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import {
   Header,
@@ -60,3 +61,8 @@ const styles = StyleSheet.create({
     padding: 16
   }
 })
+
+Login.propTypes = {
+  isLogin: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TouchableOpacity, TextInput, Modal } from 'react-native'
+import PropTypes from 'prop-types'
+import { StyleSheet, TextInput } from 'react-native'
 import {
   Container,
   Content,
@@ -116,3 +117,13 @@ const styles = StyleSheet.create({
     color: '#fff'
   }
 })
+
+BookmarkForm.propTypes = {
+  bookmark: PropTypes.object.isRequired,
+  fetchBookmarkData: PropTypes.func.isRequired,
+  webview: PropTypes.object.isRequired,
+  saveBookmark: PropTypes.func.isRequired,
+  deleteBookmark: PropTypes.func.isRequired,
+  login: PropTypes.object.isRequired,
+  bookmark: PropTypes.object.isRequired,
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { FlatList, RefreshControl } from 'react-native'
 import Article from './Article'
 import Login from './Login'
@@ -51,4 +52,13 @@ export default class MyBookmark extends Component {
       return <Login />
     }
   }
+}
+
+MyBookmark.propTypes = {
+  login: PropTypes.object.isRequired,
+  getBookmarkArticlesFromApi: PropTypes.func.isRequired,
+  index: PropTypes.string.isRequired,
+  clearArticles: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  showPage: PropTypes.func.isRequired,
 }
