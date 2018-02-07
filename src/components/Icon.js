@@ -21,6 +21,7 @@ export default ({ name }) => {
     case 'ios-arrow-back':
     case 'ios-compass-outline':
     case 'ios-close':
+    case 'ios-menu-outline':
       return (
         <Ionicons
           name={name}

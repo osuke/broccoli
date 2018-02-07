@@ -1,26 +1,36 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { TouchableHighlight, StyleSheet } from 'react-native'
-import { Text } from 'native-base'
+import { StyleSheet } from 'react-native'
+import {
+  Text,
+  ListItem,
+  Body,
+  Right
+} from 'native-base'
+import Icon from './Icon'
 
 export default class OrderCategoryItem extends Component {
   render () {
     return (
-      <TouchableHighlight
-        underlayColor={'#eee'}
+      <ListItem
         style={styles.listItem}
         {...this.props.sortHandlers}>
-        <Text>{this.props.data.name}</Text>
-      </TouchableHighlight>
+        <Body>
+          <Text>{this.props.data.name}</Text>
+        </Body>
+        <Right>
+          <Icon
+            name="ios-menu-outline"
+          />
+        </Right>
+      </ListItem>
     )
   }
 }
 
 const styles = StyleSheet.create({
   listItem: {
-    padding: 25,
-    borderBottomWidth: 1,
-    borderColor: '#eee'
+    backgroundColor: 'transparent'
   }
 })
 
