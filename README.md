@@ -1,8 +1,7 @@
 # Bagle
 
 > はてなブックマーククライアント for IOS
-
-## Usage
+  
 
 [EXPO CLIENT](https://itunes.apple.com/us/app/expo-client/id982107779?mt=8)をiOSデバイスにインストールして、QRコードから開くことができます。  
   
