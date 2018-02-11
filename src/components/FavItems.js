@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { FlatList, RefreshControl } from 'react-native'
+import { View, FlatList, RefreshControl } from 'react-native'
+import { Spinner } from 'native-base'
 import FavArticle from './FavArticle'
 import Login from './Login'
 
@@ -8,7 +9,8 @@ export default class FavItems extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      refreshing: false
+      refreshing: false,
+      isLoading: false
     }
   }
 
@@ -29,24 +31,49 @@ export default class FavItems extends Component {
     })
   }
 
+  onEndReachedHandler () {
+    this.setState({
+      isLoading: true
+    })
+
+    this.props.getFavArticlesFromApi(this.props.index, this.props.login.userData.urlName, this.props.data.offset).then(() => {
+      setTimeout(() => {
+        this.setState({
+          isLoading: false
+        })
+      }, 1000)
+    })
+  }
+
   render () {
     if (this.props.login.isLogin) {
       return (
-        <FlatList
-          data={this.props.data.items}
-          renderItem={({item}) => (<FavArticle {...item} showPage={this.props.showPage} />)}
-          keyExtractor={(item, index) => ('article' + index)}
-          onEndReached={() => {
-            this.props.getFavArticlesFromApi(this.props.index, this.props.login.userData.urlName, this.props.data.offset)
-          }}
-          onEndReachedThreshold={0}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this.onRefreshHandler.bind(this)}
+        <View>
+          <FlatList
+            data={this.props.data.items}
+            renderItem={({item}) => (<FavArticle {...item} showPage={this.props.showPage} />)}
+            keyExtractor={(item, index) => ('article' + index)}
+            onEndReached={() => {
+              this.props.getFavArticlesFromApi(this.props.index, this.props.login.userData.urlName, this.props.data.offset)
+            }}
+            onEndReached={this.onEndReachedHandler.bind(this)}
+            onEndReachedThreshold={0}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefreshHandler.bind(this)}
+              />
+            }
+          />
+          {this.state.isLoading ? (
+            <Spinner
+              color="#000"
+              style={{position: 'absolute', bottom: 10, left: 0, right: 0, zIndex: 100}}
             />
-          }
-        />
+          ) : (
+            null
+          )}
+        </View>
       )
     } else {
       return <Login />
