@@ -14,7 +14,8 @@ import {
   Right,
   Button,
   Footer,
-  FooterTab
+  FooterTab,
+  Spinner
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import Icon from './Icon'
@@ -30,6 +31,14 @@ export default class ArticleDetail extends Component {
     const isLogin = this.props.login.isLogin
     return (
       <Container>
+        {this.props.webview.isLoading ? (
+          <Spinner
+            color="#000"
+            style={styles.spinner}
+          />
+        ) : (
+          null
+        )} 
         <Header>
           <Left>
             <Button
@@ -46,6 +55,8 @@ export default class ArticleDetail extends Component {
         </Header>
         <WebView
           source={{uri: this.props.webview.url}}
+          onLoadStart={this.props.showSpinner}
+          onLoadEnd={this.props.hideSpinner}
         />
         <Footer>
           <FooterTab>
@@ -92,6 +103,16 @@ export default class ArticleDetail extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  spinner: {
+    position: 'absolute',
+    zIndex: 100,
+    top: 100,
+    left: 0,
+    right: 0
+  }
+})
 
 ArticleDetail.propTypes = {
   login: PropTypes.object.isRequired,
