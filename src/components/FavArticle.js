@@ -21,7 +21,7 @@ export default class FavArticle extends React.Component {
           Actions.externalPage()
         }}
       >
-        <View>
+        <View style={styles.article}>
           <View style={styles.top}>
             <Text style={styles.title}>{this.props.title}</Text>
           </View>
@@ -45,6 +45,10 @@ export default class FavArticle extends React.Component {
 const styles = StyleSheet.create({
   listItem: {
     backgroundColor: 'transparent'
+  },
+  article: {
+    flex: 1,
+    alignItems: 'flex-start'
   },
   thumbnail: {
     alignSelf: 'flex-start'
