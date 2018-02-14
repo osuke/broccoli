@@ -20,12 +20,18 @@ export default ({ name }) => {
     case 'ios-text-outline':
     case 'ios-arrow-back':
     case 'ios-compass-outline':
-    case 'ios-close':
     case 'ios-menu-outline':
       return (
         <Ionicons
           name={name}
           style={styles.footerIcon}
+        />
+      )
+    case 'ios-close':
+      return (
+        <Ionicons
+          name={name}
+          style={styles.closeIcon}
         />
       )
   }
@@ -34,5 +40,8 @@ export default ({ name }) => {
 const styles = StyleSheet.create({
   footerIcon: {
     fontSize: 30
+  },
+  closeIcon: {
+    fontSize: 40
   }
 })
