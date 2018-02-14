@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet, TextInput } from 'react-native'
+import { StyleSheet, TextInput, View } from 'react-native'
 import {
   Container,
   Content,
@@ -9,7 +9,8 @@ import {
   Body,
   Right,
   Button,
-  Text
+  Text,
+  Input
 } from 'native-base'
 import Icon from './Icon'
 import { Actions } from 'react-native-router-flux'
@@ -48,33 +49,40 @@ export default class BookmarkForm extends Component {
           <Right />
         </Header>
         <Content style={styles.content}>
-          <TextInput
+          <Input
+            multiline = {true}
+            numberOfLines = {6}
             style={styles.comment}
             onChangeText={(text) => { this.setState({text})}}
             value={this.state.text}
           />
-          <Button
-            light
-            onPress={() => {
-              this.props.saveBookmark(this.props.login, this.props.webview.url, this.state.text)
-              Actions.pop()
-            }}
-            block
-          >
-            <Text>ブックマークする</Text>
-          </Button>
+          <View style={styles.btnWrap}>
+            <Button
+              style={styles.addBtn}
+              light
+              onPress={() => {
+                this.props.saveBookmark(this.props.login, this.props.webview.url, this.state.text)
+                Actions.pop()
+              }}
+              block
+            >
+              <Text>ブックマークする</Text>
+            </Button>
+          </View>
           {this.props.bookmark.isBookmark &&
             (
-              <Button
-                danger
-                onPress={() => {
-                  this.props.deleteBookmark(this.props.login, this.props.webview.url)
-                  Actions.pop()
-                }}
-                block
-              >
-                <Text style={styles.addButtonText}>削除する</Text>
-              </Button>
+              <View style={styles.btnWrap}>
+                <Button
+                  danger
+                  onPress={() => {
+                    this.props.deleteBookmark(this.props.login, this.props.webview.url)
+                    Actions.pop()
+                  }}
+                  block
+                >
+                  <Text style={styles.deleteButtonText}>削除する</Text>
+                </Button>
+              </View>
             )
           }
         </Content>
@@ -85,14 +93,20 @@ export default class BookmarkForm extends Component {
 
 const styles = StyleSheet.create({
   content: {
-    padding: 16,
+    paddingBottom: 16,
+    backgroundColor: '#efefef'
   },
   comment: {
-    height: 40,
+    height: 140,
     borderColor: 'gray',
-    borderWidth: 1,
+    borderBottomWidth: 1,
     marginBottom: 16,
-    borderColor: '#e5e5e5',
+    borderBottomColor: '#e5e5e5',
+    backgroundColor: '#fff',
+    paddingTop: 12,
+    paddingRight: 12,
+    paddingLeft: 12,
+    paddingBottom: 12
   },
   header: {
     height: 65,
@@ -110,10 +124,15 @@ const styles = StyleSheet.create({
     marginRight: 16,
     marginTop: 28
   },
-  addButton: {
-    backgroundColor: '#f6b02c'
+  btnWrap: {
+    paddingLeft: 12,
+    paddingRight: 12
   },
-  addButtonText: {
+  addBtn: {
+    backgroundColor: '#fff',
+    marginBottom: 12
+  },
+  deleteButtonText: {
     color: '#fff'
   }
 })
