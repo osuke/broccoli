@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { FlatList, RefreshControl, StyleSheet } from 'react-native'
+import { View, FlatList, RefreshControl, StyleSheet } from 'react-native'
 import Article from './Article'
+import { Spinner } from 'native-base'
 
 export default class NewEntryItems extends Component {
   constructor (props) {
@@ -28,26 +29,28 @@ export default class NewEntryItems extends Component {
 
   render () {
     return (
-      <FlatList
-        data={this.props.data.items}
-        renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
-        keyExtractor={(item, index) => ('article' + index)}
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this.onRefreshHandler.bind(this)}
-          />
-        }
-      />
+      <View style={{flex: 1}}>
+        <FlatList
+          data={this.props.data.items}
+          renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
+          keyExtractor={(item, index) => ('article' + index)}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefreshHandler.bind(this)}
+            />
+          }
+          ListEmptyComponent={() => (
+            <Spinner
+              color="#000"
+              size="small"
+            />
+          )}
+        />
+      </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  wrap: {
-    backgroundColor: '#fff'
-  }
-})
 
 NewEntryItems.propTypes = {
   getArticlesFromApi: PropTypes.func.isRequired,

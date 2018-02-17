@@ -35,6 +35,7 @@ export default class MyBookmark extends Component {
     this.setState({
       isLoading: true
     })
+
     this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, this.props.data.offset).then(() => {
       setTimeout(() => {
         this.setState({
@@ -44,11 +45,25 @@ export default class MyBookmark extends Component {
     })
   }
 
+  showSpinner () {
+    if (this.state.isLoading) {
+      return (
+        <Spinner
+          color="#000"
+          size="small"
+        />
+      )
+    } else {
+      return null
+    }
+  }
+
   render () {
     if (this.props.login.isLogin) {
       return (
-        <View>
+        <View style={{flex: 1}}>
           <FlatList
+            ref="flatlist"
             data={this.props.data.items}
             renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)
             }
@@ -61,15 +76,8 @@ export default class MyBookmark extends Component {
                 onRefresh={this.onRefreshHandler.bind(this)}
               />
             }
+            ListFooterComponent={this.showSpinner.bind(this)}
           />
-          {this.state.isLoading ? (
-            <Spinner
-              color="#000"
-              style={{position: 'absolute', bottom: 10, left: 0, right: 0, zIndex: 100}}
-            />
-          ) : (
-            null
-          )}
         </View>
       )
     } else {

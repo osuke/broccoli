@@ -45,10 +45,23 @@ export default class FavItems extends Component {
     })
   }
 
+  showSpinner () {
+    if (this.state.isLoading) {
+      return (
+        <Spinner
+          color="#000"
+          size="small"
+        />
+      )
+    } else {
+      return null
+    }
+  }
+
   render () {
     if (this.props.login.isLogin) {
       return (
-        <View>
+        <View style={{flex: 1}}>
           <FlatList
             data={this.props.data.items}
             renderItem={({item}) => (<FavArticle {...item} showPage={this.props.showPage} />)}
@@ -64,15 +77,8 @@ export default class FavItems extends Component {
                 onRefresh={this.onRefreshHandler.bind(this)}
               />
             }
+            ListFooterComponent={this.showSpinner.bind(this)}
           />
-          {this.state.isLoading ? (
-            <Spinner
-              color="#000"
-              style={{position: 'absolute', bottom: 10, left: 0, right: 0, zIndex: 100}}
-            />
-          ) : (
-            null
-          )}
         </View>
       )
     } else {
