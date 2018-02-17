@@ -34,6 +34,7 @@ export default class ArticleDetail extends Component {
         {this.props.webview.isLoading ? (
           <Spinner
             color="#000"
+            size="small"
             style={styles.spinner}
           />
         ) : (
