@@ -39,6 +39,7 @@ export default class Login extends React.Component {
                 onPress={() => {
                   this.props.logout()
                 }}
+                style={styles.listItem}
                 icon
               >
                 <Body>
