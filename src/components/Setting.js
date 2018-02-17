@@ -25,6 +25,7 @@ export default class Login extends React.Component {
               onPress={() => {
                 Actions.order()
               }}
+              style={styles.listItem}
               icon>
               <Body>
                 <Text>タブを並び替える</Text>
@@ -59,6 +60,9 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
   container: {
     padding: 16
+  },
+  listItem: {
+    backgroundColor: 'transparent'
   }
 })
 
