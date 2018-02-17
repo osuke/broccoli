@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet, TextInput, View } from 'react-native'
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  ScrollView,
+  Dimensions,
+  Keyboard
+} from 'react-native'
 import {
   Container,
   Content,
@@ -18,10 +25,23 @@ import { Actions } from 'react-native-router-flux'
 export default class BookmarkForm extends Component {
   constructor (props) {
     super(props)
-    this.state = { text: this.props.bookmark.comment }
+    this.state = {
+      text: this.props.bookmark.comment,
+      inputHeight: 0
+    }
+  }
+
+  setHeightToInput (e) {
+    const keyboardHeight = e.endCoordinates.height
+    const { height } = Dimensions.get('window')
+    const tabsHeight = 108
+    this.setState({
+      inputHeight: height - keyboardHeight - tabsHeight
+    })
   }
 
   componentDidMount () {
+    this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', this.setHeightToInput.bind(this))
     this.setState({
       text: this.props.bookmark.comment
     })
@@ -29,6 +49,7 @@ export default class BookmarkForm extends Component {
   
   componentWillUnmount () {
     this.props.fetchBookmarkData(this.props.login, this.props.webview.url)
+    this.keyboardWillShowListener.remove()
   }
 
   render () {
@@ -48,44 +69,52 @@ export default class BookmarkForm extends Component {
           <Body></Body>
           <Right />
         </Header>
-        <Content style={styles.content}>
+        <ScrollView
+          style={styles.content}
+          keyboardShouldPersistTaps="always"
+          scrollEnabled={false}
+        >
           <Input
+            autoFocus
+            autoCorrect={false}
             multiline = {true}
             numberOfLines = {6}
-            style={styles.comment}
+            style={[styles.comment, {height: this.state.inputHeight}]}
             onChangeText={(text) => { this.setState({text})}}
             value={this.state.text}
           />
-          <View style={styles.btnWrap}>
-            <Button
-              style={styles.addBtn}
-              light
-              onPress={() => {
-                this.props.saveBookmark(this.props.login, this.props.webview.url, this.state.text)
-                Actions.pop()
-              }}
-              block
-            >
-              <Text>ブックマークする</Text>
-            </Button>
+          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: '#fff' }}>
+            <View>
+              <Button
+                onPress={() => {
+                  this.props.saveBookmark(this.props.login, this.props.webview.url, this.state.text)
+                  Actions.pop()
+                }}
+                transparent
+                style={styles.btn}
+              >
+                <Text style={styles.btnText}>保存する</Text>
+              </Button>
+            </View>
+            {this.props.bookmark.isBookmark &&
+              (
+                <View>
+                  <Button
+                    onPress={() => {
+                      this.props.deleteBookmark(this.props.login, this.props.webview.url)
+                      Actions.pop()
+                    }}
+                    style={styles.btn}
+                    transparent
+                    rounded={false}
+                  >
+                    <Text style={styles.btnText}>削除する</Text>
+                  </Button>
+                </View>
+              )
+            }
           </View>
-          {this.props.bookmark.isBookmark &&
-            (
-              <View style={styles.btnWrap}>
-                <Button
-                  danger
-                  onPress={() => {
-                    this.props.deleteBookmark(this.props.login, this.props.webview.url)
-                    Actions.pop()
-                  }}
-                  block
-                >
-                  <Text style={styles.deleteButtonText}>削除する</Text>
-                </Button>
-              </View>
-            )
-          }
-        </Content>
+        </ScrollView>
       </Container>
     )
   }
@@ -93,14 +122,12 @@ export default class BookmarkForm extends Component {
 
 const styles = StyleSheet.create({
   content: {
-    paddingBottom: 16,
+    flex: 1,
     backgroundColor: '#efefef'
   },
   comment: {
-    height: 140,
     borderColor: 'gray',
     borderBottomWidth: 1,
-    marginBottom: 16,
     borderBottomColor: '#e5e5e5',
     backgroundColor: '#fff',
     paddingTop: 12,
@@ -121,16 +148,19 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     marginRight: 16,
     marginTop: 28
   },
-  btnWrap: {
-    paddingLeft: 12,
-    paddingRight: 12
+  btn: {
+    borderLeftWidth: 1,
+    borderLeftColor: '#e5e5e5',
+    borderRadius: 0,
   },
-  addBtn: {
-    backgroundColor: '#fff',
-    marginBottom: 12
+  btnText: {
+    color: '#222',
+    fontSize: 14,
+    marginTop: -4
   },
   deleteButtonText: {
     color: '#fff'
