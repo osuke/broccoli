@@ -8,12 +8,17 @@ export default class NewEntryItems extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      refreshing: false
+      refreshing: false,
+      isLoading: true
     }
   }
 
   componentDidMount () {
-    this.props.getArticlesFromApi(this.props.data.url, this.props.index)
+    this.props.getArticlesFromApi(this.props.data.url, this.props.index).then(() => {
+      setTimeout(() => {
+        this.setState({isLoading: false})
+      }, 1000)
+    })
   }
 
   onRefreshHandler () {
@@ -40,12 +45,18 @@ export default class NewEntryItems extends Component {
               onRefresh={this.onRefreshHandler.bind(this)}
             />
           }
-          ListEmptyComponent={() => (
-            <Spinner
-              color="#000"
-              size="small"
-            />
-          )}
+          ListEmptyComponent={() => {
+            if (this.state.isLoading) {
+              return (
+                <Spinner
+                  color="#000"
+                  size="small"
+                />
+              )
+            } else {
+              return null
+            }
+          }}
         />
       </View>
     )
