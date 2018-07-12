@@ -6,7 +6,8 @@ import {
   View,
   ScrollView,
   Dimensions,
-  Keyboard
+  Keyboard,
+  TouchableOpacity,
 } from 'react-native'
 import {
   Container,
@@ -27,29 +28,61 @@ export default class BookmarkForm extends Component {
     super(props)
     this.state = {
       text: this.props.bookmark.comment,
-      inputHeight: 0
+      tagText: '',
+      tags: [],
     }
   }
 
-  setHeightToInput (e) {
-    const keyboardHeight = e.endCoordinates.height
-    const { height } = Dimensions.get('window')
-    const tabsHeight = 108
+  createTag () {
+    if (this.state.tagText.length < 1) return
+
+    let tags = this.state.tags
+    tags.push(this.state.tagText)
+
     this.setState({
-      inputHeight: height - keyboardHeight - tabsHeight
+      tagText: '',
+      tags,
     })
   }
 
+  mergeCommentAndTags () {
+    let comment = this.state.text
+    let tags = ''
+    if (this.state.tags.length > 0) {
+      this.state.tags.map(tag => {
+        tags += `[${tag}]`
+      })
+    }
+    return tags + comment
+  }
+
+  renderTags () {
+    if (this.state.tags.length < 1) return null
+
+    const Tags = this.state.tags.map((tag, index) => (
+      <Button style={styles.tag} key={`${tag}-${index}`}>
+        <Text style={styles.tagText}>{tag}</Text>
+      </Button>
+    ))
+    return (
+      <ScrollView
+        style={styles.tagList}
+        horizontal={true}
+      >
+        {Tags}
+      </ScrollView>
+    )
+  }
+
   componentDidMount () {
-    this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', this.setHeightToInput.bind(this))
     this.setState({
-      text: this.props.bookmark.comment
+      text: this.props.bookmark.comment,
+      tags: this.props.bookmark.tags,
     })
   }
   
   componentWillUnmount () {
     this.props.fetchBookmarkData(this.props.login, this.props.webview.url)
-    this.keyboardWillShowListener.remove()
   }
 
   render () {
@@ -67,7 +100,24 @@ export default class BookmarkForm extends Component {
             </Button>
           </Left>
           <Body></Body>
-          <Right />
+          <Right>
+            {this.props.bookmark.isBookmark &&
+              (
+                <View style={{flex: 1, justifyContent: 'flex-end', flexDirection: 'row'}}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.deleteBookmark(this.props.login, this.props.webview.url)
+                      Actions.pop()
+                    }}
+                    transparent
+                    style={{backgroundColor: '#eee'}}
+                  >
+                    <Text style={{backgroundColor: '#eee'}}>削除</Text>
+                  </TouchableOpacity>
+                </View>
+              )
+            }
+          </Right>
         </Header>
         <ScrollView
           style={styles.content}
@@ -82,7 +132,7 @@ export default class BookmarkForm extends Component {
               multiline={true}
               numberOfLines={6}
               style={styles.comment}
-              onChangeText={(text) => { this.setState({text})}}
+              onChangeText={text => { this.setState({text})}}
               value={this.state.text}
               placeholder="コメントを追加"
               placeholderTextColor="#999999"
@@ -99,19 +149,23 @@ export default class BookmarkForm extends Component {
                   style={styles.tagInputField}
                   placeholder="タグを追加"
                   placeholderTextColor="#999999"
+                  value={this.state.tagText}
+                  onChangeText={tagText => {
+                    this.setState({
+                      tagText
+                    })
+                  }}
+                  onSubmitEditing={this.createTag.bind(this)}
                 />
               </View>
-              <View style={styles.tagList}>
-                <Button style={styles.tag}><Text style={styles.tagText}>あとで読む</Text></Button>
-                <Button style={styles.tag}><Text style={styles.tagText}>デザイン</Text></Button>
-              </View>
+              {this.renderTags()}
             </View>
           </View>
           <View style={styles.submitArea}>
             <View>
               <Button
                 onPress={() => {
-                  this.props.saveBookmark(this.props.login, this.props.webview.url, this.state.text)
+                  this.props.saveBookmark(this.props.login, this.props.webview.url, this.mergeCommentAndTags())
                   Actions.pop()
                 }}
                 transparent
@@ -120,23 +174,6 @@ export default class BookmarkForm extends Component {
                 <Text style={styles.btnText}>保存する</Text>
               </Button>
             </View>
-            {this.props.bookmark.isBookmark &&
-              (
-                <View>
-                  <Button
-                    onPress={() => {
-                      this.props.deleteBookmark(this.props.login, this.props.webview.url)
-                      Actions.pop()
-                    }}
-                    style={styles.btn}
-                    transparent
-                    rounded={false}
-                  >
-                    <Text style={styles.btnText}>削除する</Text>
-                  </Button>
-                </View>
-              )
-            }
           </View>
         </ScrollView>
       </Container>

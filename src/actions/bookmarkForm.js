@@ -23,7 +23,8 @@ export const showBookmarkData = (obj) => (
     type: SHOW_BOOKMARK_DATA,
     payload: {
       comment: obj.comment,
-      isBookmark: obj.isBookmark
+      isBookmark: obj.isBookmark,
+      tags: obj.tags
     }
   }
 )
@@ -71,13 +72,15 @@ export const fetchBookmarkData = (userData, url) => (
     ).then((data) => {
       let obj = {
         comment: '',
-        isBookmark: false
+        isBookmark: false,
+        tags: [],
       }
 
       data.bookmarks.map((val) => {
         if (val.user === userData.userData.urlName) {
-          obj.comment = val.comment,
+          obj.comment = val.comment
           obj.isBookmark = true
+          obj.tags = val.tags
         }
       })
       dispatch(showBookmarkData(obj))

@@ -7,7 +7,8 @@ import {
 const initialState = {
   visible: false,
   isBookmark: false,
-  comment: ''
+  comment: '',
+  tags: [],
 }
 
 export default (state = initialState, action) => {
@@ -28,7 +29,8 @@ export default (state = initialState, action) => {
       return Object.assign({}, state,
         {
           isBookmark: action.payload.isBookmark,
-          comment: action.payload.comment
+          comment: action.payload.comment,
+          tags: action.payload.tags,
         }
       )
     default:
