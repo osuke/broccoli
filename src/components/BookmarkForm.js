@@ -21,6 +21,7 @@ import {
   Input
 } from 'native-base'
 import Icon from './Icon'
+import Tag from './Tag'
 import { Actions } from 'react-native-router-flux'
 
 export default class BookmarkForm extends Component {
@@ -45,6 +46,14 @@ export default class BookmarkForm extends Component {
     })
   }
 
+  deleteTag (index) {
+    let tags = this.state.tags
+    tags.splice(index, 1)
+    this.setState({
+      tags,
+    })
+  }
+
   mergeCommentAndTags () {
     let comment = this.state.text
     let tags = ''
@@ -60,9 +69,12 @@ export default class BookmarkForm extends Component {
     if (this.state.tags.length < 1) return null
 
     const Tags = this.state.tags.map((tag, index) => (
-      <Button style={styles.tag} key={`${tag}-${index}`}>
-        <Text style={styles.tagText}>{tag}</Text>
-      </Button>
+      <Tag
+        tag={tag}
+        deleteTag={this.deleteTag.bind(this)}
+        index={index}
+        key={`${tag}-${index}`}
+      />
     ))
     return (
       <ScrollView
