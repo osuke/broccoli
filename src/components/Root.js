@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Container, Text } from 'native-base'
+import {
+  Container, 
+  Header,
+  Left,
+  Body,
+  Right,
+  Title,
+  Text,
+  Tabs,
+  Tab,
+  ScrollableTab,
+} from 'native-base'
 import NewEntryItems from '../containers/NewEntryItems'
 import FavItems from '../containers/FavItems'
 import MyBookmark from '../containers/MyBookmark'
 import Setting from '../containers/Setting'
-import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view'
-const renderTabBar = props => (<ScrollableTabBar {...props} style={{ borderBottomColor: '#f6b02c' }} />)
 
 export default class Root extends Component {
   render () {
@@ -18,50 +27,102 @@ export default class Root extends Component {
     Object.keys(order).forEach((key, index) => {
       if (key === 'fav') {
         tabs.push(
-          <Container tabLabel={items[key].name} key={('catTab' + index)}>
-            <FavItems data={items[key]} index={key} key={key} />
-          </Container>
+          <Tab
+            heading={items[key].name}
+            key={`catTab-${index}`}
+            textStyle={styles.tabText}
+            activeTextStyle={styles.tabText}
+            tabStyle={styles.tab}
+            activeTabStyle={styles.tab}
+          >
+            <Container key={('catTab' + index)}>
+              <FavItems data={items[key]} index={key} key={key} />
+            </Container>
+          </Tab>
         )
       } else if (key === 'myBookmark') {
         tabs.push(
-          <Container tabLabel={items[key].name} key={('catTab' + index)}>
-            <MyBookmark data={items[key]} index={key} key={key} />
-          </Container>
+          <Tab
+            heading={items[key].name}
+            key={`catTab-${index}`}
+            textStyle={styles.tabText}
+            activeTextStyle={styles.tabText}
+            tabStyle={styles.tab}
+            activeTabStyle={styles.tab}
+          >
+            <Container>
+              <MyBookmark data={items[key]} index={key} key={key} />
+            </Container>
+          </Tab>
         )
       } else {
         tabs.push(
-          <Container tabLabel={items[key].name} key={('catTab' + index)}>
-            <NewEntryItems data={items[key]} index={key} key={key} />
-          </Container>
+          <Tab
+            heading={items[key].name}
+            key={`catTab-${index}`}
+            textStyle={styles.tabText}
+            activeTextStyle={styles.tabText}
+            tabStyle={styles.tab}
+            activeTabStyle={styles.tab}
+          >
+            <Container>
+              <NewEntryItems data={items[key]} index={key} key={key} />
+            </Container>
+          </Tab>
         )
       }
     })
 
     return (
-      <ScrollableTabView
-        style={styles.tabs}
-        tabBarUnderlineStyle={styles.tab}
-        tabBarActiveTextColor="#f6b02c"
-        tabBarInactiveTextColor="#b9b9b9"
-        renderTabBar={renderTabBar}
-      >
-        {tabs}
-        <Container tabLabel="設定">
-          <Setting />
-        </Container>
-      </ScrollableTabView>
+      <Container>
+        <Header style={styles.header}>
+          <Left></Left>
+          <Body>
+            <Title>ホーム</Title>
+          </Body>
+          <Right></Right>
+        </Header>
+        <Tabs
+          renderTabBar={()=> <ScrollableTab />}
+          tabBarUnderlineStyle={styles.underline}
+        >
+          {tabs}
+          <Tab
+            heading="設定"
+            textStyle={styles.tabText}
+            activeTextStyle={styles.tabText}
+            tabStyle={styles.tab}
+            activeTabStyle={styles.tab}
+          >
+            <Container>
+              <Setting />
+            </Container>
+          </Tab>
+        </Tabs>
+      </Container>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  header: {
+    backgroundColor: '#fff',
+    borderBottomColor: '#d1d1d1',
+  },
   tabs: {
     marginTop: 20,
-    backgroundColor: '#fff',
+    borderBottomWidth: 0,
   },
   tab: {
-    height: 2,
-    backgroundColor: '#f6b02c',
+    backgroundColor: '#fff',
+    borderBottomColor: '#fff',
+  },
+  underline: {
+    backgroundColor: '#3dc264',
+    height: 3,
+  },
+  tabText: {
+    color: '#3dc264',
   }
 })
 
