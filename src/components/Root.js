@@ -83,7 +83,7 @@ export default class Root extends Component {
           <Right></Right>
         </Header>
         <Tabs
-          renderTabBar={()=> <ScrollableTab />}
+          renderTabBar={()=> <ScrollableTab style={styles.tabs} />}
           tabBarUnderlineStyle={styles.underline}
         >
           {tabs}
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#d1d1d1',
   },
   tabs: {
-    marginTop: 20,
+    height: 40,
     borderBottomWidth: 0,
   },
   tab: {
@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
   },
   tabText: {
     color: '#3dc264',
-  }
+    fontSize: 14,
+  },
 })
 
 Root.propTypes = {

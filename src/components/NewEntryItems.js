@@ -34,11 +34,12 @@ export default class NewEntryItems extends Component {
 
   render () {
     return (
-      <View style={{flex: 1}}>
+      <View style={styles.wrap}>
         <FlatList
           data={this.props.data.items}
           renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
           keyExtractor={(item, index) => ('article' + index)}
+          style={styles.list}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
@@ -62,6 +63,16 @@ export default class NewEntryItems extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  wrap: {
+    flex: 1,
+  },
+  list: {
+    paddingTop: 8,
+    backgroundColor: '#f2f2f2',
+  },
+})
 
 NewEntryItems.propTypes = {
   getArticlesFromApi: PropTypes.func.isRequired,

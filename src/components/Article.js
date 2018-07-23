@@ -14,7 +14,7 @@ export default class Article extends Component {
         }}
         style={styles.listItem}
       >
-        <Body>
+        <Body style={styles.body}>
           <Text style={styles.title}>{this.props.title}</Text>
           <Text note>{this.props.bookmarkcount} users</Text>
         </Body>
@@ -25,12 +25,25 @@ export default class Article extends Component {
 
 const styles = StyleSheet.create({
   listItem: {
-    backgroundColor: 'transparent'
+    backgroundColor: '#fff',
+    marginLeft: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingRight: 0,
+    borderBottomWidth: 0,
   },
   title: {
     marginBottom: 8,
     lineHeight: 22
-  }
+  },
+  body: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    paddingTop: 9,
+    marginRight: 12,
+    paddingBottom: 12,
+    marginLeft: 16,
+  },
 })
 
 Article.propTypes = {
