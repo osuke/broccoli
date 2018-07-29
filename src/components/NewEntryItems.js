@@ -39,7 +39,6 @@ export default class NewEntryItems extends Component {
           data={this.props.data.items}
           renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
           keyExtractor={(item, index) => ('article' + index)}
-          style={styles.list}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
@@ -67,10 +66,6 @@ export default class NewEntryItems extends Component {
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
-  },
-  list: {
-    paddingTop: 8,
-    backgroundColor: '#f2f2f2',
   },
 })
 
