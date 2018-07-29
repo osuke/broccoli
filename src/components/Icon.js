@@ -27,6 +27,13 @@ export default ({ name }) => {
           style={styles.footerIcon}
         />
       )
+    case 'ios-settings':
+      return (
+        <Ionicons
+          name={name}
+          style={styles.settingIcon}
+        />
+      )
     case 'ios-close':
       return (
         <Ionicons
@@ -43,5 +50,9 @@ const styles = StyleSheet.create({
   },
   closeIcon: {
     fontSize: 40
-  }
+  },
+  settingIcon: {
+    color: '#858585',
+    fontSize: 24
+  },
 })

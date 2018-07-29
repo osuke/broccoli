@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import {
   Header,
+  Button,
   Container,
   Content,
   List,
@@ -11,7 +12,7 @@ import {
   Icon,
   Body,
   Right,
-  Left
+  Left,
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 
@@ -19,6 +20,20 @@ export default class Login extends React.Component {
   render () {
     return (
       <Container>
+        <Header>
+          <Left>
+            <Button
+              transparent
+              onPress={() => {
+                Actions.pop()
+              }}
+            >
+              <Icon name="ios-close" />
+            </Button>
+          </Left>
+          <Body></Body>
+          <Right></Right>
+        </Header>
         <Content>
           <List>
             <ListItem

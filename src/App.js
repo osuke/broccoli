@@ -7,6 +7,7 @@ import OAuth from './containers/OAuth'
 import OrderCategories from './containers/OrderCategories'
 import BookmarkForm from './containers/BookmarkForm'
 import CommentList from './containers/CommentList'
+import Setting from './containers/Setting'
 
 const App = () => (
   <Router getSceneStyle={getSceneStyle}>
@@ -19,6 +20,7 @@ const App = () => (
       <Scene key="login" component={OAuth} hideNavBar />
       <Scene key="bookmarkForm" component={BookmarkForm} hideNavBar />
       <Scene key="comment" component={CommentList} hideNavBar />
+      <Scene key="setting" component={Setting} hideNavBar />
     </Scene>
   </Router>
 )

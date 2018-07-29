@@ -12,11 +12,13 @@ import {
   Tabs,
   Tab,
   ScrollableTab,
+  Button,
 } from 'native-base'
+import { Actions } from 'react-native-router-flux'
 import NewEntryItems from '../containers/NewEntryItems'
 import FavItems from '../containers/FavItems'
 import MyBookmark from '../containers/MyBookmark'
-import Setting from '../containers/Setting'
+import Icon from './Icon'
 
 export default class Root extends Component {
   render () {
@@ -78,26 +80,27 @@ export default class Root extends Component {
         <Header style={styles.header}>
           <Left></Left>
           <Body>
-            <Title>ホーム</Title>
+            <Title style={styles.title}>ホーム</Title>
           </Body>
-          <Right></Right>
+          <Right>
+            <Button
+              transparent
+              onPress={() => {
+                Actions.setting()
+              }}
+            >
+              <Icon
+                name="ios-settings"
+                style={styles.settingIcon}
+              />
+            </Button>
+          </Right>
         </Header>
         <Tabs
           renderTabBar={()=> <ScrollableTab style={styles.tabs} />}
           tabBarUnderlineStyle={styles.underline}
         >
           {tabs}
-          <Tab
-            heading="設定"
-            textStyle={styles.tabText}
-            activeTextStyle={styles.tabText}
-            tabStyle={styles.tab}
-            activeTabStyle={styles.tab}
-          >
-            <Container>
-              <Setting />
-            </Container>
-          </Tab>
         </Tabs>
       </Container>
     )
@@ -108,6 +111,9 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#fff',
     borderBottomColor: '#d1d1d1',
+  },
+  title: {
+    color: '#6b6b6b'
   },
   tabs: {
     height: 40,
@@ -124,6 +130,9 @@ const styles = StyleSheet.create({
   tabText: {
     color: '#3dc264',
     fontSize: 14,
+  },
+  settingIcon: {
+    color: '#858585'
   },
 })
 
