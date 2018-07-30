@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { WebView } from 'react-native'
 import {
   Container,
-  Header,
   Left,
   Body,
   Right,
@@ -11,6 +10,8 @@ import {
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import Icon from './Icon'
+import StyledHeader from './StyledHeader'
+import StyledTitle from './StyledTitle'
 
 export default class OAuth extends Component {
   componentDidMount () {
@@ -27,7 +28,7 @@ export default class OAuth extends Component {
     if (this.props.url) {
       return (
         <Container>
-          <Header>
+          <StyledHeader>
             <Left>
               <Button
                 transparent
@@ -40,10 +41,12 @@ export default class OAuth extends Component {
               />
               </Button>
             </Left>
-            <Body></Body>
+            <Body>
+              <StyledTitle>ログイン</StyledTitle>
+            </Body>
             <Right>
             </Right>
-          </Header>
+          </StyledHeader>
           <WebView
             source={{ uri: this.props.url }}
             onNavigationStateChange={(e) => { this.props.getAccessToken(e) }}

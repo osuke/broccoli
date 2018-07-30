@@ -18,7 +18,6 @@ export default ({ name }) => {
     case 'ios-create-outline':
     case 'ios-share-outline':
     case 'ios-text-outline':
-    case 'ios-arrow-back':
     case 'ios-compass-outline':
     case 'ios-menu-outline':
       return (
@@ -34,6 +33,20 @@ export default ({ name }) => {
           style={styles.settingIcon}
         />
       )
+    case 'ios-arrow-forward':
+      return (
+        <Ionicons
+          name={name}
+          style={styles.arrowForward}
+        />
+      )
+    case 'ios-arrow-back':
+      return (
+        <Ionicons
+          name={name}
+          style={styles.arrowBack}
+        />
+      )
     case 'ios-close':
       return (
         <Ionicons
@@ -46,13 +59,22 @@ export default ({ name }) => {
 
 const styles = StyleSheet.create({
   footerIcon: {
-    fontSize: 30
+    fontSize: 30,
   },
   closeIcon: {
-    fontSize: 40
+    color: '#858585',
+    fontSize: 40,
   },
   settingIcon: {
     color: '#858585',
-    fontSize: 24
+    fontSize: 24,
+  },
+  arrowForward: {
+    color: '#d6d6d6',
+    fontSize: 20,
+  },
+  arrowBack: {
+    color: '#858585',
+    fontSize: 28,
   },
 })

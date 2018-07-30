@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import {
   Container,
-  Header,
   Left,
   Body,
   Right,
@@ -13,6 +12,8 @@ import { Actions } from 'react-native-router-flux'
 import Icon from './Icon'
 import SortableListView from 'react-native-sortable-listview'
 import OrderCategoryItem from './OrderCategoryItem'
+import StyledHeader from './StyledHeader'
+import StyledTitle from './StyledTitle'
 
 export default class OrderCategories extends Component {
   render () {
@@ -20,7 +21,7 @@ export default class OrderCategories extends Component {
 
     return (
       <Container>
-        <Header>
+        <StyledHeader>
           <Left>
             <Button
               transparent
@@ -31,9 +32,11 @@ export default class OrderCategories extends Component {
               <Icon name="ios-arrow-back" />
             </Button>
           </Left>
-          <Body></Body>
+          <Body>
+            <StyledTitle>並び替え</StyledTitle>
+          </Body>
           <Right />
-        </Header>
+        </StyledHeader>
         <SortableListView
           style={styles.list}
           data={this.props.items}

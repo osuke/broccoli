@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 import {
   Container,
-  Header,
   Left,
   Body,
   Right,
@@ -19,6 +18,7 @@ import {
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import Icon from './Icon'
+import StyledHeader from './StyledHeader'
 
 export default class ArticleDetail extends Component {
   componentDidMount () {
@@ -40,7 +40,7 @@ export default class ArticleDetail extends Component {
         ) : (
           null
         )} 
-        <Header>
+        <StyledHeader>
           <Left>
             <Button
               transparent
@@ -53,7 +53,7 @@ export default class ArticleDetail extends Component {
           </Left>
           <Body></Body>
           <Right></Right>
-        </Header>
+        </StyledHeader>
         <WebView
           source={{uri: this.props.webview.url}}
           onLoadStart={this.props.showSpinner}

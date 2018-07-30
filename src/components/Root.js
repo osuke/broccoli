@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import {
   Container, 
-  Header,
   Left,
   Body,
   Right,
-  Title,
   Text,
   Tabs,
   Tab,
@@ -19,6 +17,8 @@ import NewEntryItems from '../containers/NewEntryItems'
 import FavItems from '../containers/FavItems'
 import MyBookmark from '../containers/MyBookmark'
 import Icon from './Icon'
+import StyledHeader from './StyledHeader'
+import StyledTitle from './StyledTitle'
 
 export default class Root extends Component {
   render () {
@@ -77,10 +77,10 @@ export default class Root extends Component {
 
     return (
       <Container>
-        <Header style={styles.header}>
-          <Left></Left>
+        <StyledHeader style={styles.header}>
+          <Left />
           <Body>
-            <Title style={styles.title}>ホーム</Title>
+            <StyledTitle style={styles.title}>ホーム</StyledTitle>
           </Body>
           <Right>
             <Button
@@ -95,7 +95,7 @@ export default class Root extends Component {
               />
             </Button>
           </Right>
-        </Header>
+        </StyledHeader>
         <Tabs
           renderTabBar={()=> <ScrollableTab style={styles.tabs} />}
           tabBarUnderlineStyle={styles.underline}

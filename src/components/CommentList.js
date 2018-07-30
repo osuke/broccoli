@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import { StyleSheet, FlatList } from 'react-native'
 import {
   Container,
-  Header,
   Left,
   Body,
   Right,
   Button,
 } from 'native-base'
 import Comment from './Comment'
+import StyledHeader from './StyledHeader'
+import StyledTitle from './StyledTitle'
 import Icon from './Icon'
 import { Actions } from 'react-native-router-flux'
 
@@ -17,7 +18,7 @@ export default class CommentList extends Component {
   render () {
     return (
       <Container>
-        <Header>
+        <StyledHeader>
           <Left>
             <Button
               transparent
@@ -30,9 +31,11 @@ export default class CommentList extends Component {
               />
             </Button>
           </Left>
-          <Body></Body>
+          <Body>
+            <StyledTitle>コメント</StyledTitle>
+          </Body>
           <Right />
-        </Header>
+        </StyledHeader>
         <FlatList
           data={this.props.items}
           renderItem={({item}) => (<Comment {...item} />)}

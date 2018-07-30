@@ -12,7 +12,6 @@ import {
 import {
   Container,
   Content,
-  Header,
   Left,
   Body,
   Right,
@@ -22,6 +21,8 @@ import {
 } from 'native-base'
 import Icon from './Icon'
 import Tag from './Tag'
+import StyledHeader from './StyledHeader'
+import StyledTitle from './StyledTitle'
 import { Actions } from 'react-native-router-flux'
 
 export default class BookmarkForm extends Component {
@@ -100,7 +101,7 @@ export default class BookmarkForm extends Component {
   render () {
     return (
       <Container>
-        <Header>
+        <StyledHeader>
           <Left>
             <Button
               transparent
@@ -111,7 +112,9 @@ export default class BookmarkForm extends Component {
               <Icon name="ios-close" />
             </Button>
           </Left>
-          <Body></Body>
+          <Body>
+            <StyledTitle>ブックマーク</StyledTitle>
+          </Body>
           <Right>
             {this.props.bookmark.isBookmark &&
               (
@@ -130,7 +133,7 @@ export default class BookmarkForm extends Component {
               )
             }
           </Right>
-        </Header>
+        </StyledHeader>
         <ScrollView
           style={styles.content}
         >

@@ -2,25 +2,26 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import {
-  Header,
   Button,
   Container,
   Content,
   List,
   ListItem,
   Text,
-  Icon,
   Body,
   Right,
   Left,
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
+import StyledHeader from './StyledHeader'
+import StyledTitle from './StyledTitle'
+import Icon from './Icon'
 
 export default class Login extends React.Component {
   render () {
     return (
       <Container>
-        <Header>
+        <StyledHeader>
           <Left>
             <Button
               transparent
@@ -28,12 +29,16 @@ export default class Login extends React.Component {
                 Actions.pop()
               }}
             >
-              <Icon name="ios-close" />
+              <Icon
+                name="ios-close"
+              />
             </Button>
           </Left>
-          <Body></Body>
-          <Right></Right>
-        </Header>
+          <Body>
+            <StyledTitle>設定</StyledTitle>
+          </Body>
+          <Right />
+        </StyledHeader>
         <Content>
           <List>
             <ListItem
@@ -46,7 +51,7 @@ export default class Login extends React.Component {
                 <Text>タブを並び替える</Text>
               </Body>
               <Right>
-                <Icon name="arrow-forward" />
+                <Icon name="ios-arrow-forward" />
               </Right>
             </ListItem>
             {this.props.isLogin ? (
