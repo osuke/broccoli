@@ -15,12 +15,14 @@ const App = () => (
       <Scene hideNavBar>
         <Scene key="root" component={Root} hideNavBar initial />
         <Scene key="externalPage" component={ArticleDetail} />
+      </Scene>
+      <Scene key="setting" hideNavBar>
+        <Scene key="settingList" component={Setting} hideNavBar />
         <Scene key="order" component={OrderCategories} />
       </Scene>
       <Scene key="login" component={OAuth} hideNavBar />
       <Scene key="bookmarkForm" component={BookmarkForm} hideNavBar />
       <Scene key="comment" component={CommentList} hideNavBar />
-      <Scene key="setting" component={Setting} hideNavBar />
     </Scene>
   </Router>
 )
