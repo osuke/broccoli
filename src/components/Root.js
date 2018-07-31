@@ -77,10 +77,10 @@ export default class Root extends Component {
 
     return (
       <Container>
-        <StyledHeader style={styles.header}>
+        <StyledHeader>
           <Left />
           <Body>
-            <StyledTitle style={styles.title}>ホーム</StyledTitle>
+            <StyledTitle>ホーム</StyledTitle>
           </Body>
           <Right>
             <Button
@@ -108,16 +108,10 @@ export default class Root extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: '#fff',
-    borderBottomColor: '#d1d1d1',
-  },
-  title: {
-    color: '#6b6b6b'
-  },
   tabs: {
     height: 40,
     borderBottomColor: '#d1d1d1',
+    borderBottomWidth: 1,
   },
   tab: {
     backgroundColor: '#fff',

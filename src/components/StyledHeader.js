@@ -12,6 +12,8 @@ const StyledHeader = ({ children }) => (
 const styles = StyleSheet.create({
   header: {
     backgroundColor: '#fff',
+    borderBottomColor: '#d1d1d1',
+    borderBottomWidth: 1,
   },
 })
 
