@@ -101,11 +101,11 @@ const styles = StyleSheet.create({
   list: {
     borderTopWidth: BORDER_WIDTH_PRIMARY,
     borderTopColor: BORDER_COLOR_PRIMARY,
+    marginBottom: 16,
   },
   listItem: {
     backgroundColor: '#fff',
     marginLeft: 0,
-    marginBottom: 16,
   },
   listItemOrderBody: {
     paddingLeft: 16,
