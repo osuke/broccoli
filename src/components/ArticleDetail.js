@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
   WebView,
-  Share,
-  Linking,
   StyleSheet
 } from 'react-native'
 import {
@@ -12,13 +10,12 @@ import {
   Body,
   Right,
   Button,
-  Footer,
-  FooterTab,
   Spinner
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import Icon from './Icon'
 import StyledHeader from './StyledHeader'
+import TabBar from './TabBar'
 
 export default class ArticleDetail extends Component {
   componentDidMount () {
@@ -51,55 +48,19 @@ export default class ArticleDetail extends Component {
               <Icon name="ios-arrow-back" />
             </Button>
           </Left>
-          <Body></Body>
-          <Right></Right>
+          <Body />
+          <Right />
         </StyledHeader>
         <WebView
           source={{uri: this.props.webview.url}}
           onLoadStart={this.props.showSpinner}
           onLoadEnd={this.props.hideSpinner}
         />
-        <Footer>
-          <FooterTab>
-            <Button
-              onPress={() => {
-                Share.share({
-                  title: 'Share with',
-                  message: this.props.webview.title,
-                  url: this.props.webview.url
-                })
-              }}
-            >
-              <Icon name="ios-share-outline" />
-            </Button>
-            <Button
-              onPress={() => {
-                if (isLogin) {
-                  Actions.bookmarkForm()
-                } else {
-                  Actions.login()
-                }
-              }}
-            >
-              <Icon name="ios-create-outline" />
-            </Button>
-            <Button
-              onPress={() => {
-                this.props.getCommentsFromApi(this.props.webview.url)
-                Actions.comment()
-              }}
-            >
-              <Icon name="ios-text-outline" />
-            </Button>
-            <Button
-              onPress={() => {
-                Linking.openURL(this.props.webview.url) 
-              }}
-            >
-              <Icon name="ios-compass-outline" />
-            </Button>
-          </FooterTab>
-        </Footer>
+        <TabBar
+          {...this.props.webview}
+          isLogin={isLogin}
+          getCommentsFromApi={this.props.getCommentsFromApi}
+        />
       </Container>
     )
   }

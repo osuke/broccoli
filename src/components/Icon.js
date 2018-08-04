@@ -60,6 +60,7 @@ export default ({ name }) => {
 const styles = StyleSheet.create({
   footerIcon: {
     fontSize: 30,
+    color: '#6b6b6b',
   },
   closeIcon: {
     color: '#858585',
