@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   arrowForward: {
     color: '#d6d6d6',
-    fontSize: 20,
+    fontSize: 24,
   },
   arrowBack: {
     color: '#858585',
