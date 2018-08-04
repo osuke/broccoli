@@ -11,7 +11,7 @@ import {
 export default class Comment extends Component {
   render () {
     if (this.props.comment.length > 0) {
-      const userImage = 'https://cdn1.www.st-hatena.com/users/sl/' + this.props.user + '/profile.gif'
+      const userImage = `https://cdn1.www.st-hatena.com/users/sl/${this.props.user}/profile.gif`
       return (
         <ListItem>
           <Thumbnail

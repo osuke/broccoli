@@ -3,6 +3,10 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Text, ListItem, Body, Right } from 'native-base'
 import { Actions } from 'react-native-router-flux'
+import {
+  BORDER_WIDTH_PRIMARY,
+  BORDER_COLOR_PRIMARY,
+} from '../constants/styles.js'
 
 export default class Article extends Component {
   render () {
@@ -37,8 +41,8 @@ const styles = StyleSheet.create({
     lineHeight: 22
   },
   body: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomWidth: BORDER_WIDTH_PRIMARY,
+    borderBottomColor: BORDER_COLOR_PRIMARY,
     paddingTop: 9,
     paddingRight: 12,
     paddingBottom: 12,

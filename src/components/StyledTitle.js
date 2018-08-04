@@ -4,6 +4,9 @@ import { StyleSheet } from 'react-native'
 import {
   Title,
 } from 'native-base'
+import {
+  TITLE_COLOR_PRIMARY,
+} from '../constants/styles.js'
 
 const StyledTitle = ({ children }) => (
     <Title style={styles.title}>{children}</Title>
@@ -11,7 +14,7 @@ const StyledTitle = ({ children }) => (
 
 const styles = StyleSheet.create({
   title: {
-    color: '#6b6b6b',
+    color: TITLE_COLOR_PRIMARY,
     fontSize: 16,
   },
 })

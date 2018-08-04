@@ -11,7 +11,7 @@ import { Actions } from 'react-native-router-flux'
 
 export default class FavArticle extends React.Component {
   render () {
-    const userImage = 'https://cdn1.www.st-hatena.com/users/sl/' + this.props.creator + '/profile.gif'
+    const userImage = `https://cdn1.www.st-hatena.com/users/sl/${this.props.creator}/profile.gif`
 
     return (
       <ListItem

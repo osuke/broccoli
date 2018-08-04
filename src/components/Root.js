@@ -13,6 +13,11 @@ import {
   Button,
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
+import {
+  BORDER_WIDTH_PRIMARY,
+  BORDER_COLOR_SECONDARY,
+  TAB_COLOR_PRIMARY,
+} from '../constants/styles.js'
 import NewEntryItems from '../containers/NewEntryItems'
 import FavItems from '../containers/FavItems'
 import MyBookmark from '../containers/MyBookmark'
@@ -110,19 +115,19 @@ export default class Root extends Component {
 const styles = StyleSheet.create({
   tabs: {
     height: 40,
-    borderBottomColor: '#d1d1d1',
-    borderBottomWidth: 1,
+    borderBottomColor: BORDER_COLOR_SECONDARY,
+    borderBottomWidth: BORDER_WIDTH_PRIMARY,
   },
   tab: {
     backgroundColor: '#fff',
     borderBottomColor: '#fff',
   },
   underline: {
-    backgroundColor: '#3dc264',
+    backgroundColor: TAB_COLOR_PRIMARY,
     height: 3,
   },
   tabText: {
-    color: '#3dc264',
+    color: TAB_COLOR_PRIMARY,
     fontSize: 14,
   },
   settingIcon: {

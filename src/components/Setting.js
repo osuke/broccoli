@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
   StyleSheet,
-  PixelRatio,
 } from 'react-native'
 import {
   Button,
@@ -16,6 +15,12 @@ import {
   Left,
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
+import {
+  TEXT_COLOR_PRIMARY,
+  BORDER_WIDTH_PRIMARY,
+  BORDER_COLOR_PRIMARY,
+  BACKGROUND_COLOR_GRAY,
+} from '../constants/styles.js'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
 import Icon from './Icon'
@@ -90,12 +95,12 @@ const styles = StyleSheet.create({
     padding: 16
   },
   content: {
-    backgroundColor: '#efefef',
+    backgroundColor: BACKGROUND_COLOR_GRAY,
     paddingTop: 20,
   },
   list: {
-    borderTopWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
-    borderTopColor: '#c9c9c9',
+    borderTopWidth: BORDER_WIDTH_PRIMARY,
+    borderTopColor: BORDER_COLOR_PRIMARY,
   },
   listItem: {
     backgroundColor: '#fff',
@@ -106,10 +111,10 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
   },
   text: {
-    color: '#333',
+    color: TEXT_COLOR_PRIMARY,
   },
   logoutText: {
-    color: '#333',
+    color: TEXT_COLOR_PRIMARY,
     textAlign: 'center',
   },
 })

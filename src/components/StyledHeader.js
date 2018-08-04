@@ -4,6 +4,10 @@ import { StyleSheet } from 'react-native'
 import {
   Header,
 } from 'native-base'
+import {
+  BORDER_WIDTH_PRIMARY,
+  BORDER_COLOR_SECONDARY,
+} from '../constants/styles.js'
 
 const StyledHeader = ({ children }) => (
     <Header style={styles.header}>{children}</Header>
@@ -12,8 +16,8 @@ const StyledHeader = ({ children }) => (
 const styles = StyleSheet.create({
   header: {
     backgroundColor: '#fff',
-    borderBottomColor: '#d1d1d1',
-    borderBottomWidth: 1,
+    borderBottomColor: BORDER_COLOR_SECONDARY,
+    borderBottomWidth: BORDER_WIDTH_PRIMARY,
   },
 })
 

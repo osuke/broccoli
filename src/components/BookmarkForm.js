@@ -19,6 +19,14 @@ import {
   Text,
   Input
 } from 'native-base'
+import {
+  TEXT_COLOR_PRIMARY,
+  BORDER_WIDTH_PRIMARY,
+  BORDER_COLOR_PRIMARY,
+  BACKGROUND_COLOR_GRAY,
+  PLACEHOLDER_COLOR,
+  TITLE_COLOR_PRIMARY,
+} from '../constants/styles.js'
 import Icon from './Icon'
 import Tag from './Tag'
 import StyledHeader from './StyledHeader'
@@ -118,16 +126,15 @@ export default class BookmarkForm extends Component {
           <Right>
             {this.props.bookmark.isBookmark &&
               (
-                <View style={{flex: 1, justifyContent: 'flex-end', flexDirection: 'row'}}>
+                <View style={styles.deleteBtn}>
                   <TouchableOpacity
                     onPress={() => {
                       this.props.deleteBookmark(this.props.login, this.props.webview.url)
                       Actions.pop()
                     }}
                     transparent
-                    style={{backgroundColor: '#eee'}}
                   >
-                    <Text style={{backgroundColor: '#eee'}}>削除</Text>
+                    <Text>削除</Text>
                   </TouchableOpacity>
                 </View>
               )
@@ -150,7 +157,7 @@ export default class BookmarkForm extends Component {
               onChangeText={text => { this.setState({text})}}
               value={this.state.text}
               placeholder="コメントを追加"
-              placeholderTextColor="#999999"
+              placeholderTextColor={PLACEHOLDER_COLOR}
             />
           </View>
 
@@ -163,7 +170,7 @@ export default class BookmarkForm extends Component {
                 <Input
                   style={styles.tagInputField}
                   placeholder="タグを追加"
-                  placeholderTextColor="#999999"
+                  placeholderTextColor={PLACEHOLDER_COLOR}
                   value={this.state.tagText}
                   onChangeText={tagText => {
                     this.setState({
@@ -199,7 +206,7 @@ export default class BookmarkForm extends Component {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    backgroundColor: '#efefef',
+    backgroundColor: BACKGROUND_COLOR_GRAY,
     paddingTop: 20,
   },
   sec: {
@@ -211,13 +218,14 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 14,
-    color: '#6B6B6B',
+    color: TITLE_COLOR_PRIMARY,
     fontWeight: 'bold',
   },
   comment: {
-    borderColor: 'gray',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e5e5e5',
+    borderTopWidth: BORDER_WIDTH_PRIMARY,
+    borderTopColor: BORDER_COLOR_PRIMARY,
+    borderBottomWidth: BORDER_WIDTH_PRIMARY,
+    borderBottomColor: BORDER_COLOR_PRIMARY,
     backgroundColor: '#fff',
     paddingTop: 12,
     paddingRight: 12,
@@ -225,23 +233,6 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     fontSize: 16,
     height: 160,
-  },
-  header: {
-    height: 65,
-    backgroundColor: '#fafafa',
-    borderBottomColor: '#e5e5e5',
-    borderBottomWidth: 1
-  },
-  headerIcon: {
-    fontSize: 28
-  },
-  closeBtn: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginRight: 16,
-    marginTop: 28
   },
   btn: {
     borderRadius: 23,
@@ -257,12 +248,13 @@ const styles = StyleSheet.create({
     marginTop: -4,
     lineHeight: 46,
   },
-  deleteButtonText: {
-    color: '#fff'
-  },
   tagSec: {
     backgroundColor: '#fff',
     paddingLeft: 12,
+    borderTopWidth: BORDER_WIDTH_PRIMARY,
+    borderTopColor: BORDER_COLOR_PRIMARY,
+    borderBottomWidth: BORDER_WIDTH_PRIMARY,
+    borderBottomColor: BORDER_COLOR_PRIMARY,
   },
   tagInputField: {
     paddingLeft: 0,
@@ -272,8 +264,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   tagList: {
-    borderTopWidth: 1,
-    borderTopColor: '#d1d1d1',
+    borderTopWidth: BORDER_WIDTH_PRIMARY,
+    borderTopColor: BORDER_COLOR_PRIMARY,
     paddingTop: 12,
     paddingBottom: 12,
     flex: 1,
@@ -287,7 +279,7 @@ const styles = StyleSheet.create({
   },
   tagText: {
     lineHeight: 16,
-    color: '#6b6b6b',
+    color: TEXT_COLOR_PRIMARY,
     fontSize: 16,
   },
   submitArea: {
@@ -295,7 +287,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingTop: 16,
-  }
+  },
+  deleteBtn: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    flexDirection: 'row'
+  },
 })
 
 BookmarkForm.propTypes = {
