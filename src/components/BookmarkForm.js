@@ -2,16 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
   StyleSheet,
-  TextInput,
   View,
   ScrollView,
   Dimensions,
-  Keyboard,
   TouchableOpacity,
 } from 'react-native'
 import {
   Container,
-  Content,
   Left,
   Body,
   Right,
@@ -29,6 +26,7 @@ import {
 } from '../constants/styles.js'
 import Icon from './Icon'
 import Tag from './Tag'
+import Btn from './Btn'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
 import { Actions } from 'react-native-router-flux'
@@ -95,6 +93,11 @@ export default class BookmarkForm extends Component {
     )
   }
 
+  pressSaveButton () {
+    this.props.saveBookmark(this.props.login, this.props.webview.url, this.mergeCommentAndTags())
+    Actions.pop()
+  }
+
   componentDidMount () {
     this.setState({
       text: this.props.bookmark.comment,
@@ -143,6 +146,7 @@ export default class BookmarkForm extends Component {
         </StyledHeader>
         <ScrollView
           style={styles.content}
+          keyboardShouldPersistTaps="handled"
         >
           <View style={styles.sec}>
             <View style={styles.title}>
@@ -185,16 +189,9 @@ export default class BookmarkForm extends Component {
           </View>
           <View style={styles.submitArea}>
             <View>
-              <Button
-                onPress={() => {
-                  this.props.saveBookmark(this.props.login, this.props.webview.url, this.mergeCommentAndTags())
-                  Actions.pop()
-                }}
-                transparent
-                style={styles.btn}
-              >
-                <Text style={styles.btnText}>保存する</Text>
-              </Button>
+              <Btn
+                onPress={this.pressSaveButton.bind(this)}
+              >保存する</Btn>
             </View>
           </View>
         </ScrollView>
@@ -287,6 +284,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingTop: 16,
+    paddingBottom: 32,
   },
   deleteBtn: {
     flex: 1,

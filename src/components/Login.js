@@ -1,33 +1,47 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
-import { Container, Text, Button } from 'native-base'
+import {
+  View,
+  Text,
+} from 'native-base'
 import { Actions } from 'react-native-router-flux'
+import { TEXT_COLOR_PRIMARY } from '../constants/styles'
+import Btn from './Btn'
 
 export default class Login extends Component {
   render () {
     return (
-      <Container style={styles.container}>
-        <Button
-          style={styles.btn}
-          onPress={() => {
-            Actions.login()
-          }}
-          block>
-          <Text style={styles.btnText}>ログインする</Text>
-        </Button>
-      </Container>
+      <View style={styles.container}>
+        <Text style={styles.text}>この機能を使用するためにはログインが必要です</Text>
+        <View style={styles.submit}>
+          <Btn
+            onPress={() => {
+              Actions.login()
+            }}
+          >
+            ログインする
+          </Btn>
+        </View>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16
+    paddingTop: 24,
+    backgroundColor: '#f2f2f2',
+    flex: 1,
   },
-  btn: {
-    backgroundColor: '#f6b02c'
+  text: {
+    fontSize: 14,
+    color: TEXT_COLOR_PRIMARY,
+    textAlign: 'center',
   },
-  btnText: {
-    color: '#fff'
-  }
+  submit: {
+    paddingTop: 28,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
 })
