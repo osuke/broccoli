@@ -77,7 +77,6 @@ export default class Login extends React.Component {
                 <Body>
                   <Text style={styles.logoutText}>ログアウト</Text>
                 </Body>
-                <Right />
               </ListItem>
             </List>
             ) : (
