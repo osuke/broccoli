@@ -5,7 +5,8 @@ import {
   ListItem,
   Thumbnail,
   Body,
-  Text
+  Left,
+  Text,
 } from 'native-base'
 
 export default class Comment extends Component {
@@ -13,12 +14,22 @@ export default class Comment extends Component {
     if (this.props.comment.length > 0) {
       const userImage = `https://cdn1.www.st-hatena.com/users/sl/${this.props.user}/profile.gif`
       return (
-        <ListItem>
-          <Thumbnail
-            small
-            source={{uri: userImage}}
-            style={styles.thumbnail}
-          />
+        <ListItem
+          avatar
+          style={{
+            marginLeft: 0,
+          }}
+        >
+          <Left
+            style={{
+              paddingLeft: 16,
+            }}
+          >
+            <Thumbnail
+              small
+              source={{uri: userImage}}
+            />
+          </Left>
           <Body>
             <Text style={styles.user}>{this.props.user}</Text>
             <Text style={styles.comment}>{this.props.comment}</Text>

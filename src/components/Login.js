@@ -5,7 +5,10 @@ import {
   Text,
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
-import { TEXT_COLOR_PRIMARY } from '../constants/styles'
+import {
+  TEXT_COLOR_PRIMARY,
+  BACKGROUND_COLOR_GRAY,
+} from '../constants/styles'
 import Btn from './Btn'
 
 export default class Login extends Component {
@@ -30,7 +33,7 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 24,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: BACKGROUND_COLOR_GRAY,
     flex: 1,
   },
   text: {
