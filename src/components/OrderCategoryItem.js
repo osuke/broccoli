@@ -7,6 +7,7 @@ import {
   Body,
   Right
 } from 'native-base'
+import { TITLE_COLOR_PRIMARY } from '../constants/styles'
 import Icon from './Icon'
 
 export default class OrderCategoryItem extends Component {
@@ -16,7 +17,7 @@ export default class OrderCategoryItem extends Component {
         style={styles.listItem}
         {...this.props.sortHandlers}>
         <Body>
-          <Text>{this.props.data.name}</Text>
+          <Text style={styles.text}>{this.props.data.name}</Text>
         </Body>
         <Right>
           <Icon
@@ -30,8 +31,13 @@ export default class OrderCategoryItem extends Component {
 
 const styles = StyleSheet.create({
   listItem: {
-    backgroundColor: 'transparent'
-  }
+    height: 52,
+    backgroundColor: 'transparent',
+  },
+  text: {
+    color: TITLE_COLOR_PRIMARY,
+    fontWeight: 'bold',
+  },
 })
 
 OrderCategoryItem.propTypes = {
