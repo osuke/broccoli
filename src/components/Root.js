@@ -6,7 +6,6 @@ import {
   Left,
   Body,
   Right,
-  Text,
   Tabs,
   Tab,
   ScrollableTab,
@@ -16,6 +15,7 @@ import { Actions } from 'react-native-router-flux'
 import {
   BORDER_WIDTH_PRIMARY,
   BORDER_COLOR_SECONDARY,
+  BACKGROUND_COLOR_GRAY,
   TAB_COLOR_PRIMARY,
 } from '../constants/styles.js'
 import NewEntryItems from '../containers/NewEntryItems'
@@ -42,7 +42,7 @@ export default class Root extends Component {
             tabStyle={styles.tab}
             activeTabStyle={styles.tab}
           >
-            <Container key={('catTab' + index)}>
+            <Container style={styles.tabContent} key={('catTab' + index)}>
               <FavItems data={items[key]} index={key} key={key} />
             </Container>
           </Tab>
@@ -57,7 +57,7 @@ export default class Root extends Component {
             tabStyle={styles.tab}
             activeTabStyle={styles.tab}
           >
-            <Container>
+            <Container style={styles.tabContent}>
               <MyBookmark data={items[key]} index={key} key={key} />
             </Container>
           </Tab>
@@ -72,7 +72,7 @@ export default class Root extends Component {
             tabStyle={styles.tab}
             activeTabStyle={styles.tab}
           >
-            <Container>
+            <Container style={styles.tabContent}>
               <NewEntryItems data={items[key]} index={key} key={key} />
             </Container>
           </Tab>
@@ -81,7 +81,7 @@ export default class Root extends Component {
     })
 
     return (
-      <Container>
+      <Container style={styles.container}>
         <StyledHeader>
           <Left />
           <Body>
@@ -113,6 +113,9 @@ export default class Root extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: BACKGROUND_COLOR_GRAY,
+  },
   tabs: {
     height: 40,
     borderBottomColor: BORDER_COLOR_SECONDARY,
@@ -121,6 +124,9 @@ const styles = StyleSheet.create({
   tab: {
     backgroundColor: '#fff',
     borderBottomColor: '#fff',
+  },
+  tabContent: {
+    backgroundColor: BACKGROUND_COLOR_GRAY,
   },
   underline: {
     backgroundColor: TAB_COLOR_PRIMARY,

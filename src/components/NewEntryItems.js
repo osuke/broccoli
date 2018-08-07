@@ -36,6 +36,7 @@ export default class NewEntryItems extends Component {
     return (
       <View style={styles.wrap}>
         <FlatList
+          style={styles.flatList}
           data={this.props.data.items}
           renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
           keyExtractor={(item, index) => ('article' + index)}
@@ -66,6 +67,9 @@ export default class NewEntryItems extends Component {
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
+  },
+  flatList: {
+    paddingTop: 8,
   },
 })
 

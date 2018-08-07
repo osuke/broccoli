@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, FlatList, RefreshControl } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  RefreshControl,
+} from 'react-native'
 import { Spinner } from 'native-base'
 import Article from './Article'
 import Login from './Login'
@@ -61,8 +66,9 @@ export default class MyBookmark extends Component {
   render () {
     if (this.props.login.isLogin) {
       return (
-        <View style={{flex: 1}}>
+        <View style={styles.wrap}>
           <FlatList
+            style={styles.flatList}
             ref="flatlist"
             data={this.props.data.items}
             renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)
@@ -85,6 +91,15 @@ export default class MyBookmark extends Component {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  wrap: {
+    flex: 1,
+  },
+  flatList: {
+    paddingTop: 8,
+  },
+})
 
 MyBookmark.propTypes = {
   login: PropTypes.object.isRequired,

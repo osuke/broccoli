@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, FlatList, RefreshControl } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  RefreshControl,
+} from 'react-native'
 import { Spinner } from 'native-base'
 import FavArticle from './FavArticle'
 import Login from './Login'
@@ -61,8 +66,9 @@ export default class FavItems extends Component {
   render () {
     if (this.props.login.isLogin) {
       return (
-        <View style={{flex: 1}}>
+        <View style={styles.wrap}>
           <FlatList
+            style={styles.flatList}
             data={this.props.data.items}
             renderItem={({item}) => (<FavArticle {...item} showPage={this.props.showPage} />)}
             keyExtractor={(item, index) => ('article' + index)}
@@ -86,6 +92,15 @@ export default class FavItems extends Component {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  wrap: {
+    flex: 1,
+  },
+  flatList: {
+    paddingTop: 8,
+  },
+})
 
 FavItems.propTypes = {
   login: PropTypes.object.isRequired,

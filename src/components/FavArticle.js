@@ -8,6 +8,10 @@ import {
   Body,
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
+import {
+  BORDER_WIDTH_PRIMARY,
+  BORDER_COLOR_PRIMARY,
+} from '../constants/styles'
 
 export default class FavArticle extends React.Component {
   render () {
@@ -44,34 +48,44 @@ export default class FavArticle extends React.Component {
 
 const styles = StyleSheet.create({
   listItem: {
-    backgroundColor: 'transparent'
+    marginLeft: 0,
+    backgroundColor: '#fff',
+    borderBottomWidth: 0,
+    paddingBottom: 0,
+    paddingRight: 0,
   },
   article: {
     flex: 1,
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    marginLeft: 16,
+    paddingBottom: 12,
+    paddingRight: 12,
+    borderBottomWidth: BORDER_WIDTH_PRIMARY,
+    borderBottomColor: BORDER_COLOR_PRIMARY,
   },
   thumbnail: {
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   },
   top: {
-    marginBottom: 12
+    marginBottom: 12,
   },
   bottom: {
-    marginBottom: 12,
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginLeft: 8,
   },
   title: {
-    lineHeight: 22
+    lineHeight: 22,
+    marginLeft: 8,
   },
   creator: {
     marginBottom: 4,
-    fontSize: 14
+    fontSize: 14,
   },
   description: {
     marginBottom: 4,
     lineHeight: 18,
-    fontSize: 14
+    fontSize: 14,
   }
 })
 
