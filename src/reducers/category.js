@@ -75,6 +75,11 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case FETCH_ARTICLES:
+      action.payload.item.map(obj => {
+        const domain = obj.link.split('/')[2]
+        obj.domain = domain
+        obj.favicon = `https://www.google.com/s2/favicons?domain=${domain}`
+      })
       newState.items[action.payload.index].items.push(...action.payload.item)
       return Object.assign({}, state, newState)
     case CLEAR_ARTICLES:
@@ -88,6 +93,11 @@ export default (state = initialState, action) => {
       newState.items[action.payload.index].offset = action.payload.offset
       return Object.assign({}, state, newState)
     case FETCH_BOOKMARK_ARTICLES:
+      action.payload.item.map(obj => {
+        const domain = obj.link.split('/')[2]
+        obj.domain = domain
+        obj.favicon = `https://www.google.com/s2/favicons?domain=${domain}`
+      })
       newState.items[action.payload.index].items.push(...action.payload.item)
       newState.items[action.payload.index].offset = action.payload.offset
       return Object.assign({}, state, newState)

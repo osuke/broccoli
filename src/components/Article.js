@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet } from 'react-native'
-import { Text, ListItem, Body, Right } from 'native-base'
+import {
+  StyleSheet,
+  Image,
+} from 'react-native'
+import {
+  Text,
+  ListItem,
+  Body,
+  Left,
+  View,
+} from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import {
   BORDER_WIDTH_PRIMARY,
@@ -10,6 +19,7 @@ import {
 
 export default class Article extends Component {
   render () {
+    console.log(this.props.favicon)
     return (
       <ListItem
         onPress={() => {
@@ -19,8 +29,19 @@ export default class Article extends Component {
         style={styles.listItem}
       >
         <Body style={styles.body}>
-          <Text style={styles.title}>{this.props.title}</Text>
-          <Text note>{this.props.bookmarkcount} users</Text>
+          <View>
+            <Text style={styles.title}>{this.props.title}</Text>
+          </View>
+          <View style={styles.siteInfo}>
+            <Image
+              style={styles.favicon}
+              source={{uri: this.props.favicon}}
+            />
+            <Text note>{this.props.domain}</Text>
+          </View>
+          <View>
+            <Text note>{this.props.bookmarkcount} users</Text>
+          </View>
         </Body>
       </ListItem>
     )
@@ -37,7 +58,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
   },
   title: {
-    marginBottom: 8,
+    marginBottom: 6,
     lineHeight: 22
   },
   body: {
@@ -48,10 +69,23 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     marginLeft: 16,
   },
+  siteInfo: {
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 5,
+  },
+  favicon: {
+    width: 16,
+    height: 16,
+    marginTop: 1,
+    marginRight: 6,
+  },
 })
 
 Article.propTypes = {
   showPage: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  bookmarkcount: PropTypes.string.isRequired
+  bookmarkcount: PropTypes.string.isRequired,
+  favicon: PropTypes.string.isRequired,
+  domain: PropTypes.string.isRequired,
 }
