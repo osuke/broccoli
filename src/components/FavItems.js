@@ -27,13 +27,11 @@ export default class FavItems extends Component {
 
   onRefreshHandler () {
     this.setState({refreshing: true})
-    this.props.clearArticles(this.props.index).then(() => {
-      setTimeout(() => {
-        this.props.getFavArticlesFromApi(this.props.index, this.props.login.userData.urlName, this.props.data.offset).then(() => {
-          this.setState({refreshing: false})
-        })
-      }, 2000)
-    })
+    setTimeout(() => {
+      this.props.getFavArticlesFromApi(this.props.index, this.props.login.userData.urlName, this.props.data.offset).then(() => {
+        this.setState({refreshing: false})
+      })
+    }, 2000)
   }
 
   onEndReachedHandler () {

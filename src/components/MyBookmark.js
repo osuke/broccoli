@@ -15,7 +15,7 @@ export default class MyBookmark extends Component {
     super(props)
     this.state = {
       refreshing: false,
-      isLoading: false
+      isLoading: false,
     }
   }
 
@@ -26,25 +26,23 @@ export default class MyBookmark extends Component {
   }
 
   onRefreshHandler () {
-    this.setState({refreshing: true})
-    this.props.clearArticles(this.props.index).then(() => {
-      setTimeout(() => {
-        this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, 0).then(() => {
-          this.setState({refreshing: false})
-        })
-      }, 2000)
-    })
+    this.setState({ refreshing: true, })
+    setTimeout(() => {
+      this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, 0).then(() => {
+        this.setState({ refreshing: false, })
+      })
+    }, 2000)
   }
 
   onEndReachedHandler () {
     this.setState({
-      isLoading: true
+      isLoading: true,
     })
 
     this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, this.props.data.offset).then(() => {
       setTimeout(() => {
         this.setState({
-          isLoading: false
+          isLoading: false,
         })
       }, 1000)
     })
