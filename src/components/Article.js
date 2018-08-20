@@ -19,7 +19,6 @@ import {
 
 export default class Article extends Component {
   render () {
-    console.log(this.props.favicon)
     return (
       <ListItem
         onPress={() => {

@@ -4,7 +4,7 @@ export const REQUEST_TOKEN = 'REQUEST_TOKEN'
 export const SET_USER_DATA = 'SET_USER_DATA'
 export const LOGOUT = 'LOGOUT'
 
-export const setOauthUrl = (tokenData) => {
+export const setOauthUrl = tokenData => {
   return (
     {
       type: REQUEST_TOKEN,
@@ -15,14 +15,14 @@ export const setOauthUrl = (tokenData) => {
   )
 }
 
-export const setUserData = (userData) => {
+export const setUserData = userData => {
   return (
     {
       type: SET_USER_DATA,
       payload: {
         isLogin: true,
         url: null,
-        userData: userData
+        userData: userData,
       }
     }
   )
@@ -30,25 +30,25 @@ export const setUserData = (userData) => {
 
 export const logout = () => (
   {
-    type: LOGOUT
+    type: LOGOUT,
   }
 )
 
 export const getRequestToken = () => (
-  (dispatch) => {
+  dispatch => {
     hatenaLogin.getRequestToken().then((res) => {
       dispatch(setOauthUrl(res))
     })
   }
 )
 
-export const getAccessToken = (e) => (
-  (dispatch) => {
+export const getAccessToken = e => (
+  dispatch => {
 
     if (e.url.indexOf('oauth_token') !== -1 && e.url.indexOf('oauth_verifier') !== -1) {
       let userData = {}
 
-      hatenaLogin.getAccessToken(e).then((res) => {
+      hatenaLogin.getAccessToken(e).then(res => {
         if (typeof res === 'object') {
           userData.displayName = res.display_name
           userData.urlName = res.url_name
@@ -56,16 +56,10 @@ export const getAccessToken = (e) => (
           userData.secret = decodeURIComponent(res.oauth_token_secret)
 
           dispatch(setUserData(userData))
-          //const options = {
-          //  url: 'https://www.yahoo.co.jp/',
-          //  comment : 'test',
-          //}
-          //hatenaLogin.sendRequest('POST', 'http://api.b.hatena.ne.jp/1/my/bookmark', token, secret, options)
         }
       })
 
       return {}
-    } else {
     }
   }
 )

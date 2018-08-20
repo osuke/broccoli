@@ -4,6 +4,7 @@ import oAuth from 'oauth-1.0a'
 import queryString from 'query-string'
 import qs from 'qs'
 import config from './loginConfig'
+import { Actions } from 'react-native-router-flux'
 
 export default class HatenaLogin {
   constructor () {
@@ -33,8 +34,8 @@ export default class HatenaLogin {
 
     return fetch(requestData.url, {
       method: requestData.method,
-      headers: requestData.headers
-    }).then((res) => {
+      headers: requestData.headers,
+    }).then(res => {
       const tokenData = this.getTokenData(res._bodyText)
       this.requestToken = tokenData.requestToken
       this.tokenSecret = tokenData.tokenSecret
@@ -43,6 +44,7 @@ export default class HatenaLogin {
   }
 
   getAccessToken (e) {
+    Actions.pop()
     const urlArray = e.url.match(/\?oauth_token=([^&]*)&oauth_verifier=([^&]*)/)
 
     const requestData = {
@@ -56,7 +58,7 @@ export default class HatenaLogin {
     const token = {
       key: this.requestToken,
       secret: this.tokenSecret,
-    };
+    }
 
     requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData, token))
     requestData.headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -64,7 +66,7 @@ export default class HatenaLogin {
     return fetch(requestData.url, {
       method: requestData.method,
       headers: requestData.headers
-    }).then((res) => {
+    }).then(res => {
       if (res.status === 200) {
         return queryString.parse(res._bodyText)
       } else {
@@ -75,7 +77,7 @@ export default class HatenaLogin {
   getTokenData (text) {
     let data = {}
 
-    text.split('&').map((o) => {
+    text.split('&').map(o => {
       const query = o.split('=')
 
       if (query[0] === 'oauth_token') {
@@ -135,9 +137,6 @@ export default class HatenaLogin {
         console.log(e)
         console.log('Error Occuered: request')
       })
-
-
     })
-
   }
 }

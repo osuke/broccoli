@@ -18,12 +18,6 @@ export default class OAuth extends Component {
     this.props.getRequestToken()
   }
 
-  componentDidUpdate () {
-    if (this.props.isLogin) {
-      Actions.root()
-    }
-  }
-
   render () {
     if (this.props.url) {
       return (
@@ -49,7 +43,7 @@ export default class OAuth extends Component {
           </StyledHeader>
           <WebView
             source={{ uri: this.props.url }}
-            onNavigationStateChange={(e) => { this.props.getAccessToken(e) }}
+            onNavigationStateChange={e => { this.props.getAccessToken(e) }}
           />
         </Container>
       )
