@@ -80,16 +80,15 @@ export default (state = initialState, action) => {
         obj.domain = domain
         obj.favicon = `https://www.google.com/s2/favicons?domain=${domain}`
       })
-      newState.items[action.payload.index].items.push(...action.payload.item)
+      newState.items[action.payload.index].items = [...action.payload.item]
       return Object.assign({}, state, newState)
     case CLEAR_ARTICLES:
       if (typeof newState.items[action.payload.index].offset === 'number') {
         newState.items[action.payload.index].offset = 0
       }
-      newState.items[action.payload.index].items = []
       return Object.assign({}, state, newState)
     case FETCH_FAV_ARTICLES:
-      newState.items[action.payload.index].items.push(...action.payload.item)
+      newState.items[action.payload.index].items = [...action.payload.item]
       newState.items[action.payload.index].offset = action.payload.offset
       return Object.assign({}, state, newState)
     case FETCH_BOOKMARK_ARTICLES:
@@ -98,7 +97,7 @@ export default (state = initialState, action) => {
         obj.domain = domain
         obj.favicon = `https://www.google.com/s2/favicons?domain=${domain}`
       })
-      newState.items[action.payload.index].items.push(...action.payload.item)
+      newState.items[action.payload.index].items = [...action.payload.item]
       newState.items[action.payload.index].offset = action.payload.offset
       return Object.assign({}, state, newState)
     default:

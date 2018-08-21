@@ -22,12 +22,14 @@ export default class NewEntryItems extends Component {
   }
 
   onRefreshHandler () {
-    this.setState({ refreshing: true })
-    setTimeout(() => {
-      this.props.getArticlesFromApi(this.props.data.url, this.props.index).then(() => {
-        this.setState({ refreshing: false })
-      })
-    }, 2000)
+    this.setState({refreshing: true})
+    this.props.clearArticles(this.props.index).then(() => {
+      setTimeout(() => {
+        this.props.getArticlesFromApi(this.props.data.url, this.props.index).then(() => {
+          this.setState({refreshing: false})
+        })
+      }, 2000)
+    })
   }
 
   render () {
@@ -36,7 +38,7 @@ export default class NewEntryItems extends Component {
         <FlatList
           style={styles.flatList}
           data={this.props.data.items}
-          renderItem={({ item }) => (<Article {...item} showPage={this.props.showPage} />)}
+          renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
           keyExtractor={(item, index) => ('article' + index)}
           refreshControl={
             <RefreshControl
