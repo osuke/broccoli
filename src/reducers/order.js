@@ -45,7 +45,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_ORDER:
       let newState = { items: {} }
-      action.payload.order.map((val) => {
+      action.payload.order.map(val => {
         newState.items[val] = state.items[val]
       })
       return Object.assign({}, state, newState)

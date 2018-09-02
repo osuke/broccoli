@@ -3,7 +3,7 @@ export const HIDE_PAGE = 'HIDE_PAGE'
 export const SHOW_SPINNER = 'SHOW_SPINNER'
 export const HIDE_SPINNER = 'HIDE_SPINNER'
 
-export const showPage = (obj) => (
+export const showPage = obj => (
   {
     type: SHOW_PAGE,
     payload: {

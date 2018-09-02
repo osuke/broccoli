@@ -1,0 +1,17 @@
+{
+  "extends": "standard",
+  "plugins": [
+    "react"
+  ],
+  "globals": {
+    "fetch": false
+  },
+  "rules": {
+    "no-unused-vars": 0,
+    "no-extra-parens": 0,
+    "no-new": 0,
+    "comma-dangle": 0,
+    "eol-last": 0,
+    "arrow-parens": ["error", "as-needed"]
+  }
+}

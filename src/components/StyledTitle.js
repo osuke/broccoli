@@ -9,7 +9,7 @@ import {
 } from '../constants/styles.js'
 
 const StyledTitle = ({ children }) => (
-    <Title style={styles.title}>{children}</Title>
+  <Title style={styles.title}>{children}</Title>
 )
 
 const styles = StyleSheet.create({

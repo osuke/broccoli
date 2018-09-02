@@ -36,7 +36,7 @@ export default class ArticleDetail extends Component {
           />
         ) : (
           null
-        )} 
+        )}
         <StyledHeader>
           <Left>
             <Button

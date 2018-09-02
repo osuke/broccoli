@@ -10,15 +10,15 @@ import {
 } from 'native-base'
 
 const Btn = ({ children, onPress }) => (
-    <View style={styles.btnWrap}>
-      <Button
-        transparent
-        style={styles.btn}
-        onPress={onPress}
-      >
-        <Text style={styles.btnText}>{children}</Text>
-      </Button>
-    </View>
+  <View style={styles.btnWrap}>
+    <Button
+      transparent
+      style={styles.btn}
+      onPress={onPress}
+    >
+      <Text style={styles.btnText}>{children}</Text>
+    </Button>
+  </View>
 )
 
 const styles = StyleSheet.create({

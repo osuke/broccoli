@@ -104,7 +104,7 @@ export default class BookmarkForm extends Component {
       tags: this.props.bookmark.tags,
     })
   }
-  
+
   componentWillUnmount () {
     this.props.fetchBookmarkData(this.props.login, this.props.webview.url)
   }
@@ -158,7 +158,7 @@ export default class BookmarkForm extends Component {
               multiline={true}
               numberOfLines={6}
               style={styles.comment}
-              onChangeText={text => { this.setState({text})}}
+              onChangeText={text => { this.setState({text}) }}
               value={this.state.text}
               placeholder="コメントを追加"
               placeholderTextColor={PLACEHOLDER_COLOR}
@@ -300,5 +300,4 @@ BookmarkForm.propTypes = {
   saveBookmark: PropTypes.func.isRequired,
   deleteBookmark: PropTypes.func.isRequired,
   login: PropTypes.object.isRequired,
-  bookmark: PropTypes.object.isRequired,
 }

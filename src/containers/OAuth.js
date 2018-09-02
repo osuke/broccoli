@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import OAuth from '../components/OAuth'
 import { getRequestToken, getAccessToken } from '../actions/login'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return state.login
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     getRequestToken: () => { dispatch(getRequestToken()) },
-    getAccessToken: (e) => { dispatch(getAccessToken(e)) }
+    getAccessToken: e => { dispatch(getAccessToken(e)) }
   }
 }
 

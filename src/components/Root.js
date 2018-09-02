@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import {
-  Container, 
+  Container,
   Left,
   Body,
   Right,
@@ -102,7 +102,7 @@ export default class Root extends Component {
           </Right>
         </StyledHeader>
         <Tabs
-          renderTabBar={()=> <ScrollableTab style={styles.tabs} />}
+          renderTabBar={() => <ScrollableTab style={styles.tabs} />}
           tabBarUnderlineStyle={styles.underline}
         >
           {tabs}

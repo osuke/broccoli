@@ -14,7 +14,7 @@ export default class HatenaLogin {
         secret: config.consumerSecret
       },
       signature_method: 'HMAC-SHA1',
-      hash_function: function(baseString, key) {
+      hash_function: (baseString, key) => {
         return Base64.stringify(crypto.HmacSHA1(baseString, key))
       }
     })
@@ -93,7 +93,6 @@ export default class HatenaLogin {
   }
 
   sendRequest (method, url, accessToken, accessTokenSecret, options = {}) {
-
     return new Promise((resolve, reject) => {
       const requestData = {
         url,
@@ -105,7 +104,7 @@ export default class HatenaLogin {
         key: accessToken,
         secret: accessTokenSecret,
       }
-      
+
       requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData, token))
 
       if (method.toUpperCase() !== 'GET') {
@@ -122,7 +121,7 @@ export default class HatenaLogin {
         obj.body = qs.stringify(options)
       }
 
-      return fetch(url, obj).then((resp) => {
+      return fetch(url, obj).then(resp => {
         if (resp._bodyText.match(/^401 Unauthorized/)) {
           console.log(resp)
           resolve({})
@@ -132,8 +131,8 @@ export default class HatenaLogin {
           resolve(resp.json())
         }
 
-        return {};
-      }).catch((e) => {
+        return {}
+      }).catch(e => {
         console.log(e)
         console.log('Error Occuered: request')
       })

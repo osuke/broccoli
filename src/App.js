@@ -31,6 +31,6 @@ export default App
 const getSceneStyle = (props, computedProps) => {
   const style = {
     backgroundColor: '#fff',
-  };
-  return style;
+  }
+  return style
 }

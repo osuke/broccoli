@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import OrderCategories from '../components/OrderCategories'
 import { updateOrder } from '../actions/order'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return state.order
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    updateOrder: (order) => { dispatch(updateOrder(order)) }
+    updateOrder: order => { dispatch(updateOrder(order)) }
   }
 }
 

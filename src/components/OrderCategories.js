@@ -46,7 +46,7 @@ export default class OrderCategories extends Component {
             this.props.updateOrder(order)
             this.forceUpdate.bind(this)
           }}
-          renderRow={(row) => (
+          renderRow={row => (
             <OrderCategoryItem data={row}/>
           )}
         />

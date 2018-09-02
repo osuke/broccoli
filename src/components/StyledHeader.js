@@ -10,7 +10,7 @@ import {
 } from '../constants/styles.js'
 
 const StyledHeader = ({ children }) => (
-    <Header style={styles.header}>{children}</Header>
+  <Header style={styles.header}>{children}</Header>
 )
 
 const styles = StyleSheet.create({

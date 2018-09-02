@@ -52,7 +52,7 @@ const TabBar = ({ title, url, isLogin, getCommentsFromApi }) => (
       </Button>
       <Button
         onPress={() => {
-          Linking.openURL(url) 
+          Linking.openURL(url)
         }}
       >
         <Icon name="ios-compass-outline" />
@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa',
   }
 })
-
 
 TabBar.propTypes = {
   isLogin: PropTypes.bool.isRequired,

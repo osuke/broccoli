@@ -15,7 +15,7 @@ export const fetchArticles = (item, index) => (
   }
 )
 
-export const clearArticles = (index) => (
+export const clearArticles = index => (
   {
     type: CLEAR_ARTICLES,
     payload: {
@@ -53,17 +53,19 @@ export const fetchFailed = () => (
 )
 
 export const getArticlesFromApi = (url, index) => (
-  (dispatch) => (
+  dispatch => (
     fetch(url)
-      .then((res) => {
+      .then(res => {
         parseString(res._bodyInit, (err, result) => {
+          if (err) {
+            console.log(err)
+          }
           let items = result['rdf:RDF'].item
 
           items.map((data, index) => {
             items[index].link = data.link[0]
             items[index].title = data.title[0]
             items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
-
           })
           dispatch(fetchArticles(items, index))
         })
@@ -72,13 +74,17 @@ export const getArticlesFromApi = (url, index) => (
 )
 
 export const getFavArticlesFromApi = (index, userName, offset) => (
-  (dispatch) => {
+  dispatch => {
     const apiUrl = 'http://b.hatena.ne.jp/' + userName + '/favorite.rss?of=' + offset
 
     fetch(apiUrl)
-      .then((res) => {
+      .then(res => {
         if (res.status === 200) {
           parseString(res._bodyInit, (err, result) => {
+            if (err) {
+              console.log(err)
+            }
+
             let items = result['rdf:RDF'].item
 
             items.map((data, index) => {
@@ -86,7 +92,6 @@ export const getFavArticlesFromApi = (index, userName, offset) => (
               items[index].title = data.title[0]
               items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
               items[index].creator = data['dc:creator'][0]
-
             })
             dispatch(fetchFavArticles(items, index, offset + 25))
           })
@@ -98,19 +103,22 @@ export const getFavArticlesFromApi = (index, userName, offset) => (
 )
 
 export const getBookmarkArticlesFromApi = (index, userName, offset) => (
-  (dispatch) => {
+  dispatch => {
     const apiUrl = 'http://b.hatena.ne.jp/' + userName + '/rss?of=' + offset + '&d=' + Date.now()
 
     fetch(apiUrl)
-      .then((res) => {
+      .then(res => {
         parseString(res._bodyInit, (err, result) => {
+          if (err) {
+            console.log(err)
+          }
+
           let items = result['rdf:RDF'].item
 
           items.map((data, index) => {
             items[index].link = data.link[0]
             items[index].title = data.title[0]
             items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
-
           })
           dispatch(fetchBookmarkArticles(result['rdf:RDF'].item, index, offset + 20))
         })

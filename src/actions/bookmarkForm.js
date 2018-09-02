@@ -1,5 +1,4 @@
 import HatenaLogin from '../utils/login'
-import { Actions } from 'react-native-router-flux'
 const hatenaLogin = new HatenaLogin()
 
 export const ADD_BOOKMARK = 'ADD_BOOKMARK'
@@ -18,7 +17,7 @@ export const closeBookmark = () => (
   }
 )
 
-export const showBookmarkData = (obj) => (
+export const showBookmarkData = obj => (
   {
     type: SHOW_BOOKMARK_DATA,
     payload: {
@@ -30,7 +29,7 @@ export const showBookmarkData = (obj) => (
 )
 
 export const saveBookmark = (userData, url, comment = '') => (
-  (dispatch) => {
+  dispatch => {
     hatenaLogin.sendRequest(
       'POST',
       'http://api.b.hatena.ne.jp/1/my/bookmark',
@@ -47,7 +46,7 @@ export const saveBookmark = (userData, url, comment = '') => (
 )
 
 export const deleteBookmark = (userData, url) => (
-  (dispatch) => {
+  dispatch => {
     hatenaLogin.sendRequest(
       'DELETE',
       'http://api.b.hatena.ne.jp/1/my/bookmark',
@@ -63,20 +62,20 @@ export const deleteBookmark = (userData, url) => (
 )
 
 export const fetchBookmarkData = (userData, url) => (
-  (dispatch) => {
+  dispatch => {
     hatenaLogin.sendRequest(
       'GET',
       'http://b.hatena.ne.jp/entry/jsonlite/?url=' + url + '&date=' + Date.now(),
       userData.userData.token,
       userData.userData.secret,
-    ).then((data) => {
+    ).then(data => {
       let obj = {
         comment: '',
         isBookmark: false,
         tags: [],
       }
 
-      data.bookmarks.map((val) => {
+      data.bookmarks.map(val => {
         if (val.user === userData.userData.urlName) {
           obj.comment = val.comment
           obj.isBookmark = true

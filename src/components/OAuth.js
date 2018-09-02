@@ -30,9 +30,9 @@ export default class OAuth extends Component {
                   Actions.pop()
                 }}
               >
-              <Icon
-                name="ios-close"
-              />
+                <Icon
+                  name="ios-close"
+                />
               </Button>
             </Left>
             <Body>

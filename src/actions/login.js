@@ -36,7 +36,7 @@ export const logout = () => (
 
 export const getRequestToken = () => (
   dispatch => {
-    hatenaLogin.getRequestToken().then((res) => {
+    hatenaLogin.getRequestToken().then(res => {
       dispatch(setOauthUrl(res))
     })
   }
@@ -44,7 +44,6 @@ export const getRequestToken = () => (
 
 export const getAccessToken = e => (
   dispatch => {
-
     if (e.url.indexOf('oauth_token') !== -1 && e.url.indexOf('oauth_verifier') !== -1) {
       let userData = {}
 

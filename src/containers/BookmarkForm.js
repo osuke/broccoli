@@ -9,11 +9,11 @@ import {
   fetchBookmarkData
 } from '../actions/bookmarkForm'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return state
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     addBookmark: () => { dispatch(addBookmark()) },
     closeBookmark: () => { dispatch(closeBookmark()) },

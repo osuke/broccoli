@@ -79,10 +79,9 @@ export default class Login extends React.Component {
                 </Body>
               </ListItem>
             </List>
-            ) : (
-              null
-            )
-          }
+          ) : (
+            null
+          )}
         </Content>
       </Container>
     )
