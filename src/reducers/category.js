@@ -62,11 +62,6 @@ const initialState = {
       items: [],
       offset: 0
     },
-    fav: {
-      name: 'お気に入り',
-      items: [],
-      offset: 0
-    },
   }
 }
 

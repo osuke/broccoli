@@ -19,7 +19,6 @@ import {
   TAB_COLOR_PRIMARY,
 } from '../constants/styles.js'
 import NewEntryItems from '../containers/NewEntryItems'
-import FavItems from '../containers/FavItems'
 import MyBookmark from '../containers/MyBookmark'
 import Icon from './Icon'
 import StyledHeader from './StyledHeader'
@@ -33,20 +32,6 @@ export default class Root extends Component {
 
     Object.keys(order).forEach((key, index) => {
       if (key === 'fav') {
-        tabs.push(
-          <Tab
-            heading={items[key].name}
-            key={`catTab-${index}`}
-            textStyle={styles.tabText}
-            activeTextStyle={styles.tabText}
-            tabStyle={styles.tab}
-            activeTabStyle={styles.tab}
-          >
-            <Container style={styles.tabContent} key={('catTab' + index)}>
-              <FavItems data={items[key]} index={key} key={key} />
-            </Container>
-          </Tab>
-        )
       } else if (key === 'myBookmark') {
         tabs.push(
           <Tab

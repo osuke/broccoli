@@ -35,9 +35,6 @@ const initialState = {
     myBookmark: {
       name: 'マイブックマーク'
     },
-    fav: {
-      name: 'お気に入り'
-    }
   }
 }
 
