@@ -36,9 +36,13 @@ export default class HatenaLogin {
       method: requestData.method,
       headers: requestData.headers,
     }).then(res => {
-      const tokenData = this.getTokenData(res._bodyText)
-      this.requestToken = tokenData.requestToken
-      this.tokenSecret = tokenData.tokenSecret
+      let tokenData = this.getTokenData(res._bodyText)
+      console.log(tokenData)
+      tokenData.requestToken = encodeURIComponent(tokenData.requestToken)
+      tokenData.tokenSecret = encodeURIComponent(tokenData.tokenSecret)
+      this.requestToken = decodeURIComponent(tokenData.requestToken)
+      this.tokenSecret = decodeURIComponent(tokenData.tokenSecret)
+      console.log(tokenData)
       return tokenData
     })
   }
