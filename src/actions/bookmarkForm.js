@@ -65,7 +65,7 @@ export const fetchBookmarkData = (userData, url) => (
   dispatch => {
     hatenaLogin.sendRequest(
       'GET',
-      'http://b.hatena.ne.jp/entry/jsonlite/?url=' + url + '&date=' + Date.now(),
+      `http://b.hatena.ne.jp/entry/jsonlite/?url=${url}&date=${Date.now()}broccoli`,
       userData.userData.token,
       userData.userData.secret,
     ).then(data => {
@@ -77,6 +77,7 @@ export const fetchBookmarkData = (userData, url) => (
 
       data.bookmarks.map(val => {
         if (val.user === userData.userData.urlName) {
+          console.log(val)
           obj.comment = val.comment
           obj.isBookmark = true
           obj.tags = val.tags

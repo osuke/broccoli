@@ -17,7 +17,7 @@ import {
 } from '../constants/styles.js'
 import Icon from './Icon'
 
-const TabBar = ({ title, url, isLogin, getCommentsFromApi }) => (
+const TabBar = ({ title, url, login, getCommentsFromApi, fetchBookmarkData }) => (
   <Footer style={styles.container}>
     <FooterTab style={styles.footerTab}>
       <Button
@@ -33,7 +33,8 @@ const TabBar = ({ title, url, isLogin, getCommentsFromApi }) => (
       </Button>
       <Button
         onPress={() => {
-          if (isLogin) {
+          if (login.isLogin) {
+            fetchBookmarkData(login, url)
             Actions.bookmarkForm()
           } else {
             Actions.login()
@@ -72,10 +73,11 @@ const styles = StyleSheet.create({
 })
 
 TabBar.propTypes = {
-  isLogin: PropTypes.bool.isRequired,
+  login: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   getCommentsFromApi: PropTypes.func.isRequired,
+  fetchBookmarkData: PropTypes.func.isRequired,
 }
 
 export default TabBar

@@ -127,7 +127,9 @@ export default class HatenaLogin {
 
       return fetch(url, obj).then(resp => {
         if (resp._bodyText.match(/^401 Unauthorized/)) {
-          console.log(resp)
+          alert('認証の有効期限が切れました。')
+          Actions.login()
+
           resolve({})
         }
 
@@ -139,6 +141,7 @@ export default class HatenaLogin {
       }).catch(e => {
         console.log(e)
         console.log('Error Occuered: request')
+        alert('しばらく時間を空けてから、もう一度お試しください')
       })
     })
   }

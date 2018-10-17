@@ -58,8 +58,9 @@ export default class ArticleDetail extends Component {
         />
         <TabBar
           {...this.props.webview}
-          isLogin={isLogin}
+          login={this.props.login}
           getCommentsFromApi={this.props.getCommentsFromApi}
+          fetchBookmarkData={this.props.fetchBookmarkData}
         />
       </Container>
     )

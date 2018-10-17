@@ -4,6 +4,9 @@
     "platforms": ["ios"],
     "splash": {
       "image": "./assets/splash_screen.png"
+    },
+    "ios": {
+      "bundleIdentifier": "jp.funxion.broccoli"
     }
   }
 }
