@@ -55,6 +55,7 @@ export default class ArticleDetail extends Component {
           source={{uri: this.props.webview.url}}
           onLoadStart={this.props.showSpinner}
           onLoadEnd={this.props.hideSpinner}
+          renderError={() => null}
         />
         <TabBar
           {...this.props.webview}
