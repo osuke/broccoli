@@ -1,5 +1,4 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
 import { Router, Scene } from 'react-native-router-flux'
 import Root from './containers/Root'
 import ArticleDetail from './containers/ArticleDetail'

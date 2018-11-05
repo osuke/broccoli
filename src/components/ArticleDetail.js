@@ -45,7 +45,7 @@ export default class ArticleDetail extends Component {
                 Actions.pop()
               }}
             >
-              <Icon name="ios-arrow-back" />
+              <Icon name="chevron-left" />
             </Button>
           </Left>
           <Body />

@@ -80,7 +80,7 @@ export default class Root extends Component {
               }}
             >
               <Icon
-                name="ios-settings"
+                name="settings"
                 style={styles.settingIcon}
               />
             </Button>

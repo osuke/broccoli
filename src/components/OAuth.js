@@ -31,7 +31,7 @@ export default class OAuth extends Component {
                 }}
               >
                 <Icon
-                  name="ios-close"
+                  name="close"
                 />
               </Button>
             </Left>

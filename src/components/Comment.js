@@ -16,9 +16,7 @@ export default class Comment extends Component {
       return (
         <ListItem
           avatar
-          style={{
-            marginLeft: 0,
-          }}
+          style={styles.item}
         >
           <Left
             style={{
@@ -43,17 +41,21 @@ export default class Comment extends Component {
 }
 
 const styles = StyleSheet.create({
+  item: {
+    backgroundColor: '#fff',
+    marginLeft: 0,
+  },
   thumbnail: {
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   },
   user: {
     fontSize: 14,
-    marginBottom: 2
+    marginBottom: 2,
   },
   comment: {
     alignSelf: 'flex-start',
     fontSize: 14,
-    lineHeight: 20
+    lineHeight: 20,
   }
 })
 

@@ -29,7 +29,9 @@ export default class OrderCategories extends Component {
                 Actions.pop()
               }}
             >
-              <Icon name="ios-arrow-back" />
+              <Icon
+                name="chevron-left"
+              />
             </Button>
           </Left>
           <Body>

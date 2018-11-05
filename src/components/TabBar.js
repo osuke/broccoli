@@ -29,7 +29,7 @@ const TabBar = ({ title, url, login, getCommentsFromApi, fetchBookmarkData }) =>
           })
         }}
       >
-        <Icon name="ios-share-outline" />
+        <Icon name="share-variant" />
       </Button>
       <Button
         onPress={() => {
@@ -41,7 +41,7 @@ const TabBar = ({ title, url, login, getCommentsFromApi, fetchBookmarkData }) =>
           }
         }}
       >
-        <Icon name="ios-create-outline" />
+        <Icon name="pencil-box-outline" />
       </Button>
       <Button
         onPress={() => {
@@ -49,14 +49,14 @@ const TabBar = ({ title, url, login, getCommentsFromApi, fetchBookmarkData }) =>
           Actions.comment()
         }}
       >
-        <Icon name="ios-text-outline" />
+        <Icon name="comment-multiple-outline" />
       </Button>
       <Button
         onPress={() => {
           Linking.openURL(url)
         }}
       >
-        <Icon name="ios-compass-outline" />
+        <Icon name="compass-outline" />
       </Button>
     </FooterTab>
   </Footer>

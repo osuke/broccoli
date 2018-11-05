@@ -21,7 +21,7 @@ export default class OrderCategoryItem extends Component {
         </Body>
         <Right>
           <Icon
-            name="ios-menu-outline"
+            name="menu"
           />
         </Right>
       </ListItem>

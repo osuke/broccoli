@@ -1,57 +1,46 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { Ionicons, Feather } from '@expo/vector-icons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export default ({ name }) => {
   switch (name) {
-    case 'arrow-left':
-    case 'share':
-    case 'compass':
-    case 'message-square':
-    case 'edit':
+    case 'settings':
       return (
-        <Feather
+        <MaterialCommunityIcons
           name={name}
-          style={styles.footerIcon}
+          size={24}
+          color="#6b6b6b"
         />
       )
-    case 'ios-create-outline':
-    case 'ios-share-outline':
-    case 'ios-text-outline':
-    case 'ios-compass-outline':
-    case 'ios-menu-outline':
+    case 'compass-outline':
+    case 'share-variant':
+    case 'comment-multiple-outline':
       return (
-        <Ionicons
+        <MaterialCommunityIcons
           name={name}
-          style={styles.footerIcon}
+          size={28}
+          color="#6b6b6b"
         />
       )
-    case 'ios-settings':
+    case 'comment-multiple-outline':
+    case 'pencil-box-outline':
+    case 'menu':
+    case 'close':
       return (
-        <Ionicons
+        <MaterialCommunityIcons
           name={name}
-          style={styles.settingIcon}
+          size={30}
+          color="#6b6b6b"
         />
       )
-    case 'ios-arrow-forward':
+    case 'chevron-left':
+    case 'chevron-right':
       return (
-        <Ionicons
+        <MaterialCommunityIcons
           name={name}
-          style={styles.arrowForward}
-        />
-      )
-    case 'ios-arrow-back':
-      return (
-        <Ionicons
-          name={name}
-          style={styles.arrowBack}
-        />
-      )
-    case 'ios-close':
-      return (
-        <Ionicons
-          name={name}
-          style={styles.closeIcon}
+          size={36}
+          color="#6b6b6b"
         />
       )
   }

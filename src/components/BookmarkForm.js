@@ -99,7 +99,6 @@ export default class BookmarkForm extends Component {
   }
 
   componentDidMount () {
-    console.log(this.props.bookmark)
     this.setState({
       text: this.props.bookmark.comment,
       tags: this.props.bookmark.tags,
@@ -117,7 +116,7 @@ export default class BookmarkForm extends Component {
                 Actions.pop()
               }}
             >
-              <Icon name="ios-close" />
+              <Icon name="close" />
             </Button>
           </Left>
           <Body>

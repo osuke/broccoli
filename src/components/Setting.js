@@ -38,7 +38,7 @@ export default class Login extends React.Component {
               }}
             >
               <Icon
-                name="ios-close"
+                name="close"
               />
             </Button>
           </Left>
@@ -60,8 +60,12 @@ export default class Login extends React.Component {
               >
                 <Text style={styles.text}>カテゴリを並び替える</Text>
               </Body>
-              <Right>
-                <Icon name="ios-arrow-forward" />
+              <Right
+                style={{ paddingRight: 0 }}
+              >
+                <Icon
+                  name="chevron-right"
+                />
               </Right>
             </ListItem>
           </List>
@@ -90,7 +94,7 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16
+    padding: 16,
   },
   content: {
     backgroundColor: BACKGROUND_COLOR_GRAY,

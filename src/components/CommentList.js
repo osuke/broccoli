@@ -69,7 +69,7 @@ export default class CommentList extends Component {
               }}
             >
               <Icon
-                name="ios-close"
+                name="close"
               />
             </Button>
           </Left>
