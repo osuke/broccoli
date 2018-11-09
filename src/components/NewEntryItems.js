@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, FlatList, RefreshControl, StyleSheet } from 'react-native'
+import { View, Text, FlatList, RefreshControl, StyleSheet } from 'react-native'
 import Article from './Article'
 import { Spinner } from 'native-base'
 
@@ -9,32 +9,45 @@ export default class NewEntryItems extends Component {
     super(props)
     this.state = {
       refreshing: false,
-      isLoading: true
+      isLoading: true,
+      isSuccess: true,
     }
   }
 
   componentDidMount () {
-    this.props.getArticlesFromApi(this.props.data.url, this.props.index).then(() => {
-      setTimeout(() => {
+    this.props.getArticlesFromApi(this.props.data.url, this.props.index)
+      .then(val => {
+        this.setState({isSuccess: true})
         this.setState({isLoading: false})
-      }, 1000)
-    })
+      })
+      .catch(err => {
+        this.setState({isSuccess: false})
+        this.setState({isLoading: false})
+      })
+
   }
 
   onRefreshHandler () {
     this.setState({refreshing: true})
-    this.props.clearArticles(this.props.index).then(() => {
-      setTimeout(() => {
-        this.props.getArticlesFromApi(this.props.data.url, this.props.index).then(() => {
-          this.setState({refreshing: false})
-        })
-      }, 2000)
-    })
+    this.props.getArticlesFromApi(this.props.data.url, this.props.index)
+      .then(val => {
+        this.setState({isSuccess: true})
+        this.setState({refreshing: false})
+      })
+      .catch(err => {
+        this.setState({isSuccess: false})
+        this.setState({refreshing: false})
+      })
   }
 
   render () {
     return (
       <View style={styles.wrap}>
+        {!this.state.refreshing && !this.state.isSuccess &&
+          <View style={styles.error}>
+            <Text style={styles.errorText}>しばらく時間を空けてから、もう一度お試しください</Text>
+          </View>
+        }
         <FlatList
           style={styles.flatList}
           data={this.props.data.items}
@@ -71,12 +84,18 @@ const styles = StyleSheet.create({
   flatList: {
     paddingTop: 8,
   },
+  error: {
+    paddingTop: 24,
+  },
+  errorText: {
+    fontSize: 14,
+    textAlign: 'center',
+  },
 })
 
 NewEntryItems.propTypes = {
   getArticlesFromApi: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   index: PropTypes.string.isRequired,
-  clearArticles: PropTypes.func.isRequired,
   showPage: PropTypes.func.isRequired
 }

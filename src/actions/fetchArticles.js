@@ -46,28 +46,39 @@ export const fetchBookmarkArticles = (item, index, offset) => (
   }
 )
 
-export const fetchFailed = () => (
+export const fetchFailed = index => (
   {
     type: FETCH_FAILED,
+    payload: {
+      index: index
+    }
   }
 )
 
 export const getArticlesFromApi = (url, index) => (
   dispatch => (
-    fetch(url)
-      .then(res => {
-        parseString(res._bodyInit, (err, result) => {
-          if (err) {
-            console.log(err)
-          }
-          let items = result['rdf:RDF'].item
+    new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        reject(new Error('timeout'))
+      }, 10000)
+      fetch(url)
+        .then(res => res)
+        .then(res => {
+          parseString(res._bodyInit, (err, result) => {
+            let items = result['rdf:RDF'].item
 
-          items.map((data, index) => {
-            items[index].link = data.link[0]
-            items[index].title = data.title[0]
-            items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
+            items.map((data, index) => {
+              items[index].link = data.link[0]
+              items[index].title = data.title[0]
+              items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
+            })
+            dispatch(fetchArticles(items, index))
+            resolve('success')
           })
-          dispatch(fetchArticles(items, index))
+        })
+        .catch(error => {
+          dispatch(fetchFailed(index))
+          reject()
         })
       })
   )

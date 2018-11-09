@@ -2,7 +2,8 @@ import {
   FETCH_ARTICLES,
   FETCH_FAV_ARTICLES,
   FETCH_BOOKMARK_ARTICLES,
-  CLEAR_ARTICLES
+  FETCH_FAILED,
+  CLEAR_ARTICLES,
 } from '../actions/fetchArticles'
 
 const initialState = {
@@ -10,56 +11,67 @@ const initialState = {
     hotentry: {
       name: '総合',
       url: 'http://b.hatena.ne.jp/hotentry.rss',
-      items: []
+      items: [],
+      status: 'success',
     },
     general: {
       name: '一般',
       url: 'http://b.hatena.ne.jp/hotentry/general.rss',
-      items: []
+      items: [],
+      status: 'success',
     },
     social: {
       name: '世の中',
       url: 'http://b.hatena.ne.jp/hotentry/social.rss',
-      items: []
+      items: [],
+      status: 'success',
     },
     economics: {
       name: '政治と経済',
       url: 'http://b.hatena.ne.jp/hotentry/economics.rss',
-      items: []
+      items: [],
+      status: 'success',
     },
     life: {
       name: '暮らし',
       url: 'http://b.hatena.ne.jp/hotentry/life.rss',
-      items: []
+      items: [],
+      status: 'success',
     },
     knowledge: {
       name: '学び',
       url: 'http://b.hatena.ne.jp/hotentry/knowledge.rss',
-      items: []
+      items: [],
+      status: 'success',
     },
     it: {
       name: 'テクノロジー',
       url: 'http://b.hatena.ne.jp/hotentry/it.rss',
-      items: []
+      items: [],
+      status: 'success',
     },
     fun: {
       name: 'おもしろ',
       url: 'http://b.hatena.ne.jp/hotentry/fun.rss',
-      items: []
+      items: [],
+      status: 'success',
     },
     entertainment: {
       name: 'エンタメ',
       url: 'http://b.hatena.ne.jp/hotentry/entertainment.rss',
-      items: []
+      items: [],
+      status: 'success',
     },
     game: {
       name: 'アニメとゲーム',
       url: 'http://b.hatena.ne.jp/hotentry/game.rss',
-      items: []
+      items: [],
+      status: 'success',
     },
     myBookmark: {
       name: 'マイブックマーク',
       items: [],
+      status: 'success',
       offset: 0
     },
   }
@@ -76,6 +88,7 @@ export default (state = initialState, action) => {
         obj.favicon = `https://www.google.com/s2/favicons?domain=${domain}`
       })
       newState.items[action.payload.index].items = [...action.payload.item]
+      newState.items[action.payload.index].status = 'success'
       return Object.assign({}, state, newState)
     case CLEAR_ARTICLES:
       if (typeof newState.items[action.payload.index].offset === 'number') {
@@ -110,6 +123,10 @@ export default (state = initialState, action) => {
         newState.items[action.payload.index].items = [...newState.items[action.payload.index].items, ...action.payload.item]
       }
       newState.items[action.payload.index].offset = action.payload.offset
+      return Object.assign({}, state, newState)
+    case FETCH_FAILED:
+      newState.items[action.payload.index].status = 'failed'
+      newState.items[action.payload.index].items = []
       return Object.assign({}, state, newState)
     default:
       return state
