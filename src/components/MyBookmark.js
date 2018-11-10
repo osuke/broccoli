@@ -6,7 +6,10 @@ import {
   FlatList,
   RefreshControl,
 } from 'react-native'
-import { Spinner } from 'native-base'
+import { 
+  Spinner ,
+} from 'native-base'
+import SearchInput from './SearchInput'
 import Article from './Article'
 import Login from './Login'
 
@@ -15,11 +18,13 @@ export default class MyBookmark extends Component {
     super(props)
     this.state = {
       refreshing: false,
-      isLoading: false
+      isLoading: false,
+      isSuccess: true,
     }
   }
 
   componentDidMount () {
+    //this.props.getMyBookmark(this.props.login)
     if (this.props.login.isLogin) {
       this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, this.props.data.offset)
     }
@@ -27,26 +32,20 @@ export default class MyBookmark extends Component {
 
   onRefreshHandler () {
     this.setState({refreshing: true})
-    this.props.clearArticles(this.props.index).then(() => {
-      setTimeout(() => {
-        this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, 0).then(() => {
-          this.setState({refreshing: false})
-        })
-      }, 2000)
-    })
+    this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, 0)
+      .then(val => {
+        this.setState({isSuccess: true})
+        this.setState({refreshing: false})
+      })
+      .catch(err => {
+        this.setState({isSuccess: false})
+        this.setState({refreshing: false})
+      })
   }
 
   onEndReachedHandler () {
     this.setState({
       isLoading: true
-    })
-
-    this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, this.props.data.offset).then(() => {
-      setTimeout(() => {
-        this.setState({
-          isLoading: false
-        })
-      }, 1000)
     })
   }
 
@@ -67,23 +66,26 @@ export default class MyBookmark extends Component {
     if (this.props.login.isLogin) {
       return (
         <View style={styles.wrap}>
-          <FlatList
-            style={styles.flatList}
-            ref="flatlist"
-            data={this.props.data.items}
-            renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)
-            }
-            keyExtractor={(item, index) => ('bookmarkArticle' + index)}
-            onEndReached={this.onEndReachedHandler.bind(this)}
-            onEndReachedThreshold={0}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this.onRefreshHandler.bind(this)}
-              />
-            }
-            ListFooterComponent={this.showSpinner.bind(this)}
-          />
+          <SearchInput />
+          <View style={styles.wrap}>
+            <FlatList
+              style={styles.flatList}
+              ref="flatlist"
+              data={this.props.data.items}
+              renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)
+              }
+              keyExtractor={(item, index) => ('bookmarkArticle' + index)}
+              onEndReached={this.onEndReachedHandler.bind(this)}
+              onEndReachedThreshold={0}
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this.onRefreshHandler.bind(this)}
+                />
+              }
+              ListFooterComponent={this.showSpinner.bind(this)}
+            />
+          </View>
         </View>
       )
     } else {
@@ -108,4 +110,5 @@ MyBookmark.propTypes = {
   clearArticles: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   showPage: PropTypes.func.isRequired,
+  getMyBookmark: PropTypes.func.isRequired,
 }
