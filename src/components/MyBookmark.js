@@ -9,7 +9,7 @@ import {
 import { 
   Spinner ,
 } from 'native-base'
-import SearchInput from './SearchInput'
+import SearchInput from '../containers/SearchInput'
 import Article from './Article'
 import Login from './Login'
 
@@ -24,29 +24,28 @@ export default class MyBookmark extends Component {
   }
 
   componentDidMount () {
-    //this.props.getMyBookmark(this.props.login)
     if (this.props.login.isLogin) {
-      this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, this.props.data.offset)
+      this.props.getBookmarkArticlesFromApi(this.props.login.userData)
     }
   }
 
   onRefreshHandler () {
-    this.setState({refreshing: true})
-    this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, 0)
-      .then(val => {
-        this.setState({isSuccess: true})
-        this.setState({refreshing: false})
-      })
-      .catch(err => {
-        this.setState({isSuccess: false})
-        this.setState({refreshing: false})
-      })
+    //this.setState({refreshing: true})
+    //this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, 0)
+    //  .then(val => {
+    //    this.setState({isSuccess: true})
+    //    this.setState({refreshing: false})
+    //  })
+    //  .catch(err => {
+    //    this.setState({isSuccess: false})
+    //    this.setState({refreshing: false})
+    //  })
   }
 
   onEndReachedHandler () {
-    this.setState({
-      isLoading: true
-    })
+    //this.setState({
+    //  isLoading: true
+    //})
   }
 
   showSpinner () {
@@ -63,6 +62,9 @@ export default class MyBookmark extends Component {
   }
 
   render () {
+    console.log('----------')
+    console.log(this.props)
+    console.log('----------')
     if (this.props.login.isLogin) {
       return (
         <View style={styles.wrap}>
@@ -71,18 +73,17 @@ export default class MyBookmark extends Component {
             <FlatList
               style={styles.flatList}
               ref="flatlist"
-              data={this.props.data.items}
-              renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)
-              }
+              data={this.props.myBookmark.items}
+              renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
               keyExtractor={(item, index) => ('bookmarkArticle' + index)}
-              onEndReached={this.onEndReachedHandler.bind(this)}
-              onEndReachedThreshold={0}
-              refreshControl={
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this.onRefreshHandler.bind(this)}
-                />
-              }
+              //onEndReached={this.onEndReachedHandler.bind(this)}
+              //onEndReachedThreshold={0}
+              //refreshControl={
+              //  <RefreshControl
+              //    refreshing={this.state.refreshing}
+              //    onRefresh={this.onRefreshHandler.bind(this)}
+              //  />
+              //}
               ListFooterComponent={this.showSpinner.bind(this)}
             />
           </View>
@@ -105,6 +106,7 @@ const styles = StyleSheet.create({
 
 MyBookmark.propTypes = {
   login: PropTypes.object.isRequired,
+  myBookmark: PropTypes.object.isRequired,
   getBookmarkArticlesFromApi: PropTypes.func.isRequired,
   index: PropTypes.string.isRequired,
   clearArticles: PropTypes.func.isRequired,

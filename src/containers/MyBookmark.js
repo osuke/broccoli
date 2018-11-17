@@ -1,7 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import MyBookmark from '../components/MyBookmark'
-import { getBookmarkArticlesFromApi, clearArticles } from '../actions/fetchArticles'
+import {
+  getBookmarkArticlesFromApi,
+  clearArticles,
+  getMyBookmark,
+} from '../actions/fetchArticles'
 import { showPage, hidePage } from '../actions/webview'
 
 const mapStateToProps = state => {
@@ -15,6 +19,9 @@ const mapDispatchToProps = dispatch => {
         dispatch(getBookmarkArticlesFromApi(index, userName, offset))
         resolve()
       })
+    ),
+    getMyBookmark: (userData) => (
+      dispatch(getMyBookmark(userData))
     ),
     clearArticles: index => (
       new Promise(resolve => {

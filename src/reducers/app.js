@@ -4,6 +4,7 @@ import webview from './webview'
 import commentList from './commentList'
 import login from './login'
 import bookmark from './bookmark'
+import myBookmark from './myBookmark'
 import order from './order'
 
 export default {
@@ -12,5 +13,6 @@ export default {
   webview,
   commentList,
   login,
-  bookmark
+  bookmark,
+  myBookmark,
 }

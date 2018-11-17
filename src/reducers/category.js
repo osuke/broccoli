@@ -3,6 +3,7 @@ import {
   FETCH_FAV_ARTICLES,
   FETCH_BOOKMARK_ARTICLES,
   FETCH_FAILED,
+  FETCH_BOOKMARK_FAILED,
   CLEAR_ARTICLES,
 } from '../actions/fetchArticles'
 
@@ -107,27 +108,13 @@ export default (state = initialState, action) => {
       }
       newState.items[action.payload.index].offset = action.payload.offset
       return Object.assign({}, state, newState)
-    case FETCH_BOOKMARK_ARTICLES:
-      action.payload.item.map(obj => {
-        const domain = obj.link.split('/')[2]
-        obj.domain = domain
-        obj.favicon = `https://www.google.com/s2/favicons?domain=${domain}`
-      })
-
-      // after refresh
-      if (action.payload.offset === 20) {
-        newState.items[action.payload.index].items = [...action.payload.item]
-
-      // after reaching end
-      } else {
-        newState.items[action.payload.index].items = [...newState.items[action.payload.index].items, ...action.payload.item]
-      }
-      newState.items[action.payload.index].offset = action.payload.offset
-      return Object.assign({}, state, newState)
     case FETCH_FAILED:
       newState.items[action.payload.index].status = 'failed'
       newState.items[action.payload.index].items = []
       return Object.assign({}, state, newState)
+    case FETCH_BOOKMARK_FAILED:
+      alert('failed')
+      return state
     default:
       return state
   }

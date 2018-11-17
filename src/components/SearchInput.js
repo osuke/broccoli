@@ -10,32 +10,42 @@ import {
 import { BACKGROUND_COLOR_GRAY } from '../constants/styles'
 
 export default class SearchInput extends Component {
-   constructor (props) {
-     super(props)
+  constructor (props) {
+    super(props)
+  
+    this.state = {
+      text: '',
+      offset: 0,
+    }
+  }
 
-     this.state = {
-       text: '',
-     }
-   }
+  searchBookmark = () => {
+    if (this.state.text.length > 0) {
+      this.props.getSearchResultFromApi(this.state.text, this.props.login.userData)
+    } else {
+      this.props.getBookmarkArticlesFromApi(this.props.login.userData)
+    }
+  }
 
-   render () {
-     return (
-        <Item
-          style={styles.item}
-        >
-          <Input
-            style={styles.input}
-            placeholder="検索"
-            value={this.state.text}
-            onChangeText={text => {
-              this.setState({
-                text
-              })
-            }}
-          />
-        </Item>
-     )
-   }
+  render () {
+    return (
+       <Item
+         style={styles.item}
+       >
+         <Input
+           style={styles.input}
+           placeholder="検索"
+           value={this.state.text}
+           onChangeText={text => {
+             this.setState({
+               text
+             })
+           }}
+           onSubmitEditing={this.searchBookmark}
+         />
+       </Item>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -51,3 +61,9 @@ const styles = StyleSheet.create({
     paddingRight: 12,
   },
 })
+
+SearchInput.propTypes = {
+  login: PropTypes.object.isRequired,
+  getBookmarkArticlesFromApi: PropTypes.func.isRequired,
+  getSearchResultFromApi: PropTypes.func.isRequired,
+}
