@@ -3,6 +3,7 @@ import HatenaLogin from '../utils/login'
 export const FETCH_ARTICLES = 'FETCH_ARTICLES'
 export const FETCH_FAV_ARTICLES = 'FETCH_FAV_ARTICLES'
 export const FETCH_BOOKMARK_ARTICLES = 'FETCH_BOOKMARK_ARTICLES'
+export const FETCH_BOOKMARK_CACHE = 'FETCH_BOOKMARK_CACHE'
 export const CLEAR_ARTICLES = 'CLEAR_ARTICLES'
 export const FETCH_FAILED = 'FETCH_FAILED'
 export const FETCH_BOOKMARK_FAILED = 'FETCH_BOOKMARK_FAILED'
@@ -29,17 +30,6 @@ export const clearArticles = index => (
   }
 )
 
-export const fetchFavArticles = (item, index, offset) => (
-  {
-    type: FETCH_FAV_ARTICLES,
-    payload: {
-      item: item,
-      index: index,
-      offset: offset
-    }
-  }
-)
-
 export const fetchBookmarkArticles = (items) => (
   {
     type: FETCH_BOOKMARK_ARTICLES,
@@ -49,12 +39,16 @@ export const fetchBookmarkArticles = (items) => (
   }
 )
 
-export const fetchSearchResult = items => (
+export const fetchBookmarkCache = () => (
+  {
+    type: FETCH_BOOKMARK_CACHE,
+  }
+)
+
+export const fetchSearchResult = payload => (
   {
     type: FETCH_SEARCH_RESULT,
-    payload: {
-      items
-    }
+    payload,
   }
 )
 
@@ -105,44 +99,14 @@ export const getArticlesFromApi = (url, index) => (
   )
 )
 
-export const getFavArticlesFromApi = (index, userName, offset) => (
-  dispatch => {
-    const apiUrl = 'http://b.hatena.ne.jp/' + userName + '/favorite.rss?of=' + offset
-
-    fetch(apiUrl)
-      .then(res => {
-        if (res.status === 200) {
-          parseString(res._bodyInit, (err, result) => {
-            if (err) {
-              console.log(err)
-            }
-
-            let items = result['rdf:RDF'].item
-
-            items.map((data, index) => {
-              items[index].link = data.link[0]
-              items[index].title = data.title[0]
-              items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
-              items[index].creator = data['dc:creator'][0]
-            })
-            dispatch(fetchFavArticles(items, index, offset + 25))
-          })
-        } else {
-          dispatch(fetchFailed())
-        }
-      })
-  }
-)
-
 export const getBookmarkArticlesFromApi = userData => (
-  dispatch => {
-    const url = `http://b.hatena.ne.jp/${userData.displayName}/rss?d=${Date.now()}`
-    return new Promise((resolve, reject) => {
+  dispatch => (
+    new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         reject(new Error('timeout'))
       }, 10000)
 
-      fetch(url)
+      fetch(`http://b.hatena.ne.jp/${userData.displayName}/rss?d=${Date.now()}`)
         .then(res => {
           parseString(res._bodyInit, (err, result) => {
             let items = result['rdf:RDF'].item
@@ -161,19 +125,20 @@ export const getBookmarkArticlesFromApi = userData => (
           reject()
         })
       })
-  }
+  )
 )
 
-export const getSearchResultFromApi = (keyword, userData) => (
+export const getSearchResultFromApi = (keyword, userData, offset) => (
   dispatch => (
     new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         reject(new Error('timeout'))
       }, 10000)
-      fetch(`https://b.hatena.ne.jp/${userData.displayName}/search/json?q=${keyword}`)
+      fetch(`https://b.hatena.ne.jp/${userData.displayName}/search/json?q=${keyword}&of=${offset}`)
         .then(res => res.json())
         .then(res => {
           let items = res.bookmarks || []
+          console.log(res)
           if (items.length > 0) {
             items.map((item, index) => {
               items[index].link = item.entry.url
@@ -181,7 +146,14 @@ export const getSearchResultFromApi = (keyword, userData) => (
               items[index].bookmarkcount = item.entry.count
             })
           }
-          dispatch(fetchSearchResult(items))
+
+          const payload = {
+            items,
+            keyword,
+            offset,
+          }
+
+          dispatch(fetchSearchResult(payload))
           resolve('success')
         })
         .catch(error => {

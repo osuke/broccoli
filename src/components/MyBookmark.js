@@ -29,23 +29,30 @@ export default class MyBookmark extends Component {
     }
   }
 
-  onRefreshHandler () {
-    //this.setState({refreshing: true})
-    //this.props.getBookmarkArticlesFromApi(this.props.index, this.props.login.userData.displayName, 0)
-    //  .then(val => {
-    //    this.setState({isSuccess: true})
-    //    this.setState({refreshing: false})
-    //  })
-    //  .catch(err => {
-    //    this.setState({isSuccess: false})
-    //    this.setState({refreshing: false})
-    //  })
+  onRefreshHandler = () => {
+    this.setState({refreshing: true})
+    this.props.getBookmarkArticlesFromApi(this.props.login.userData)
+      .then(val => {
+        this.setState({isSuccess: true})
+        this.setState({refreshing: false})
+      })
+      .catch(err => {
+        this.setState({isSuccess: false})
+        this.setState({refreshing: false})
+      })
   }
 
-  onEndReachedHandler () {
-    //this.setState({
-    //  isLoading: true
-    //})
+  onEndReachedHandler = () => {
+    this.setState({
+      isLoading: true
+    })
+    this.props.getSearchResultFromApi(
+      this.props.myBookmark.keyword,
+      this.props.login.userData,
+      this.props.myBookmark.offset + 20,
+    ).then(val => {
+      this.setState({isSuccess: true})
+    })
   }
 
   showSpinner () {
@@ -62,30 +69,38 @@ export default class MyBookmark extends Component {
   }
 
   render () {
-    console.log('----------')
-    console.log(this.props)
-    console.log('----------')
     if (this.props.login.isLogin) {
       return (
         <View style={styles.wrap}>
           <SearchInput />
           <View style={styles.wrap}>
-            <FlatList
-              style={styles.flatList}
-              ref="flatlist"
-              data={this.props.myBookmark.items}
-              renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
-              keyExtractor={(item, index) => ('bookmarkArticle' + index)}
-              //onEndReached={this.onEndReachedHandler.bind(this)}
-              //onEndReachedThreshold={0}
-              //refreshControl={
-              //  <RefreshControl
-              //    refreshing={this.state.refreshing}
-              //    onRefresh={this.onRefreshHandler.bind(this)}
-              //  />
-              //}
-              ListFooterComponent={this.showSpinner.bind(this)}
-            />
+            {this.props.myBookmark.type === 'LATEST' ? (
+              <FlatList
+                style={styles.flatList}
+                ref="flatlist"
+                data={this.props.myBookmark.items.latest}
+                renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
+                keyExtractor={(item, index) => ('bookmarkArticle' + index)}
+                ListFooterComponent={this.showSpinner.bind(this)}
+                refreshControl={
+                  <RefreshControl
+                    refreshing={this.state.refreshing}
+                    onRefresh={this.onRefreshHandler}
+                  />
+                }
+              />
+            ) : (
+              <FlatList
+                style={styles.flatList}
+                ref="flatlist"
+                data={this.props.myBookmark.items.searchResult}
+                renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
+                keyExtractor={(item, index) => ('bookmarkArticle' + index)}
+                onEndReached={this.onEndReachedHandler}
+                onEndReachedThreshold={0}
+                ListFooterComponent={this.showSpinner.bind(this)}
+              />
+            )}
           </View>
         </View>
       )
@@ -108,9 +123,7 @@ MyBookmark.propTypes = {
   login: PropTypes.object.isRequired,
   myBookmark: PropTypes.object.isRequired,
   getBookmarkArticlesFromApi: PropTypes.func.isRequired,
-  index: PropTypes.string.isRequired,
-  clearArticles: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   showPage: PropTypes.func.isRequired,
-  getMyBookmark: PropTypes.func.isRequired,
+  getSearchResultFromApi: PropTypes.func.isRequired,
 }

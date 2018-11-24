@@ -1,11 +1,17 @@
 import {
   FETCH_BOOKMARK_ARTICLES,
   FETCH_SEARCH_RESULT,
+  FETCH_BOOKMARK_CACHE,
 } from '../actions/fetchArticles'
 
 const initialState = {
   type: 'LATEST',
-  items: []
+  items: {
+    latest: [],
+    searchResult: [],
+  },
+  keyword: '',
+  offset: 0,
 }
 
 export default (state = initialState, action) => {
@@ -30,18 +36,37 @@ export default (state = initialState, action) => {
       return Object.assign({}, state,
         {
           type: 'LATEST',
-          items: action.payload.items,
+          items: {
+            latest: action.payload.items,
+            searchResult: state.items.searchResult,
+            keyword: '',
+            offset: 0,
+          },
         }
       )
 
     case FETCH_SEARCH_RESULT:
-      console.log(action.payload.items)
+      let items = action.payload.offset === 0 ? [] : state.items.searchResult
+
       return Object.assign({}, state,
         {
           type: 'SEARCH_RESULT',
-          items: action.payload.items,
+          items: {
+            latest: state.items.latest,
+            searchResult: [...items, ...action.payload.items]
+          },
+          keyword: action.payload.keyword,
+          offset: action.payload.offset,
         }
       )
+
+    case FETCH_BOOKMARK_CACHE:
+      return Object.assign({}, state,
+        {
+          type: 'LATEST',
+        }
+      )
+
     default:
       return state
   }

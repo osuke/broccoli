@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, FlatList, RefreshControl, StyleSheet } from 'react-native'
-import Article from './Article'
+import Article from '../containers/Article'
 import { Spinner } from 'native-base'
 
 export default class NewEntryItems extends Component {
@@ -51,7 +51,7 @@ export default class NewEntryItems extends Component {
         <FlatList
           style={styles.flatList}
           data={this.props.data.items}
-          renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
+          renderItem={({item}) => (<Article {...item} />)}
           keyExtractor={(item, index) => ('article' + index)}
           refreshControl={
             <RefreshControl
@@ -97,5 +97,4 @@ NewEntryItems.propTypes = {
   getArticlesFromApi: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   index: PropTypes.string.isRequired,
-  showPage: PropTypes.func.isRequired
 }

@@ -3,10 +3,9 @@ import { connect } from 'react-redux'
 import MyBookmark from '../components/MyBookmark'
 import {
   getBookmarkArticlesFromApi,
-  clearArticles,
-  getMyBookmark,
+  getSearchResultFromApi,
 } from '../actions/fetchArticles'
-import { showPage, hidePage } from '../actions/webview'
+import { showPage } from '../actions/webview'
 
 const mapStateToProps = state => {
   return state
@@ -14,23 +13,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getBookmarkArticlesFromApi: (index, userName, offset) => (
-      new Promise(resolve => {
-        dispatch(getBookmarkArticlesFromApi(index, userName, offset))
-        resolve()
-      })
-    ),
-    getMyBookmark: (userData) => (
-      dispatch(getMyBookmark(userData))
-    ),
-    clearArticles: index => (
-      new Promise(resolve => {
-        dispatch(clearArticles(index))
-        resolve()
-      })
-    ),
+    getBookmarkArticlesFromApi: displayName => dispatch(getBookmarkArticlesFromApi(displayName)),
+    getSearchResultFromApi: (keyword, userData, offset = 0) => dispatch(getSearchResultFromApi(keyword, userData, offset)),
     showPage: url => { dispatch(showPage(url)) },
-    hidePage: () => { dispatch(hidePage()) }
   }
 }
 

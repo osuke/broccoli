@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
   StyleSheet,
+  Keyboard,
 } from 'react-native'
 import { 
   Item,
@@ -21,9 +22,20 @@ export default class SearchInput extends Component {
 
   searchBookmark = () => {
     if (this.state.text.length > 0) {
-      this.props.getSearchResultFromApi(this.state.text, this.props.login.userData)
+      this.props.getSearchResultFromApi(this.state.text, this.props.userData, 0)
     } else {
       this.props.getBookmarkArticlesFromApi(this.props.login.userData)
+    }
+  }
+
+  onChangeTextHandler = text => {
+    this.setState({
+      text
+    })
+
+    if (text.length < 1) {
+      this.props.fetchBookmarkCache()
+      Keyboard.dismiss()
     }
   }
 
@@ -36,11 +48,7 @@ export default class SearchInput extends Component {
            style={styles.input}
            placeholder="検索"
            value={this.state.text}
-           onChangeText={text => {
-             this.setState({
-               text
-             })
-           }}
+           onChangeText={this.onChangeTextHandler}
            onSubmitEditing={this.searchBookmark}
          />
        </Item>
@@ -63,7 +71,8 @@ const styles = StyleSheet.create({
 })
 
 SearchInput.propTypes = {
-  login: PropTypes.object.isRequired,
+  userData: PropTypes.object.isRequired,
   getBookmarkArticlesFromApi: PropTypes.func.isRequired,
+  fetchBookmarkCache: PropTypes.func.isRequired,
   getSearchResultFromApi: PropTypes.func.isRequired,
 }
