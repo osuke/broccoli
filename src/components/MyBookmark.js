@@ -18,7 +18,7 @@ export default class MyBookmark extends Component {
     super(props)
     this.state = {
       refreshing: false,
-      isLoading: false,
+      isLoading: true,
       isSuccess: true,
     }
   }
@@ -81,13 +81,24 @@ export default class MyBookmark extends Component {
                 data={this.props.myBookmark.items.latest}
                 renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
                 keyExtractor={(item, index) => ('bookmarkArticle' + index)}
-                ListFooterComponent={this.showSpinner.bind(this)}
                 refreshControl={
                   <RefreshControl
                     refreshing={this.state.refreshing}
                     onRefresh={this.onRefreshHandler}
                   />
                 }
+                ListEmptyComponent={() => {
+                  if (this.state.isLoading) {
+                    return (
+                      <Spinner
+                        color="#000"
+                        size="small"
+                      />
+                    )
+                  } else {
+                    return null
+                  }
+                }}
               />
             ) : (
               <FlatList

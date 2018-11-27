@@ -131,6 +131,13 @@ export const getBookmarkArticlesFromApi = userData => (
 export const getSearchResultFromApi = (keyword, userData, offset) => (
   dispatch => (
     new Promise((resolve, reject) => {
+      const emptyPayload = {
+        items: [],
+        keyword,
+        offset,
+      }
+      dispatch(fetchSearchResult(emptyPayload))
+
       const timeout = setTimeout(() => {
         reject(new Error('timeout'))
       }, 10000)
@@ -138,7 +145,6 @@ export const getSearchResultFromApi = (keyword, userData, offset) => (
         .then(res => res.json())
         .then(res => {
           let items = res.bookmarks || []
-          console.log(res)
           if (items.length > 0) {
             items.map((item, index) => {
               items[index].link = item.entry.url
