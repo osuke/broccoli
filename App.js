@@ -6,7 +6,7 @@ import configureStore from './src/configureStore'
 
 const { persistor, store } = configureStore()
 
-export default class Bagle extends React.Component {
+export default class Broccoli extends React.Component {
   render () {
     return (
       <Provider store={store}>
