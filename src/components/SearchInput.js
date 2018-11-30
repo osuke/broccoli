@@ -16,7 +16,6 @@ export default class SearchInput extends Component {
   
     this.state = {
       text: '',
-      offset: 0,
     }
   }
 

@@ -26,6 +26,11 @@ export default class MyBookmark extends Component {
   componentDidMount () {
     if (this.props.login.isLogin) {
       this.props.getBookmarkArticlesFromApi(this.props.login.userData)
+        .then(val => {
+          this.setState({
+            isLoading: false,
+          })
+        })
     }
   }
 
@@ -43,15 +48,21 @@ export default class MyBookmark extends Component {
   }
 
   onEndReachedHandler = () => {
+    if (this.state.isLoading || this.props.myBookmark.offset > this.props.myBookmark.total) return
+
     this.setState({
-      isLoading: true
+      isLoading: true,
     })
+
     this.props.getSearchResultFromApi(
       this.props.myBookmark.keyword,
       this.props.login.userData,
       this.props.myBookmark.offset + 20,
     ).then(val => {
-      this.setState({isSuccess: true})
+      this.setState({
+        isSuccess: true,
+        isLoading: false,
+      })
     })
   }
 
@@ -110,6 +121,14 @@ export default class MyBookmark extends Component {
                 onEndReached={this.onEndReachedHandler}
                 onEndReachedThreshold={0}
                 ListFooterComponent={this.showSpinner.bind(this)}
+                ListEmptyComponent={() => {
+                  return (
+                    <Spinner
+                      color="#000"
+                      size="small"
+                    />
+                  )
+                }}
               />
             )}
           </View>

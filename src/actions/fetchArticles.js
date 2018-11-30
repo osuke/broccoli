@@ -157,6 +157,7 @@ export const getSearchResultFromApi = (keyword, userData, offset) => (
             items,
             keyword,
             offset,
+            total: res.meta.total
           }
 
           dispatch(fetchSearchResult(payload))

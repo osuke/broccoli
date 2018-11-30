@@ -12,6 +12,7 @@ const initialState = {
   },
   keyword: '',
   offset: 0,
+  total: 20,
 }
 
 export default (state = initialState, action) => {
@@ -41,6 +42,7 @@ export default (state = initialState, action) => {
             searchResult: state.items.searchResult,
             keyword: '',
             offset: 0,
+            total: 20,
           },
         }
       )
@@ -57,6 +59,7 @@ export default (state = initialState, action) => {
           },
           keyword: action.payload.keyword,
           offset: action.payload.offset,
+          total: action.payload.total,
         }
       )
 
