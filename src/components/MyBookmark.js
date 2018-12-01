@@ -9,7 +9,8 @@ import {
 import { 
   Spinner ,
 } from 'native-base'
-import SearchInput from '../containers/SearchInput'
+import SearchInput from './SearchInput'
+import ErrorMessage from './ErrorMessage'
 import Article from './Article'
 import Login from './Login'
 
@@ -18,16 +19,26 @@ export default class MyBookmark extends Component {
     super(props)
     this.state = {
       refreshing: false,
-      isLoading: true,
+      isLoading: false,
       isSuccess: true,
     }
   }
 
   componentDidMount () {
+    this.setState({
+      isLoading: true,
+    })
     if (this.props.login.isLogin) {
       this.props.getBookmarkArticlesFromApi(this.props.login.userData)
         .then(val => {
           this.setState({
+            isLoading: false,
+            isSuccess: true,
+          })
+        })
+        .catch(err => {
+          this.setState({
+            isSuccess: false,
             isLoading: false,
           })
         })
@@ -54,20 +65,37 @@ export default class MyBookmark extends Component {
       isLoading: true,
     })
 
-    this.props.getSearchResultFromApi(
+    this.getSearchResultFromApi(
       this.props.myBookmark.keyword,
       this.props.login.userData,
       this.props.myBookmark.offset + 20,
+    )
+  }
+
+  getSearchResultFromApi = (keyword, userData, offset) => {
+    this.setState({
+      isLoading: true,
+    })
+
+    this.props.getSearchResultFromApi(
+      keyword,
+      userData,
+      offset,
     ).then(val => {
       this.setState({
         isSuccess: true,
         isLoading: false,
       })
+    }).catch(err => {
+      this.setState({
+        isSuccess: false,
+        isLoading: false,
+      })
     })
   }
 
-  showSpinner () {
-    if (this.state.isLoading) {
+  showSpinner = items => {
+    if (items.length > 0 && this.state.isLoading) {
       return (
         <Spinner
           color="#000"
@@ -83,7 +111,12 @@ export default class MyBookmark extends Component {
     if (this.props.login.isLogin) {
       return (
         <View style={styles.wrap}>
-          <SearchInput />
+          <SearchInput
+            userData={this.props.login.userData}
+            getSearchResultFromApi={this.getSearchResultFromApi}
+            fetchBookmarkCache={this.props.fetchBookmarkCache}
+          />
+          {!this.state.isSuccess && <ErrorMessage />}
           <View style={styles.wrap}>
             {this.props.myBookmark.type === 'LATEST' ? (
               <FlatList
@@ -120,14 +153,18 @@ export default class MyBookmark extends Component {
                 keyExtractor={(item, index) => ('bookmarkArticle' + index)}
                 onEndReached={this.onEndReachedHandler}
                 onEndReachedThreshold={0}
-                ListFooterComponent={this.showSpinner.bind(this)}
+                ListFooterComponent={() => this.showSpinner(this.props.myBookmark.items.searchResult)}
                 ListEmptyComponent={() => {
-                  return (
-                    <Spinner
-                      color="#000"
-                      size="small"
-                    />
-                  )
+                  if (this.state.isLoading) {
+                    return (
+                      <Spinner
+                        color="#000"
+                        size="small"
+                      />
+                    )
+                  } else {
+                    return null
+                  }
                 }}
               />
             )}
@@ -156,4 +193,5 @@ MyBookmark.propTypes = {
   data: PropTypes.object.isRequired,
   showPage: PropTypes.func.isRequired,
   getSearchResultFromApi: PropTypes.func.isRequired,
+  fetchBookmarkCache: PropTypes.func.isRequired,
 }

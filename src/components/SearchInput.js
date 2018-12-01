@@ -22,8 +22,6 @@ export default class SearchInput extends Component {
   searchBookmark = () => {
     if (this.state.text.length > 0) {
       this.props.getSearchResultFromApi(this.state.text, this.props.userData, 0)
-    } else {
-      this.props.getBookmarkArticlesFromApi(this.props.login.userData)
     }
   }
 
@@ -71,7 +69,6 @@ const styles = StyleSheet.create({
 
 SearchInput.propTypes = {
   userData: PropTypes.object.isRequired,
-  getBookmarkArticlesFromApi: PropTypes.func.isRequired,
-  fetchBookmarkCache: PropTypes.func.isRequired,
   getSearchResultFromApi: PropTypes.func.isRequired,
+  fetchBookmarkCache: PropTypes.func.isRequired,
 }
