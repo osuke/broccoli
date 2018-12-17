@@ -1,3 +1,4 @@
+import { Dispatch, Action } from 'redux'
 import HatenaLogin from '../utils/login'
 const hatenaLogin = new HatenaLogin()
 
@@ -5,19 +6,37 @@ export const ADD_BOOKMARK = 'ADD_BOOKMARK'
 export const CLOSE_BOOKMARK = 'CLOSE_BOOKMARK'
 export const SHOW_BOOKMARK_DATA = 'SHOW_BOOKMARK_DATA'
 
-export const addBookmark = () => (
+export interface IBookmarkData {
+  comment: string
+  isBookmark: boolean
+  tags: string[]
+}
+
+export interface IShowBookmarkData extends Action {
+  payload: IBookmarkData
+}
+
+export interface IUserData {
+  userData: {
+    token: string
+    secret: string
+    urlName: string
+  }
+}
+
+export const addBookmark = (): Action => (
   {
     type: ADD_BOOKMARK
   }
 )
 
-export const closeBookmark = () => (
+export const closeBookmark = (): Action => (
   {
     type: CLOSE_BOOKMARK
   }
 )
 
-export const showBookmarkData = obj => (
+export const showBookmarkData = (obj: IBookmarkData): IShowBookmarkData => (
   {
     type: SHOW_BOOKMARK_DATA,
     payload: {
@@ -28,7 +47,7 @@ export const showBookmarkData = obj => (
   }
 )
 
-export const saveBookmark = (userData, url, comment = '') => (
+export const saveBookmark = (userData: IUserData, url: string, comment = ''): (dispatch: Dispatch) => void => (
   dispatch => {
     hatenaLogin.sendRequest(
       'POST',
@@ -45,7 +64,7 @@ export const saveBookmark = (userData, url, comment = '') => (
   }
 )
 
-export const deleteBookmark = (userData, url) => (
+export const deleteBookmark = (userData: IUserData, url: string): (dispatch: Dispatch) => void => (
   dispatch => {
     hatenaLogin.sendRequest(
       'DELETE',
@@ -61,7 +80,7 @@ export const deleteBookmark = (userData, url) => (
   }
 )
 
-export const fetchBookmarkData = (userData, url) => (
+export const fetchBookmarkData = (userData: IUserData, url: string): (dispatch: Dispatch) => void => (
   dispatch => {
     hatenaLogin.sendRequest(
       'GET',
@@ -69,13 +88,13 @@ export const fetchBookmarkData = (userData, url) => (
       userData.userData.token,
       userData.userData.secret,
     ).then(data => {
-      let obj = {
+      let obj: IBookmarkData = {
         comment: '',
         isBookmark: false,
         tags: [],
       }
 
-      data.bookmarks.map(val => {
+      data.bookmarks.map((val: any) => {
         if (val.user === userData.userData.urlName) {
           console.log(val)
           obj.comment = val.comment

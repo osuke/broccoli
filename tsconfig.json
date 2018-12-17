@@ -11,9 +11,11 @@
     // additional
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "lib": ["esnext"]
+    "lib": ["esnext"],
+    "typeRoots" : ["./src/@types"],
   },
   "include": [
-    "src/actions/*.ts"
+    "src/actions/*.ts",
+    "src/@types/*.ts"
   ]
 }

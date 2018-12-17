@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
     case SHOW_COMMENTS:
       return Object.assign({}, state,
         {
-          items: action.payload.item.bookmarks,
+          items: action.payload.bookmarks,
         }
       )
     case CLOSE_COMMENTS:

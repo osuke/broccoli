@@ -11,7 +11,7 @@ import {
 } from 'native-base'
 import SearchInput from './SearchInput'
 import ErrorMessage from './ErrorMessage'
-import Article from './Article'
+import Article from '../containers/Article'
 import Login from './Login'
 
 export default class MyBookmark extends Component {
@@ -123,7 +123,17 @@ export default class MyBookmark extends Component {
                 style={styles.flatList}
                 ref="flatlist"
                 data={this.props.myBookmark.items.latest}
-                renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
+                renderItem={({item}) => {
+                  return (
+                    <Article
+                      title={item.title}
+                      link={item.link}
+                      bookmarkcount={item.bookmarkcount}
+                      favicon={item.favicon}
+                      domain={item.domain}
+                    />
+                  )
+                }}
                 keyExtractor={(item, index) => ('bookmarkArticle' + index)}
                 refreshControl={
                   <RefreshControl
@@ -149,7 +159,17 @@ export default class MyBookmark extends Component {
                 style={styles.flatList}
                 ref="flatlist"
                 data={this.props.myBookmark.items.searchResult}
-                renderItem={({item}) => (<Article {...item} showPage={this.props.showPage} />)}
+                renderItem={({item}) => {
+                  return (
+                    <Article
+                      title={item.title}
+                      link={item.link}
+                      bookmarkcount={item.bookmarkcount}
+                      favicon={item.favicon}
+                      domain={item.domain}
+                    />
+                  )
+                }}
                 keyExtractor={(item, index) => ('bookmarkArticle' + index)}
                 onEndReached={this.onEndReachedHandler}
                 onEndReachedThreshold={0}

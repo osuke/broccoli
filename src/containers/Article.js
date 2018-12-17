@@ -3,14 +3,10 @@ import { connect } from 'react-redux'
 import Article from '../components/Article'
 import { showPage } from '../actions/webview'
 
-const mapStateToProps = state => {
-  return state
-}
-
 const mapDispatchToProps = dispatch => {
   return {
-    showPage: obj => { dispatch(showPage(obj)) },
+    showPage: (url, title) => { dispatch(showPage(url, title)) },
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Article)
+export default connect(null, mapDispatchToProps)(Article)

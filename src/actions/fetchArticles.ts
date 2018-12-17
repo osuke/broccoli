@@ -1,36 +1,68 @@
 import { parseString } from 'react-native-xml2js'
+import { Action, Dispatch } from 'redux'
 import HatenaLogin from '../utils/login'
 export const FETCH_ARTICLES = 'FETCH_ARTICLES'
-export const FETCH_FAV_ARTICLES = 'FETCH_FAV_ARTICLES'
 export const FETCH_BOOKMARK_ARTICLES = 'FETCH_BOOKMARK_ARTICLES'
 export const FETCH_BOOKMARK_CACHE = 'FETCH_BOOKMARK_CACHE'
-export const CLEAR_ARTICLES = 'CLEAR_ARTICLES'
 export const FETCH_FAILED = 'FETCH_FAILED'
 export const FETCH_BOOKMARK_FAILED = 'FETCH_BOOKMARK_FAILED'
 export const FETCH_SEARCH_RESULT = 'FETCH_SEARCH_RESULT'
 
-const hatenaLogin = new HatenaLogin()
+interface IArticle {
+  link: string
+  title: string
+  bookmarkcount: number
+}
 
-export const fetchArticles = (item, index) => (
+interface IFetchArticles extends Action {
+  payload: {
+    items: IArticle
+    index: string
+  }
+}
+
+interface IFetchBookmarkArticles extends Action {
+  payload: {
+    items: IArticle
+  }
+}
+
+interface ISearchResponse {
+  items: any[]
+  keyword: string
+  offset: number
+  total: number
+}
+
+interface IFetchSearchResult extends Action {
+  payload: ISearchResponse
+}
+
+interface IFetchFailed extends Action {
+  payload: {
+    index: string
+  }
+}
+
+interface IUserData {
+  displayName: string
+  secret: string
+  token: string
+  urlName: string
+}
+
+
+export const fetchArticles = (items: IArticle , index: string): IFetchArticles => (
   {
     type: FETCH_ARTICLES,
     payload: {
-      item: item,
-      index: index
+      items,
+      index,
     }
   }
 )
 
-export const clearArticles = index => (
-  {
-    type: CLEAR_ARTICLES,
-    payload: {
-      index: index
-    }
-  }
-)
-
-export const fetchBookmarkArticles = (items) => (
+export const fetchBookmarkArticles = (items: IArticle): IFetchBookmarkArticles => (
   {
     type: FETCH_BOOKMARK_ARTICLES,
     payload: {
@@ -39,67 +71,66 @@ export const fetchBookmarkArticles = (items) => (
   }
 )
 
-export const fetchBookmarkCache = () => (
+export const fetchBookmarkCache = (): Action => (
   {
     type: FETCH_BOOKMARK_CACHE,
   }
 )
 
-export const fetchSearchResult = payload => (
+export const fetchSearchResult = (payload: ISearchResponse): IFetchSearchResult => (
   {
     type: FETCH_SEARCH_RESULT,
     payload,
   }
 )
 
-export const fetchFailed = index => (
+export const fetchFailed = (index: string): IFetchFailed => (
   {
     type: FETCH_FAILED,
     payload: {
-      index: index
+      index
     }
   }
 )
 
-export const fetchBookmarkFailed = index => (
+export const fetchBookmarkFailed = (index: string): IFetchFailed => (
   {
     type: FETCH_BOOKMARK_FAILED,
     payload: {
-      index: index
+      index
     }
   }
 )
 
-export const getArticlesFromApi = (url, index) => (
+export const getArticlesFromApi = (url: string, indexName: string): (dispatch: Dispatch) => Promise<string> => (
   dispatch => (
     new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         reject(new Error('timeout'))
       }, 10000)
-      fetch(url)
-        .then(res => res)
-        .then(res => {
-          parseString(res._bodyInit, (err, result) => {
-            let items = result['rdf:RDF'].item
 
-            items.map((data, index) => {
+      fetch(url)
+        .then(((res: any) => {
+          parseString(res._bodyInit, (err: any, result: any) => {
+            let items = result['rdf:RDF'].item
+            items.map((data: any, index: number) => {
               items[index].link = data.link[0]
               items[index].title = data.title[0]
               items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
             })
-            dispatch(fetchArticles(items, index))
+            dispatch(fetchArticles(items, indexName))
             resolve('success')
           })
-        })
+        } ))
         .catch(error => {
-          dispatch(fetchFailed(index))
-          reject()
+          dispatch(fetchFailed(indexName))
+          reject(new Error('error'))
         })
       })
   )
 )
 
-export const getBookmarkArticlesFromApi = userData => (
+export const getBookmarkArticlesFromApi = (userData: IUserData): (dispatch: Dispatch) => Promise<string> => (
   dispatch => (
     new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
@@ -107,34 +138,36 @@ export const getBookmarkArticlesFromApi = userData => (
       }, 10000)
 
       fetch(`http://b.hatena.ne.jp/${userData.displayName}/rss?d=${Date.now()}`)
-        .then(res => {
-          parseString(res._bodyInit, (err, result) => {
+        .then((res: any) => {
+          parseString(res._bodyInit, ((err: any, result: any) => {
             let items = result['rdf:RDF'].item
 
-            items.map((data, index) => {
+            items.map((data: any, index: any) => {
               items[index].link = data.link[0]
               items[index].title = data.title[0]
               items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
             })
             dispatch(fetchBookmarkArticles(items))
             resolve('success')
-          })
+          }))
         })
         .catch(error => {
-          dispatch(fetchBookmarkFailed(index))
-          reject()
+          //dispatch(fetchBookmarkFailed(index))
+          //dispatch(fetchBookmarkFailed(0))
+          reject(new Error('error'))
         })
       })
   )
 )
 
-export const getSearchResultFromApi = (keyword, userData, offset) => (
+export const getSearchResultFromApi = (keyword: string, userData: IUserData, offset: number): (dispatch: Dispatch) => Promise<string> => (
   dispatch => (
     new Promise((resolve, reject) => {
       const emptyPayload = {
         items: [],
         keyword,
         offset,
+        total: 0
       }
       dispatch(fetchSearchResult(emptyPayload))
 
@@ -146,14 +179,14 @@ export const getSearchResultFromApi = (keyword, userData, offset) => (
         .then(res => {
           let items = res.bookmarks || []
           if (items.length > 0) {
-            items.map((item, index) => {
+            items.map((item: any, index: any) => {
               items[index].link = item.entry.url
               items[index].title = item.entry.title
               items[index].bookmarkcount = item.entry.count
             })
           }
 
-          const payload = {
+          const payload: ISearchResponse = {
             items,
             keyword,
             offset,
@@ -165,21 +198,8 @@ export const getSearchResultFromApi = (keyword, userData, offset) => (
         })
         .catch(error => {
           //dispatch(fetchFailed(index))
-          reject()
+          reject(new Error('error'))
         })
       })
   )
-)
-
-export const getMyBookmark = (userData) => (
-  dispatch => {
-    hatenaLogin.sendRequest(
-      'GET',
-      'http://api.b.hatena.ne.jp/1/my/bookmark',
-      userData.userData.token,
-      userData.userData.secret,
-    ).then(data => {
-      console.log(data)
-    })
-  }
 )

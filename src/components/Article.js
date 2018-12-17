@@ -22,7 +22,7 @@ export default class Article extends Component {
     return (
       <ListItem
         onPress={() => {
-          this.props.showPage(this.props)
+          this.props.showPage(this.props.link, this.props.title)
           Actions.externalPage()
         }}
         style={styles.listItem}
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
 Article.propTypes = {
   showPage: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
   bookmarkcount: PropTypes.string.isRequired,
   favicon: PropTypes.string.isRequired,
   domain: PropTypes.string.isRequired,

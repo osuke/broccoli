@@ -41,6 +41,9 @@ export default class NewEntryItems extends Component {
   }
 
   render () {
+    console.log('-------------------')
+    console.log(this.props.data.items)
+    console.log('-------------------')
     return (
       <View style={styles.wrap}>
         {!this.state.refreshing && !this.state.isSuccess &&
@@ -51,7 +54,17 @@ export default class NewEntryItems extends Component {
         <FlatList
           style={styles.flatList}
           data={this.props.data.items}
-          renderItem={({item}) => (<Article {...item} />)}
+          renderItem={({item}) => {
+            return (
+              <Article
+                title={item.title}
+                link={item.link}
+                bookmarkcount={item.bookmarkcount}
+                favicon={item.favicon}
+                domain={item.domain}
+              />
+            )
+          }}
           keyExtractor={(item, index) => ('article' + index)}
           refreshControl={
             <RefreshControl

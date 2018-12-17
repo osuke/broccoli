@@ -1,15 +1,13 @@
+import { Action } from 'redux'
 export const UPDATE_ORDER = 'UPDATE_ORDER'
 
-interface IPayload {
-  order: string[]
+interface IUpdateOrder extends Action {
+  payload: {
+    order: string[]
+  }
 }
 
-interface IupdateOrder {
-  type: string
-  payload: IPayload
-}
-
-export const updateOrder = (order: IPayload) => (
+export const updateOrder = (order: string[]): IUpdateOrder => (
   {
     type: UPDATE_ORDER,
     payload: {
