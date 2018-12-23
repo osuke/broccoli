@@ -12,7 +12,7 @@ export interface IBookmarkData {
   tags: string[]
 }
 
-export interface IShowBookmarkData extends Action {
+export interface IShowBookmarkData extends Action<string> {
   payload: IBookmarkData
 }
 

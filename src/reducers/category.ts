@@ -2,9 +2,43 @@ import {
   FETCH_ARTICLES,
   FETCH_FAILED,
   FETCH_BOOKMARK_FAILED,
+  IFetchArticles,
 } from '../actions/fetchArticles'
 
-const initialState = {
+interface ICategory {
+  name: string
+  url: string
+  items: any[]
+  status: string
+}
+
+interface IMyBookmark {
+  name: string
+  items: any[]
+  status: string
+  offset: number
+}
+
+interface ICategoryState {
+  items: {
+    [key: string]: ICategory | IMyBookmark
+    hotentry: ICategory
+    general: ICategory
+    social: ICategory
+    economics: ICategory
+    life: ICategory
+    knowledge: ICategory
+    it: ICategory
+    fun: ICategory
+    entertainment: ICategory
+    game: ICategory
+    myBookmark: IMyBookmark
+  }
+}
+
+type ActionTypes = IFetchArticles
+
+const initialState: ICategoryState = {
   items: {
     hotentry: {
       name: '総合',
@@ -75,7 +109,7 @@ const initialState = {
   }
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: ActionTypes) => {
   let newState = state
 
   switch (action.type) {
@@ -93,9 +127,10 @@ export default (state = initialState, action) => {
       newState.items[action.payload.index].status = 'failed'
       newState.items[action.payload.index].items = []
       return Object.assign({}, state, newState)
+
     case FETCH_BOOKMARK_FAILED:
-      alert('failed')
       return state
+
     default:
       return state
   }

@@ -16,6 +16,7 @@
   },
   "include": [
     "src/actions/*.ts",
+    "src/reducers/*.ts",
     "src/@types/*.ts"
   ]
 }

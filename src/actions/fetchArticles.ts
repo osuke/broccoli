@@ -12,18 +12,20 @@ interface IArticle {
   link: string
   title: string
   bookmarkcount: number
+  domain: string
+  favicon: string
 }
 
-interface IFetchArticles extends Action {
+export interface IFetchArticles extends Action {
   payload: {
-    items: IArticle
+    items: IArticle[]
     index: string
   }
 }
 
 interface IFetchBookmarkArticles extends Action {
   payload: {
-    items: IArticle
+    items: IArticle[]
   }
 }
 
@@ -38,7 +40,7 @@ interface IFetchSearchResult extends Action {
   payload: ISearchResponse
 }
 
-interface IFetchFailed extends Action {
+export interface IFetchFailed extends Action {
   payload: {
     index: string
   }
@@ -52,7 +54,7 @@ interface IUserData {
 }
 
 
-export const fetchArticles = (items: IArticle , index: string): IFetchArticles => (
+export const fetchArticles = (items: IArticle[] , index: string): IFetchArticles => (
   {
     type: FETCH_ARTICLES,
     payload: {
@@ -62,7 +64,7 @@ export const fetchArticles = (items: IArticle , index: string): IFetchArticles =
   }
 )
 
-export const fetchBookmarkArticles = (items: IArticle): IFetchBookmarkArticles => (
+export const fetchBookmarkArticles = (items: IArticle[]): IFetchBookmarkArticles => (
   {
     type: FETCH_BOOKMARK_ARTICLES,
     payload: {

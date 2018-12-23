@@ -1,28 +1,38 @@
 import {
   ADD_BOOKMARK,
   CLOSE_BOOKMARK,
-  SHOW_BOOKMARK_DATA
+  SHOW_BOOKMARK_DATA,
+  IShowBookmarkData,
 } from '../actions/bookmarkForm'
 
-const initialState = {
+export interface IBookmarkState {
+  visible: boolean
+  isBookmark: boolean
+  comment: string
+  tags: string[]
+}
+
+const initialState: IBookmarkState = {
   visible: false,
   isBookmark: false,
   comment: '',
   tags: [],
 }
 
-export default (state = initialState, action) => {
+type ActionTypes = IShowBookmarkData
+
+export default (state = initialState, action: ActionTypes) => {
   switch (action.type) {
     case ADD_BOOKMARK:
       return Object.assign({}, state,
         {
-          visible: true
+          visible: true,
         }
       )
     case CLOSE_BOOKMARK:
       return Object.assign({}, state,
         {
-          visible: false
+          visible: false,
         }
       )
     case SHOW_BOOKMARK_DATA:
