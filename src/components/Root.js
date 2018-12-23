@@ -43,7 +43,7 @@ export default class Root extends Component {
             activeTabStyle={styles.tab}
           >
             <Container style={styles.tabContent}>
-              <MyBookmark data={items[key]} index={key} key={key} />
+              <MyBookmark />
             </Container>
           </Tab>
         )
