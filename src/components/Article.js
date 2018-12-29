@@ -32,6 +32,10 @@ export default class Article extends Component {
             <Text style={styles.title}>{this.props.title}</Text>
           </View>
           <View style={styles.siteInfo}>
+            <Image
+              style={styles.favicon}
+              source={{uri: this.props.favicon}}
+            />
             <Text note>{this.props.domain}</Text>
           </View>
           <View>
@@ -81,7 +85,7 @@ Article.propTypes = {
   showPage: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired,
-  bookmarkcount: PropTypes.string.isRequired,
+  bookmarkcount: PropTypes.number.isRequired,
   favicon: PropTypes.string.isRequired,
   domain: PropTypes.string.isRequired,
 }

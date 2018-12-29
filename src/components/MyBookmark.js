@@ -14,5 +14,5 @@ export default class MyBookmark extends Component {
 }
 
 MyBookmark.propTypes = {
-  isLogin: PropTypes.object.isRequired,
+  isLogin: PropTypes.bool.isRequired,
 }

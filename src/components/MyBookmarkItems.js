@@ -205,7 +205,6 @@ MyBookmarkItems.propTypes = {
   login: PropTypes.object.isRequired,
   myBookmark: PropTypes.object.isRequired,
   getBookmarkArticlesFromApi: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
   showPage: PropTypes.func.isRequired,
   getSearchResultFromApi: PropTypes.func.isRequired,
   fetchBookmarkCache: PropTypes.func.isRequired,

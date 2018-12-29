@@ -41,9 +41,6 @@ export default class NewEntryItems extends Component {
   }
 
   render () {
-    console.log('-------------------')
-    console.log(this.props.data.items)
-    console.log('-------------------')
     return (
       <View style={styles.wrap}>
         {!this.state.refreshing && !this.state.isSuccess &&
