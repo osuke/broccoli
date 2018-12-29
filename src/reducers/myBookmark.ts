@@ -1,8 +1,9 @@
+import { ActionType, getType } from 'typesafe-actions'
 import {
-  FETCH_BOOKMARK_ARTICLES,
-  FETCH_SEARCH_RESULT,
-  FETCH_BOOKMARK_CACHE,
+  actions,
 } from '../actions/fetchArticles'
+
+type Actions = ActionType<typeof actions>
 
 const initialState = {
   type: 'LATEST',
@@ -15,25 +16,15 @@ const initialState = {
   total: 20,
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: Actions) => {
   switch (action.type) {
-    case FETCH_BOOKMARK_ARTICLES:
+    case getType(actions.fetchBookmarkArticles):
       action.payload.items.map(item => {
         const domain = item.link.split('/')[2]
         item.domain = domain
         item.favicon = `https://www.google.com/s2/favicons?domain=${domain}`
       })
 
-      //newState.items[action.payload.index].items = [...action.payload.item]
-      //// after refresh
-      //if (action.payload.offset === 20) {
-      //  newState.items[action.payload.index].items = [...action.payload.item]
-
-      //// after reaching end
-      //} else {
-      //  newState.items[action.payload.index].items = [...newState.items[action.payload.index].items, ...action.payload.item]
-      //}
-      //newState.items[action.payload.index].offset = action.payload.offset
       return Object.assign({}, state,
         {
           type: 'LATEST',
@@ -47,7 +38,7 @@ export default (state = initialState, action) => {
         }
       )
 
-    case FETCH_SEARCH_RESULT:
+    case getType(actions.fetchSearchResult):
       let items = action.payload.offset === 0 ? [] : state.items.searchResult
 
       return Object.assign({}, state,
@@ -63,7 +54,7 @@ export default (state = initialState, action) => {
         }
       )
 
-    case FETCH_BOOKMARK_CACHE:
+    case getType(actions.fetchBookmarkCache):
       return Object.assign({}, state,
         {
           type: 'LATEST',

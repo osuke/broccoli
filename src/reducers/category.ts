@@ -1,9 +1,9 @@
+import { ActionType, getType } from 'typesafe-actions'
 import {
-  FETCH_ARTICLES,
-  FETCH_FAILED,
-  FETCH_BOOKMARK_FAILED,
-  IFetchArticles,
+  actions,
 } from '../actions/fetchArticles'
+
+type Actions = ActionType<typeof actions>
 
 interface ICategory {
   name: string
@@ -35,8 +35,6 @@ interface ICategoryState {
     myBookmark: IMyBookmark
   }
 }
-
-type ActionTypes = IFetchArticles
 
 const initialState: ICategoryState = {
   items: {
@@ -109,11 +107,11 @@ const initialState: ICategoryState = {
   }
 }
 
-export default (state = initialState, action: ActionTypes) => {
+export default (state = initialState, action: Actions) => {
   let newState = state
 
   switch (action.type) {
-    case FETCH_ARTICLES:
+    case getType(actions.fetchArticles):
       action.payload.items.map(obj => {
         const domain = obj.link.split('/')[2]
         obj.domain = domain
@@ -123,12 +121,12 @@ export default (state = initialState, action: ActionTypes) => {
       newState.items[action.payload.index].status = 'success'
       return Object.assign({}, state, newState)
 
-    case FETCH_FAILED:
+    case getType(actions.fetchFailed):
       newState.items[action.payload.index].status = 'failed'
       newState.items[action.payload.index].items = []
       return Object.assign({}, state, newState)
 
-    case FETCH_BOOKMARK_FAILED:
+    case getType(actions.fetchBookmarkFailed):
       return state
 
     default:

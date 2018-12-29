@@ -1,4 +1,7 @@
-import { REQUEST_TOKEN, SET_USER_DATA, LOGOUT } from '../actions/login'
+import { ActionType, getType, } from 'typesafe-actions'
+import { actions, } from '../actions/login'
+
+type Actions = ActionType<typeof actions>
 
 const initialState = {
   isLogin: false,
@@ -6,15 +9,16 @@ const initialState = {
   userData: null
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: Actions) => {
   switch (action.type) {
-    case REQUEST_TOKEN:
+    case getType(actions.setRequestToken):
       return Object.assign({}, state,
         {
           url: action.payload.url
         }
       )
-    case SET_USER_DATA:
+
+    case getType(actions.setUserData):
       return Object.assign({}, state,
         {
           isLogin: action.payload.isLogin,
@@ -22,7 +26,8 @@ export default (state = initialState, action) => {
           userData: action.payload.userData
         }
       )
-    case LOGOUT:
+
+    case getType(actions.logout):
       return initialState
     default:
       return state

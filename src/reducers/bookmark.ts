@@ -1,8 +1,6 @@
+import { ActionType, getType } from 'typesafe-actions'
 import {
-  ADD_BOOKMARK,
-  CLOSE_BOOKMARK,
-  SHOW_BOOKMARK_DATA,
-  IShowBookmarkData,
+  actions,
 } from '../actions/bookmarkForm'
 
 export interface IBookmarkState {
@@ -19,23 +17,23 @@ const initialState: IBookmarkState = {
   tags: [],
 }
 
-type ActionTypes = IShowBookmarkData
+type Actions = ActionType<typeof actions>
 
-export default (state = initialState, action: ActionTypes) => {
+export default (state = initialState, action: Actions) => {
   switch (action.type) {
-    case ADD_BOOKMARK:
+    case getType(actions.addBookmark):
       return Object.assign({}, state,
         {
           visible: true,
         }
       )
-    case CLOSE_BOOKMARK:
+    case getType(actions.closeBookmark):
       return Object.assign({}, state,
         {
           visible: false,
         }
       )
-    case SHOW_BOOKMARK_DATA:
+    case getType(actions.showBookmarkData):
       return Object.assign({}, state,
         {
           isBookmark: action.payload.isBookmark,

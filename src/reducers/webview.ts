@@ -1,39 +1,50 @@
+import { ActionType, getType } from 'typesafe-actions'
 import {
-  SHOW_PAGE,
-  HIDE_PAGE,
-  SHOW_SPINNER,
-  HIDE_SPINNER
+  actions,
 } from '../actions/webview'
 
-const initialState = {
+type Actions = ActionType<typeof actions>
+
+export interface IWebviewState {
+  url: string | null
+  title: string | null
+  visible: boolean
+  isLoading: boolean
+}
+
+const initialState: IWebviewState = {
   url: null,
   title: null,
   visible: false,
   isLoading: false
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: Actions) => {
   switch (action.type) {
-    case SHOW_PAGE:
+    case getType(actions.showPage):
       return Object.assign({}, state, {
         url: action.payload.url,
         title: action.payload.title,
         visible: true
       })
-    case HIDE_PAGE:
+
+    case getType(actions.hidePage):
       return Object.assign({}, state, {
         url: null,
         title: null,
         visible: false
       })
-    case SHOW_SPINNER:
+
+    case getType(actions.showSpinner):
       return Object.assign({}, state, {
         isLoading: true
       })
-    case HIDE_SPINNER:
+
+    case getType(actions.hideSpinner):
       return Object.assign({}, state, {
         isLoading: false
       })
+
     default:
       return state
   }

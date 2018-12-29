@@ -1,6 +1,32 @@
-import { UPDATE_ORDER } from '../actions/order'
+import { ActionType, getType, } from 'typesafe-actions'
+import { actions } from '../actions/order'
 
-const initialState = {
+type Actions = ActionType<typeof actions>
+
+export interface IItem {
+  name: string
+}
+
+export interface IOrderState {
+  items: {
+    hotentry: IItem,
+    general: IItem
+    social: IItem
+    economics: IItem
+    life: IItem
+    knowledge: IItem
+    it: IItem
+    fun: IItem
+    entertainment: IItem
+    game: IItem
+    myBookmark: IItem
+    [key: string]: IItem
+  } | {
+    [key: string]: IItem
+  }
+}
+
+const initialState: IOrderState = {
   items: {
     hotentry: {
       name: '総合'
@@ -38,10 +64,11 @@ const initialState = {
   }
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: Actions) => {
   switch (action.type) {
-    case UPDATE_ORDER:
-      let newState = { items: {} }
+    case getType(actions.updateOrder):
+      let newState: IOrderState = { items: {} }
+
       action.payload.order.map(val => {
         newState.items[val] = state.items[val]
       })
