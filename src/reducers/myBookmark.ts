@@ -5,7 +5,26 @@ import {
 
 type Actions = ActionType<typeof actions>
 
-const initialState = {
+interface IBookmarkItem {
+  title: string
+  link: string
+  bookmarkcount: number
+  favicon: string
+  domain: string
+}
+
+interface IMybookmarkState {
+  type: 'LATEST' | 'SEARCH_RESULT'
+  items: {
+    latest: IBookmarkItem[]
+    searchResult: IBookmarkItem[]
+  }
+  keyword: string 
+  offset: number
+  total: number
+}
+
+const initialState: IMybookmarkState = {
   type: 'LATEST',
   items: {
     latest: [],

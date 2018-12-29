@@ -3,7 +3,13 @@ import { actions, } from '../actions/login'
 
 type Actions = ActionType<typeof actions>
 
-const initialState = {
+interface ILoginState {
+  isLogin: boolean
+  url: string | null
+  userData: string | null
+}
+
+const initialState: ILoginState = {
   isLogin: false,
   url: null,
   userData: null
