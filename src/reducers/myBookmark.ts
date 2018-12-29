@@ -19,7 +19,7 @@ interface IMybookmarkState {
     latest: IBookmarkItem[]
     searchResult: IBookmarkItem[]
   }
-  keyword: string 
+  keyword: string
   offset: number
   total: number
 }
