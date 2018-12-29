@@ -1,3 +1,4 @@
+import { createAction } from 'typesafe-actions'
 import { Dispatch, Action } from 'redux'
 import HatenaLogin from '../utils/login'
 const hatenaLogin = new HatenaLogin()
@@ -24,28 +25,26 @@ export interface IUserData {
   }
 }
 
-export const addBookmark = (): Action => (
-  {
-    type: ADD_BOOKMARK
-  }
+const addBookmark = createAction(
+  ADD_BOOKMARK, 
 )
 
-export const closeBookmark = (): Action => (
-  {
-    type: CLOSE_BOOKMARK
-  }
+const closeBookmark = createAction(
+  CLOSE_BOOKMARK, 
 )
 
-export const showBookmarkData = (obj: IBookmarkData): IShowBookmarkData => (
-  {
-    type: SHOW_BOOKMARK_DATA,
-    payload: {
+const showBookmarkData = createAction(
+  SHOW_BOOKMARK_DATA, 
+  resolve => (obj: IBookmarkData) => {
+    return resolve({
       comment: obj.comment,
       isBookmark: obj.isBookmark,
       tags: obj.tags
-    }
-  }
+    })
+  },
 )
+
+export const actions = { addBookmark, closeBookmark, showBookmarkData, }
 
 export const saveBookmark = (userData: IUserData, url: string, comment = ''): (dispatch: Dispatch) => void => (
   dispatch => {

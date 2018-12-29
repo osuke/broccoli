@@ -1,8 +1,9 @@
 import { NavState } from 'react-native'
-import { Dispatch, Action } from 'redux'
+import { createAction } from 'typesafe-actions'
+import { Dispatch, } from 'redux'
 import HatenaLogin from '../utils/login'
 const hatenaLogin = new HatenaLogin()
-export const REQUEST_TOKEN = 'REQUEST_TOKEN'
+export const SET_REQUEST_TOKEN = 'SET_REQUEST_TOKEN'
 export const SET_USER_DATA = 'SET_USER_DATA'
 export const LOGOUT = 'LOGOUT'
 
@@ -18,50 +19,32 @@ export interface ITokenData {
   tokenSecret: string
 }
 
-export interface ISetOauthUrl extends Action {
-  payload: {
-    url: string
-  }
-}
-
-export interface ISetUserData extends Action {
-  payload: {
-    isLogin: boolean
-    url: null
-    userData: IUserData,
-  }
-}
-
-export const setOauthUrl = (tokenData: ITokenData): ISetOauthUrl => (
-  {
-    type: REQUEST_TOKEN,
-    payload: {
-      url: 'https://www.hatena.ne.jp/oauth/authorize?oauth_token=' + tokenData.requestToken
-    }
-  }
+export const setRequestToken = createAction(
+  SET_REQUEST_TOKEN, 
+  resolve => (tokenData: ITokenData) => resolve({ url: `https://www.hatena.ne.jp/oauth/authorize?oauth_token=${tokenData.requestToken}`}),
 )
 
-export const setUserData = (userData: IUserData): ISetUserData => (
-  {
-    type: SET_USER_DATA,
-    payload: {
+export const setUserData = createAction(
+  SET_USER_DATA, 
+  resolve => (userData: IUserData) => {
+    return resolve({
       isLogin: true,
       url: null,
       userData: userData,
-    }
-  }
+    })
+  },
 )
 
-export const logout = (): Action => (
-  {
-    type: LOGOUT,
-  }
+export const logout = createAction(
+  LOGOUT, 
 )
+
+export const actions = { setRequestToken, setUserData, logout, }
 
 export const getRequestToken = (): (dispatch: Dispatch) => void => (
   (dispatch: Dispatch) => {
     hatenaLogin.getRequestToken().then((res: any) => {
-      dispatch(setOauthUrl(res))
+      dispatch(setRequestToken(res))
     })
   }
 )

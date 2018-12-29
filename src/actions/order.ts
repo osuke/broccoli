@@ -1,17 +1,10 @@
-import { Action } from 'redux'
+import { createAction } from 'typesafe-actions'
+
 export const UPDATE_ORDER = 'UPDATE_ORDER'
 
-interface IUpdateOrder extends Action {
-  payload: {
-    order: string[]
-  }
-}
-
-export const updateOrder = (order: string[]): IUpdateOrder => (
-  {
-    type: UPDATE_ORDER,
-    payload: {
-      order: order
-    },
-  }
+export const updateOrder = createAction(
+  UPDATE_ORDER, 
+  resolve => (order: string[]) => resolve({ order, }),
 )
+
+export const actions = { updateOrder, }

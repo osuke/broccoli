@@ -1,35 +1,26 @@
-import { Action, Dispatch } from 'redux'
+import { createAction } from 'typesafe-actions'
+import { Dispatch } from 'redux'
 export const SHOW_COMMENTS = 'SHOW_COMMENTS'
 export const CLOSE_COMMENTS = 'CLOSE_COMMENTS'
 const apiUrl = 'https://b.hatena.ne.jp/entry/jsonlite/?url='
 
-interface IBookmark {
+export interface IBookmark {
   comment: string
   tags: string[]
   timestamp: string
   user: string
 }
 
-interface IShowComments extends Action {
-  payload: {
-    bookmarks: IBookmark[]
-  }
-}
-
-export const showComments = (bookmarks: IBookmark[]): IShowComments => (
-  {
-    type: SHOW_COMMENTS,
-    payload: {
-      bookmarks,
-    }
-  }
+const showComments = createAction(
+  SHOW_COMMENTS, 
+  resolve => (bookmarks: IBookmark[]) => resolve({ bookmarks }),
 )
 
-export const closeComments = (): Action => (
-  {
-    type: CLOSE_COMMENTS
-  }
+const closeComments = createAction(
+  CLOSE_COMMENTS, 
 )
+
+export const actions = { showComments, closeComments }
 
 export const getCommentsFromApi = (url: string) => (
   (dispatch: Dispatch): Promise<void> => {

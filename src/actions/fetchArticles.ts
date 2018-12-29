@@ -1,3 +1,4 @@
+import { createAction } from 'typesafe-actions'
 import { parseString } from 'react-native-xml2js'
 import { Action, Dispatch } from 'redux'
 import HatenaLogin from '../utils/login'
@@ -53,56 +54,44 @@ interface IUserData {
   urlName: string
 }
 
-
-export const fetchArticles = (items: IArticle[] , index: string): IFetchArticles => (
-  {
-    type: FETCH_ARTICLES,
-    payload: {
-      items,
-      index,
-    }
-  }
+export const fetchArticles = createAction(
+  FETCH_ARTICLES,
+  resolve => (items: IArticle[] , index: string) => resolve({ items, index }),
 )
 
-export const fetchBookmarkArticles = (items: IArticle[]): IFetchBookmarkArticles => (
-  {
-    type: FETCH_BOOKMARK_ARTICLES,
-    payload: {
-      items,
-    }
-  }
+export const fetchBookmarkArticles = createAction(
+  FETCH_BOOKMARK_ARTICLES,
+  resolve => (items: IArticle[]) => resolve({ items }),
 )
 
-export const fetchBookmarkCache = (): Action => (
-  {
-    type: FETCH_BOOKMARK_CACHE,
-  }
+export const fetchBookmarkCache = createAction(
+  FETCH_BOOKMARK_CACHE,
+  resolve => (items: IArticle[]) => resolve({ items }),
 )
 
-export const fetchSearchResult = (payload: ISearchResponse): IFetchSearchResult => (
-  {
-    type: FETCH_SEARCH_RESULT,
-    payload,
-  }
+export const fetchSearchResult = createAction(
+  FETCH_SEARCH_RESULT,
+  resolve => (payload: ISearchResponse) => resolve({ ...payload }),
 )
 
-export const fetchFailed = (index: string): IFetchFailed => (
-  {
-    type: FETCH_FAILED,
-    payload: {
-      index
-    }
-  }
+export const fetchFailed = createAction(
+  FETCH_FAILED,
+  resolve => (index: string) => resolve({ index, }),
 )
 
-export const fetchBookmarkFailed = (index: string): IFetchFailed => (
-  {
-    type: FETCH_BOOKMARK_FAILED,
-    payload: {
-      index
-    }
-  }
+export const fetchBookmarkFailed = createAction(
+  FETCH_BOOKMARK_FAILED,
+  resolve => (index: string) => resolve({ index, }),
 )
+
+export const actions = {
+  fetchArticles,
+  fetchBookmarkArticles,
+  fetchBookmarkCache,
+  fetchSearchResult,
+  fetchFailed,
+  fetchBookmarkFailed,
+}
 
 export const getArticlesFromApi = (url: string, indexName: string): (dispatch: Dispatch) => Promise<string> => (
   dispatch => (
@@ -118,7 +107,7 @@ export const getArticlesFromApi = (url: string, indexName: string): (dispatch: D
             items.map((data: any, index: number) => {
               items[index].link = data.link[0]
               items[index].title = data.title[0]
-              items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
+              items[index].bookmarkcount = parseInt(data['hatena:bookmarkcount'][0])
             })
             dispatch(fetchArticles(items, indexName))
             resolve('success')
@@ -142,12 +131,15 @@ export const getBookmarkArticlesFromApi = (userData: IUserData): (dispatch: Disp
       fetch(`http://b.hatena.ne.jp/${userData.displayName}/rss?d=${Date.now()}`)
         .then((res: any) => {
           parseString(res._bodyInit, ((err: any, result: any) => {
+            console.log('*************')
+            console.log(result)
+            console.log('*************')
             let items = result['rdf:RDF'].item
 
             items.map((data: any, index: any) => {
               items[index].link = data.link[0]
               items[index].title = data.title[0]
-              items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
+              items[index].bookmarkcount = parseInt(data['hatena:bookmarkcount'][0])
             })
             dispatch(fetchBookmarkArticles(items))
             resolve('success')
@@ -180,11 +172,17 @@ export const getSearchResultFromApi = (keyword: string, userData: IUserData, off
         .then(res => res.json())
         .then(res => {
           let items = res.bookmarks || []
+          console.log('================')
+          console.log(items)
+          console.log('================')
           if (items.length > 0) {
             items.map((item: any, index: any) => {
+              const domain = item.entry.url.split('/')[2]
               items[index].link = item.entry.url
               items[index].title = item.entry.title
               items[index].bookmarkcount = item.entry.count
+              items[index].domain = domain
+              items[index].favicon = `https://www.google.com/s2/favicons?domain=${domain}`
             })
           }
 
