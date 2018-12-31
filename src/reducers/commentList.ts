@@ -21,12 +21,7 @@ export default (state = initialState, action: Actions) => {
           items: action.payload.bookmarks,
         }
       )
-    case getType(actions.closeComments):
-      return Object.assign({}, state,
-        {
-          items: [],
-        }
-      )
+
     default:
       return state
   }

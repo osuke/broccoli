@@ -3,7 +3,7 @@ import { actions, } from '../actions/login'
 
 type Actions = ActionType<typeof actions>
 
-interface ILoginState {
+export interface ILoginState {
   isLogin: boolean
   url: string | null
   userData: string | null

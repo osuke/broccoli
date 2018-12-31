@@ -19,7 +19,7 @@ interface IMyBookmark {
   offset: number
 }
 
-interface ICategoryState {
+export interface ICategoryState {
   items: {
     [key: string]: ICategory | IMyBookmark
     hotentry: ICategory

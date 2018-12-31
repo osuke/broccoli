@@ -16,11 +16,7 @@ const showComments = createAction(
   resolve => (bookmarks: IBookmark[]) => resolve({ bookmarks }),
 )
 
-const closeComments = createAction(
-  CLOSE_COMMENTS, 
-)
-
-export const actions = { showComments, closeComments }
+export const actions = { showComments }
 
 export const getCommentsFromApi = (url: string) => (
   (dispatch: Dispatch): Promise<void> => {

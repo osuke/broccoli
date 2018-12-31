@@ -121,6 +121,9 @@ export const getArticlesFromApi = (url: string, indexName: string): (dispatch: D
   )
 )
 
+type Hoge = (dispatch: Dispatch) => Promise<string>
+export type Huga = (userData: IUserData) => Hoge
+
 export const getBookmarkArticlesFromApi = (userData: IUserData): (dispatch: Dispatch) => Promise<string> => (
   dispatch => (
     new Promise((resolve, reject) => {

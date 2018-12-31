@@ -13,7 +13,7 @@ interface IBookmarkItem {
   domain: string
 }
 
-interface IMybookmarkState {
+export interface IMybookmarkState {
   type: 'LATEST' | 'SEARCH_RESULT'
   items: {
     latest: IBookmarkItem[]
