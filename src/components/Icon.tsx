@@ -1,9 +1,11 @@
-import React from 'react'
+import * as React from 'react'
 import { StyleSheet } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
-export default ({ name }) => {
+interface IProps {
+  name: string
+}
+const Icon: React.SFC<IProps> = ({ name }) => {
   switch (name) {
     case 'settings':
       return (
@@ -43,6 +45,8 @@ export default ({ name }) => {
           color="#6b6b6b"
         />
       )
+    default:
+      return null
   }
 }
 
@@ -68,3 +72,5 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
 })
+
+export default Icon

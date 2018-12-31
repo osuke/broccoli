@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import {
+  View,
   WebView,
-  StyleSheet
+  StyleSheet,
 } from 'react-native'
 import {
   Container,
@@ -17,7 +17,16 @@ import Icon from './Icon'
 import StyledHeader from './StyledHeader'
 import TabBar from './TabBar'
 
-export default class ArticleDetail extends Component {
+interface IProps {
+  login: any
+  fetchBookmarkData: any
+  webview: any
+  getCommentsFromApi: any
+  showSpinner: any
+  hideSpinner: any
+}
+
+export default class ArticleDetail extends React.Component<IProps, {}> {
   componentDidMount () {
     if (this.props.login.isLogin) {
       this.props.fetchBookmarkData(this.props.login, this.props.webview.url)
@@ -25,7 +34,6 @@ export default class ArticleDetail extends Component {
   }
 
   render () {
-    const isLogin = this.props.login.isLogin
     return (
       <Container>
         {this.props.webview.isLoading ? (
@@ -41,9 +49,7 @@ export default class ArticleDetail extends Component {
           <Left>
             <Button
               transparent
-              onPress={() => {
-                Actions.pop()
-              }}
+              onPress={Actions.pop}
             >
               <Icon name="chevron-left" />
             </Button>
@@ -55,7 +61,7 @@ export default class ArticleDetail extends Component {
           source={{uri: this.props.webview.url}}
           onLoadStart={this.props.showSpinner}
           onLoadEnd={this.props.hideSpinner}
-          renderError={() => null}
+          renderError={() => <View />}
         />
         <TabBar
           {...this.props.webview}
@@ -77,10 +83,3 @@ const styles = StyleSheet.create({
     right: 0
   }
 })
-
-ArticleDetail.propTypes = {
-  login: PropTypes.object.isRequired,
-  fetchBookmarkData: PropTypes.func.isRequired,
-  webview: PropTypes.object.isRequired,
-  getCommentsFromApi: PropTypes.func.isRequired
-}

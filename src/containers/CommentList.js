@@ -1,16 +1,22 @@
-import React from 'react'
 import { connect } from 'react-redux'
 import CommentList from '../components/CommentList'
-import { closeComments } from '../actions/commentList'
 
 const mapStateToProps = state => {
-  return state.commentList
-}
-
-const mapDispatchToProps = dispatch => {
   return {
-    closeComments: () => { dispatch(closeComments()) }
+    items: getCommentItems(state.commentList.items)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommentList)
+const getCommentItems = items => {
+  let comments = []
+
+  items.map(item => {
+    if (item.comment.length > 0) {
+      comments.push(item)
+    }
+  })
+
+  return comments
+}
+
+export default connect(mapStateToProps, null)(CommentList)

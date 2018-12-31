@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
+import { IBookmarkItem } from '../reducers/myBookmark'
 import {
   StyleSheet,
   View,
@@ -13,8 +13,23 @@ import SearchInput from './SearchInput'
 import ErrorMessage from './ErrorMessage'
 import Article from '../containers/Article'
 
-export default class MyBookmarkItems extends Component {
-  constructor (props) {
+interface IProps {
+  login: any
+  myBookmark: any
+  getBookmarkArticlesFromApi: any
+  showPage: any
+  getSearchResultFromApi: any
+  fetchBookmarkCache: any
+}
+
+interface IState {
+  refreshing: boolean
+  isLoading: boolean
+  isSuccess: boolean
+}
+
+export default class MyBookmarkItems extends React.Component<IProps, IState> {
+  constructor (props: IProps) {
     super(props)
     this.state = {
       refreshing: false,
@@ -29,13 +44,13 @@ export default class MyBookmarkItems extends Component {
     })
     if (this.props.login.isLogin) {
       this.props.getBookmarkArticlesFromApi(this.props.login.userData)
-        .then(val => {
+        .then((val: any) => {
           this.setState({
             isLoading: false,
             isSuccess: true,
           })
         })
-        .catch(err => {
+        .catch((err: any) => {
           this.setState({
             isSuccess: false,
             isLoading: false,
@@ -47,11 +62,11 @@ export default class MyBookmarkItems extends Component {
   onRefreshHandler = () => {
     this.setState({refreshing: true})
     this.props.getBookmarkArticlesFromApi(this.props.login.userData)
-      .then(val => {
+      .then((val: any) => {
         this.setState({isSuccess: true})
         this.setState({refreshing: false})
       })
-      .catch(err => {
+      .catch((err: any) => {
         this.setState({isSuccess: false})
         this.setState({refreshing: false})
       })
@@ -71,7 +86,7 @@ export default class MyBookmarkItems extends Component {
     )
   }
 
-  getSearchResultFromApi = (keyword, userData, offset) => {
+  getSearchResultFromApi = (keyword: any, userData: any, offset: any) => {
     this.setState({
       isLoading: true,
     })
@@ -80,12 +95,12 @@ export default class MyBookmarkItems extends Component {
       keyword,
       userData,
       offset,
-    ).then(val => {
+    ).then((val: any) => {
       this.setState({
         isSuccess: true,
         isLoading: false,
       })
-    }).catch(err => {
+    }).catch((err: any) => {
       this.setState({
         isSuccess: false,
         isLoading: false,
@@ -93,7 +108,7 @@ export default class MyBookmarkItems extends Component {
     })
   }
 
-  showSpinner = items => {
+  showSpinner = (items: any) => {
     if (items.length > 0 && this.state.isLoading) {
       return (
         <Spinner
@@ -117,7 +132,7 @@ export default class MyBookmarkItems extends Component {
         {!this.state.isSuccess && <ErrorMessage />}
         <View style={styles.wrap}>
           {this.props.myBookmark.type === 'LATEST' ? (
-            <FlatList
+            <FlatList<IBookmarkItem>
               style={styles.flatList}
               ref="flatlist"
               data={this.props.myBookmark.items.latest}
@@ -153,7 +168,7 @@ export default class MyBookmarkItems extends Component {
               }}
             />
           ) : (
-            <FlatList
+            <FlatList<IBookmarkItem>
               style={styles.flatList}
               ref="flatlist"
               data={this.props.myBookmark.items.searchResult}
@@ -200,12 +215,3 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
 })
-
-MyBookmarkItems.propTypes = {
-  login: PropTypes.object.isRequired,
-  myBookmark: PropTypes.object.isRequired,
-  getBookmarkArticlesFromApi: PropTypes.func.isRequired,
-  showPage: PropTypes.func.isRequired,
-  getSearchResultFromApi: PropTypes.func.isRequired,
-  fetchBookmarkCache: PropTypes.func.isRequired,
-}

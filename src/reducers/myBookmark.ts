@@ -5,7 +5,7 @@ import {
 
 type Actions = ActionType<typeof actions>
 
-interface IBookmarkItem {
+export interface IBookmarkItem {
   title: string
   link: string
   bookmarkcount: number

@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import {
   StyleSheet,
   View,
   ScrollView,
-  Dimensions,
   TouchableOpacity,
 } from 'react-native'
 import {
@@ -23,7 +21,7 @@ import {
   BACKGROUND_COLOR_GRAY,
   PLACEHOLDER_COLOR,
   TITLE_COLOR_PRIMARY,
-} from '../constants/styles.js'
+} from '../constants/styles'
 import Icon from './Icon'
 import Tag from './Tag'
 import Btn from './Btn'
@@ -31,7 +29,22 @@ import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
 import { Actions } from 'react-native-router-flux'
 
-export default class BookmarkForm extends Component {
+interface IProps {
+  bookmark: any
+  fetchBookmarkData: any
+  webview: any
+  saveBookmark: any
+  deleteBookmark: any
+  login: any
+}
+
+interface IState {
+  text: string
+  tagText: string
+  tags: string[]
+}
+
+export default class BookmarkForm extends React.Component<IProps, IState> {
   constructor (props) {
     super(props)
     this.state = {
@@ -112,9 +125,7 @@ export default class BookmarkForm extends Component {
           <Left>
             <Button
               transparent
-              onPress={() => {
-                Actions.pop()
-              }}
+              onPress={Actions.pop}
             >
               <Icon name="close" />
             </Button>
@@ -131,7 +142,6 @@ export default class BookmarkForm extends Component {
                       this.props.deleteBookmark(this.props.login, this.props.webview.url)
                       Actions.pop()
                     }}
-                    transparent
                   >
                     <Text>削除</Text>
                   </TouchableOpacity>
@@ -166,7 +176,7 @@ export default class BookmarkForm extends Component {
               <Text style={styles.titleText}>タグ</Text>
             </View>
             <View style={styles.tagSec}>
-              <View style={styles.tagInput}>
+              <View>
                 <Input
                   style={styles.tagInputField}
                   placeholder="タグを追加"
@@ -288,12 +298,3 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
 })
-
-BookmarkForm.propTypes = {
-  bookmark: PropTypes.object.isRequired,
-  fetchBookmarkData: PropTypes.func.isRequired,
-  webview: PropTypes.object.isRequired,
-  saveBookmark: PropTypes.func.isRequired,
-  deleteBookmark: PropTypes.func.isRequired,
-  login: PropTypes.object.isRequired,
-}

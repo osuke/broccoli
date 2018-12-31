@@ -1,11 +1,6 @@
-import React from 'react'
 import { connect } from 'react-redux'
 import NewEntryItems from '../components/NewEntryItems'
 import { getArticlesFromApi } from '../actions/fetchArticles'
-
-const mapStateToProps = state => {
-  return state
-}
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -13,4 +8,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewEntryItems)
+export default connect(null, mapDispatchToProps)(NewEntryItems)

@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import {
   StyleSheet,
   Image,
@@ -7,27 +6,32 @@ import {
 import {
   Text,
   ListItem,
-  Body,
-  Left,
   View,
 } from 'native-base'
-import { Actions } from 'react-native-router-flux'
 import {
   BORDER_WIDTH_PRIMARY,
   BORDER_COLOR_PRIMARY,
 } from '../constants/styles.js'
 
-export default class Article extends Component {
+interface IProps {
+  showPage: (link: string, title: string) => void
+  title: string
+  link: string
+  bookmarkcount: number
+  favicon: string
+  domain: string
+}
+
+export default class Article extends React.Component<IProps> {
   render () {
     return (
       <ListItem
         onPress={() => {
           this.props.showPage(this.props.link, this.props.title)
-          Actions.externalPage()
         }}
         style={styles.listItem}
       >
-        <Body style={styles.body}>
+        <View style={styles.body}>
           <View>
             <Text style={styles.title}>{this.props.title}</Text>
           </View>
@@ -41,7 +45,7 @@ export default class Article extends Component {
           <View>
             <Text note>{this.props.bookmarkcount} users</Text>
           </View>
-        </Body>
+        </View>
       </ListItem>
     )
   }
@@ -58,7 +62,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 6,
-    lineHeight: 22
+    lineHeight: 22,
   },
   body: {
     borderBottomWidth: BORDER_WIDTH_PRIMARY,
@@ -80,12 +84,3 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
 })
-
-Article.propTypes = {
-  showPage: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
-  bookmarkcount: PropTypes.number.isRequired,
-  favicon: PropTypes.string.isRequired,
-  domain: PropTypes.string.isRequired,
-}

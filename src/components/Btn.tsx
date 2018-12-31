@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import {
   StyleSheet,
 } from 'react-native'
@@ -9,11 +8,16 @@ import {
   View,
 } from 'native-base'
 
-const Btn = ({ children, onPress }) => (
+interface IProps {
+  children: React.ReactNode
+  onPress: () => void
+}
+
+const Btn: React.SFC<IProps> = ({ children, onPress }) => (
   <View style={styles.btnWrap}>
     <Button
       transparent
-      style={styles.btn}
+      style={styles.btn as any}
       onPress={onPress}
     >
       <Text style={styles.btnText}>{children}</Text>
@@ -36,13 +40,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     marginTop: -4,
-    lineHeight: 46,
+    lineHeight: 41,
   },
 })
-
-Btn.propTypes = {
-  children: PropTypes.string.isRequired,
-  onPress: PropTypes.func,
-}
 
 export default Btn

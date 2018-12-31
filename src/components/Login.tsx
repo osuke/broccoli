@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { StyleSheet } from 'react-native'
 import {
   View,
@@ -11,24 +11,18 @@ import {
 } from '../constants/styles'
 import Btn from './Btn'
 
-export default class Login extends Component {
-  render () {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>この機能を使用するためにはログインが必要です</Text>
-        <View style={styles.submit}>
-          <Btn
-            onPress={() => {
-              Actions.login()
-            }}
-          >
-            ログインする
-          </Btn>
-        </View>
-      </View>
-    )
-  }
-}
+const Login: React.SFC<{}> = () => (
+  <View style={styles.container}>
+    <Text style={styles.text}>この機能を使用するためにはログインが必要です</Text>
+    <View style={styles.submit}>
+      <Btn
+        onPress={Actions.login}
+      >
+        ログインする
+      </Btn>
+    </View>
+  </View>
+)
 
 const styles = StyleSheet.create({
   container: {
@@ -48,3 +42,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 })
+
+export default Login

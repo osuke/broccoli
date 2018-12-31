@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import {
   Share,
   Linking,
@@ -17,9 +16,17 @@ import {
 } from '../constants/styles.js'
 import Icon from './Icon'
 
-const TabBar = ({ title, url, login, getCommentsFromApi, fetchBookmarkData }) => (
-  <Footer style={styles.container}>
-    <FooterTab style={styles.footerTab}>
+interface IProps {
+  login: any
+  title: any
+  url: any
+  getCommentsFromApi: any
+  fetchBookmarkData: any
+}
+
+const TabBar: React.SFC<IProps> = ({ title, url, login, getCommentsFromApi, fetchBookmarkData }) => (
+  <Footer style={styles.container as any}>
+    <FooterTab style={styles.footerTab as any}>
       <Button
         onPress={() => {
           Share.share({
@@ -71,13 +78,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa',
   }
 })
-
-TabBar.propTypes = {
-  login: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  getCommentsFromApi: PropTypes.func.isRequired,
-  fetchBookmarkData: PropTypes.func.isRequired,
-}
 
 export default TabBar

@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import { WebView } from 'react-native'
 import {
   Container,
@@ -13,7 +12,14 @@ import Icon from './Icon'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
 
-export default class OAuth extends Component {
+interface IProps {
+  getRequestToken: any
+  isLogin: boolean
+  url: string
+  getAccessToken: any
+}
+
+export default class OAuth extends React.Component<IProps> {
   componentDidMount () {
     this.props.getRequestToken()
   }
@@ -26,9 +32,7 @@ export default class OAuth extends Component {
             <Left>
               <Button
                 transparent
-                onPress={() => {
-                  Actions.pop()
-                }}
+                onPress={Actions.pop}
               >
                 <Icon
                   name="close"
@@ -51,11 +55,4 @@ export default class OAuth extends Component {
       return null
     }
   }
-}
-
-OAuth.propTypes = {
-  getRequestToken: PropTypes.func.isRequired,
-  isLogin: PropTypes.bool.isRequired,
-  url: PropTypes.string,
-  getAccessToken: PropTypes.func.isRequired
 }

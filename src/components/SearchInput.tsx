@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import {
   StyleSheet,
   Keyboard,
@@ -10,7 +9,17 @@ import {
 } from 'native-base'
 import { BACKGROUND_COLOR_GRAY } from '../constants/styles'
 
-export default class SearchInput extends Component {
+interface IProps {
+  userData: any
+  getSearchResultFromApi: any
+  fetchBookmarkCache: any
+}
+
+interface IState {
+  text: string
+}
+
+export default class SearchInput extends React.Component<IProps, IState> {
   constructor (props) {
     super(props)
   
@@ -19,13 +28,13 @@ export default class SearchInput extends Component {
     }
   }
 
-  searchBookmark = () => {
+  searchBookmark = (): void => {
     if (this.state.text.length > 0) {
       this.props.getSearchResultFromApi(this.state.text, this.props.userData, 0)
     }
   }
 
-  onChangeTextHandler = text => {
+  onChangeTextHandler = (text: string): void => {
     this.setState({
       text
     })
@@ -39,7 +48,7 @@ export default class SearchInput extends Component {
   render () {
     return (
        <Item
-         style={styles.item}
+         style={styles.item as any}
        >
          <Input
            style={styles.input}
@@ -66,9 +75,3 @@ const styles = StyleSheet.create({
     paddingRight: 12,
   },
 })
-
-SearchInput.propTypes = {
-  userData: PropTypes.object.isRequired,
-  getSearchResultFromApi: PropTypes.func.isRequired,
-  fetchBookmarkCache: PropTypes.func.isRequired,
-}

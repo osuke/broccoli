@@ -66,7 +66,6 @@ export const fetchBookmarkArticles = createAction(
 
 export const fetchBookmarkCache = createAction(
   FETCH_BOOKMARK_CACHE,
-  resolve => (items: IArticle[]) => resolve({ items }),
 )
 
 export const fetchSearchResult = createAction(

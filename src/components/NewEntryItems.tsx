@@ -1,10 +1,22 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
+import { ICategoryItem } from '../reducers/category'
 import { View, Text, FlatList, RefreshControl, StyleSheet } from 'react-native'
 import Article from '../containers/Article'
 import { Spinner } from 'native-base'
 
-export default class NewEntryItems extends Component {
+interface IState {
+  refreshing: boolean
+  isLoading: boolean
+  isSuccess: boolean
+}
+
+interface IProps {
+  getArticlesFromApi: any
+  data: any
+  index: string
+}
+
+export default class NewEntryItems extends React.Component<IProps, IState> {
   constructor (props) {
     super(props)
     this.state = {
@@ -48,7 +60,7 @@ export default class NewEntryItems extends Component {
             <Text style={styles.errorText}>しばらく時間を空けてから、もう一度お試しください</Text>
           </View>
         }
-        <FlatList
+        <FlatList<ICategoryItem>
           style={styles.flatList}
           data={this.props.data.items}
           renderItem={({item}) => {
@@ -102,9 +114,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 })
-
-NewEntryItems.propTypes = {
-  getArticlesFromApi: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
-  index: PropTypes.string.isRequired,
-}

@@ -5,10 +5,18 @@ import {
 
 type Actions = ActionType<typeof actions>
 
+export interface ICategoryItem {
+  title: string
+  link: string
+  bookmarkcount: number
+  favicon: string
+  domain: string
+}
+
 interface ICategory {
   name: string
   url: string
-  items: any[]
+  items: ICategoryItem[]
   status: string
 }
 
