@@ -1,6 +1,7 @@
 import { createAction } from 'typesafe-actions'
 import { Dispatch, Action } from 'redux'
 import HatenaLogin from '../utils/login'
+import { ILoginState, } from '../reducers/login'
 const hatenaLogin = new HatenaLogin()
 
 export const ADD_BOOKMARK = 'ADD_BOOKMARK'
@@ -11,25 +12,18 @@ export interface IBookmarkData {
   comment: string
   isBookmark: boolean
   tags: string[]
+  user?: string
 }
 
 export interface IShowBookmarkData extends Action<string> {
   payload: IBookmarkData
 }
 
-export interface IUserData {
-  userData: {
-    token: string
-    secret: string
-    urlName: string
-  }
-}
-
-const addBookmark = createAction(
+export const addBookmark = createAction(
   ADD_BOOKMARK, 
 )
 
-const closeBookmark = createAction(
+export const closeBookmark = createAction(
   CLOSE_BOOKMARK, 
 )
 
@@ -46,13 +40,15 @@ const showBookmarkData = createAction(
 
 export const actions = { addBookmark, closeBookmark, showBookmarkData, }
 
-export const saveBookmark = (userData: IUserData, url: string, comment = ''): (dispatch: Dispatch) => void => (
+export const saveBookmark = (loginData: ILoginState, url: string, comment = ''): (dispatch: Dispatch) => void => (
   dispatch => {
+    if (!loginData.userData) return
+
     hatenaLogin.sendRequest(
       'POST',
       'http://api.b.hatena.ne.jp/1/my/bookmark',
-      userData.userData.token,
-      userData.userData.secret,
+      loginData.userData.token,
+      loginData.userData.secret,
       {
         url: url,
         comment: comment
@@ -63,13 +59,15 @@ export const saveBookmark = (userData: IUserData, url: string, comment = ''): (d
   }
 )
 
-export const deleteBookmark = (userData: IUserData, url: string): (dispatch: Dispatch) => void => (
+export const deleteBookmark = (loginData: ILoginState, url: string): (dispatch: Dispatch) => void => (
   dispatch => {
+    if (!loginData.userData) return
+
     hatenaLogin.sendRequest(
       'DELETE',
       'http://api.b.hatena.ne.jp/1/my/bookmark',
-      userData.userData.token,
-      userData.userData.secret,
+      loginData.userData.token,
+      loginData.userData.secret,
       {
         url: url
       }
@@ -79,13 +77,15 @@ export const deleteBookmark = (userData: IUserData, url: string): (dispatch: Dis
   }
 )
 
-export const fetchBookmarkData = (userData: IUserData, url: string): (dispatch: Dispatch) => void => (
+export const fetchBookmarkData = (loginData: ILoginState, url: string): (dispatch: Dispatch) => void => (
   dispatch => {
+    if (!loginData.userData) return
+
     hatenaLogin.sendRequest(
       'GET',
       `http://b.hatena.ne.jp/entry/jsonlite/?url=${url}&date=${Date.now()}broccoli`,
-      userData.userData.token,
-      userData.userData.secret,
+      loginData.userData.token,
+      loginData.userData.secret,
     ).then(data => {
       let obj: IBookmarkData = {
         comment: '',
@@ -93,9 +93,8 @@ export const fetchBookmarkData = (userData: IUserData, url: string): (dispatch: 
         tags: [],
       }
 
-      data.bookmarks.map((val: any) => {
-        if (val.user === userData.userData.urlName) {
-          console.log(val)
+      data.bookmarks.map((val: IBookmarkData) => {
+        if (loginData.userData && val.user === loginData.userData.urlName) {
           obj.comment = val.comment
           obj.isBookmark = true
           obj.tags = val.tags

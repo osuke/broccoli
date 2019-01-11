@@ -13,10 +13,20 @@ import SortableListView from 'react-native-sortable-listview'
 import OrderCategoryItem from './OrderCategoryItem'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
+import { IStateToProps, IDispatchToProps, } from '../containers/OrderCategories'
 
-interface IProps {
-  items: any
-  updateOrder: any
+type IProps = IStateToProps & IDispatchToProps
+
+interface IOnRowMoved {
+  from: number
+  row: {
+    data: {
+      name: string
+    }
+    index: string
+    section: string
+  }
+  to: number
 }
 
 const OrderCategories: React.SFC<IProps> = ({ items, updateOrder }) => {
@@ -44,13 +54,13 @@ const OrderCategories: React.SFC<IProps> = ({ items, updateOrder }) => {
         style={styles.list}
         data={items}
         order={order}
-        onRowMoved={e => {
+        onRowMoved={(e: IOnRowMoved) => {
           order.splice(e.to, 0, order.splice(e.from, 1)[0])
           updateOrder(order)
         }}
-        renderRow={row => (
-          <OrderCategoryItem data={row}/>
-        )}
+        renderRow={(row: {name: string}) => {
+          return <OrderCategoryItem data={row}/>
+        }}
       />
     </Container>
   )

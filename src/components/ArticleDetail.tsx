@@ -16,19 +16,13 @@ import { Actions } from 'react-native-router-flux'
 import Icon from './Icon'
 import StyledHeader from './StyledHeader'
 import TabBar from './TabBar'
+import { IStateToProps, IDispatchToProps, } from '../containers/ArticleDetail'
 
-interface IProps {
-  login: any
-  fetchBookmarkData: any
-  webview: any
-  getCommentsFromApi: any
-  showSpinner: any
-  hideSpinner: any
-}
+type IProps = IStateToProps & IDispatchToProps
 
 export default class ArticleDetail extends React.Component<IProps, {}> {
   componentDidMount () {
-    if (this.props.login.isLogin) {
+    if (this.props.login.isLogin && this.props.webview.url) {
       this.props.fetchBookmarkData(this.props.login, this.props.webview.url)
     }
   }
@@ -57,12 +51,14 @@ export default class ArticleDetail extends React.Component<IProps, {}> {
           <Body />
           <Right />
         </StyledHeader>
-        <WebView
-          source={{uri: this.props.webview.url}}
-          onLoadStart={this.props.showSpinner}
-          onLoadEnd={this.props.hideSpinner}
-          renderError={() => <View />}
-        />
+        {this.props.webview.url &&
+          <WebView
+            source={{uri: this.props.webview.url}}
+            onLoadStart={this.props.showSpinner}
+            onLoadEnd={this.props.hideSpinner}
+            renderError={() => <View />}
+          />
+        }
         <TabBar
           {...this.props.webview}
           login={this.props.login}

@@ -1,7 +1,8 @@
 import { createAction } from 'typesafe-actions'
 import { parseString } from 'react-native-xml2js'
 import { Action, Dispatch } from 'redux'
-import HatenaLogin from '../utils/login'
+import { ThunkDispatch, } from 'redux-thunk'
+import { IAppState, } from '../reducers/app'
 export const FETCH_ARTICLES = 'FETCH_ARTICLES'
 export const FETCH_BOOKMARK_ARTICLES = 'FETCH_BOOKMARK_ARTICLES'
 export const FETCH_BOOKMARK_CACHE = 'FETCH_BOOKMARK_CACHE'
@@ -92,7 +93,7 @@ export const actions = {
   fetchBookmarkFailed,
 }
 
-export const getArticlesFromApi = (url: string, indexName: string): (dispatch: Dispatch) => Promise<string> => (
+export const getArticlesFromApi = (url: string, indexName: string): (dispatch: ThunkDispatch<IAppState, undefined, any>) => Promise<string> => (
   dispatch => (
     new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {

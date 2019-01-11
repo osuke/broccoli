@@ -6,7 +6,11 @@ type Actions = ActionType<typeof actions>
 export interface ILoginState {
   isLogin: boolean
   url: string | null
-  userData: string | null
+  userData: {
+    token: string
+    secret: string
+    urlName: string
+  } | null
 }
 
 const initialState: ILoginState = {

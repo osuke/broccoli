@@ -22,19 +22,16 @@ import MyBookmark from '../containers/MyBookmark'
 import Icon from './Icon'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
+import { IStateToProps, } from '../containers/Root'
 
-interface IProps {
-  category: any
-  order: any
-}
+type IProps =  IStateToProps
 
 const Root: React.SFC<IProps> = ({ category, order }) => {
-  const items = category.items
-  let tabs = []
+  const items: any = category.items
+  let tabs: React.ReactNode[] = []
 
   Object.keys(order.items).forEach((key, index) => {
-    if (key === 'fav') {
-    } else if (key === 'myBookmark') {
+    if (key === 'myBookmark') {
       tabs.push(
         <Tab
           heading={items[key].name}

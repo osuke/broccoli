@@ -20,7 +20,7 @@ interface IState {
 }
 
 export default class SearchInput extends React.Component<IProps, IState> {
-  constructor (props) {
+  constructor (props: IProps) {
     super(props)
   
     this.state = {

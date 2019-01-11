@@ -1,4 +1,3 @@
-import { ActionType } from 'typesafe-actions'
 import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import ArticleDetail from '../components/ArticleDetail'
@@ -12,17 +11,13 @@ import { IAppState } from '../reducers/app';
 import { IWebviewState, } from '../reducers/webview';
 import { ILoginState, } from '../reducers/login';
 
-const actions = { fetchBookmarkData, getCommentsFromApi, showSpinner, hideSpinner, }
-
-type ActionTypes = ActionType<typeof actions>
-
-interface IStateToProps {
+export interface IStateToProps {
   login: ILoginState
   webview: IWebviewState
 }
 
-interface IDispatchToProps {
-  fetchBookmarkData: (userData: any, url: string) => void
+export interface IDispatchToProps {
+  fetchBookmarkData: (loginData: ILoginState, url: string) => void
   getCommentsFromApi: (url: string) => void
   showSpinner: () => void
   hideSpinner: () => void
@@ -35,10 +30,10 @@ const mapStateToProps = (state: IAppState): IStateToProps => {
   }
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, undefined, any>) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, undefined, any>): IDispatchToProps => {
   return {
-    fetchBookmarkData: (userData: any, url: string) => { dispatch(fetchBookmarkData(userData, url)) },
-    getCommentsFromApi: (url: any) => { dispatch(getCommentsFromApi(url)) },
+    fetchBookmarkData: (loginData, url) => { dispatch(fetchBookmarkData(loginData, url)) },
+    getCommentsFromApi: (url) => { dispatch(getCommentsFromApi(url)) },
     showSpinner: () => { dispatch(showSpinner()) },
     hideSpinner: () => { dispatch(hideSpinner()) }
   }

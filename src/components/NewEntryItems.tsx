@@ -3,21 +3,24 @@ import { ICategoryItem } from '../reducers/category'
 import { View, Text, FlatList, RefreshControl, StyleSheet } from 'react-native'
 import Article from '../containers/Article'
 import { Spinner } from 'native-base'
+import { IDispatchToProps, } from '../containers/NewEntryItems'
+import { ICategory, } from '../reducers/category'
 
 interface IState {
   refreshing: boolean
   isLoading: boolean
   isSuccess: boolean
 }
-
-interface IProps {
-  getArticlesFromApi: any
-  data: any
+interface IOwnProps {
+  data: ICategory
   index: string
 }
 
+type IProps = IDispatchToProps & IOwnProps
+
+
 export default class NewEntryItems extends React.Component<IProps, IState> {
-  constructor (props) {
+  constructor (props: IProps) {
     super(props)
     this.state = {
       refreshing: false,
@@ -28,11 +31,11 @@ export default class NewEntryItems extends React.Component<IProps, IState> {
 
   componentDidMount () {
     this.props.getArticlesFromApi(this.props.data.url, this.props.index)
-      .then(val => {
+      .then(() => {
         this.setState({isSuccess: true})
         this.setState({isLoading: false})
       })
-      .catch(err => {
+      .catch(() => {
         this.setState({isSuccess: false})
         this.setState({isLoading: false})
       })
@@ -42,11 +45,11 @@ export default class NewEntryItems extends React.Component<IProps, IState> {
   onRefreshHandler () {
     this.setState({refreshing: true})
     this.props.getArticlesFromApi(this.props.data.url, this.props.index)
-      .then(val => {
+      .then(() => {
         this.setState({isSuccess: true})
         this.setState({refreshing: false})
       })
-      .catch(err => {
+      .catch(() => {
         this.setState({isSuccess: false})
         this.setState({refreshing: false})
       })

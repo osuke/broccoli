@@ -12,6 +12,7 @@ import {
   Text,
   Button,
 } from 'native-base'
+import { Actions, } from 'react-native-router-flux'
 import {
   BACKGROUND_COLOR_GRAY,
 } from '../constants/styles'
@@ -19,11 +20,9 @@ import Comment from './Comment'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
 import Icon from './Icon'
-import { Actions } from 'react-native-router-flux'
+import { IStateToProps, } from '../containers/CommentList'
 
-interface IProps {
-  items: any[]
-}
+type IProps = IStateToProps
 
 const CommentList: React.SFC<IProps> = ({ items }) => {
   return (

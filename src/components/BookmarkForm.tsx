@@ -27,16 +27,10 @@ import Tag from './Tag'
 import Btn from './Btn'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
+import { IStateToProps, IDispatchToProps, } from '../containers/BookmarkForm'
 import { Actions } from 'react-native-router-flux'
 
-interface IProps {
-  bookmark: any
-  fetchBookmarkData: any
-  webview: any
-  saveBookmark: any
-  deleteBookmark: any
-  login: any
-}
+type IProps = IStateToProps & IDispatchToProps
 
 interface IState {
   text: string
@@ -45,7 +39,7 @@ interface IState {
 }
 
 export default class BookmarkForm extends React.Component<IProps, IState> {
-  constructor (props) {
+  constructor (props: IProps) {
     super(props)
     this.state = {
       text: this.props.bookmark.comment,
@@ -66,7 +60,7 @@ export default class BookmarkForm extends React.Component<IProps, IState> {
     })
   }
 
-  deleteTag (index) {
+  deleteTag (index: number) {
     let tags = this.state.tags
     tags.splice(index, 1)
     this.setState({
@@ -107,6 +101,8 @@ export default class BookmarkForm extends React.Component<IProps, IState> {
   }
 
   pressSaveButton () {
+    if (!this.props.webview.url) return
+
     this.props.saveBookmark(this.props.login, this.props.webview.url, this.mergeCommentAndTags())
     Actions.pop()
   }
@@ -139,6 +135,7 @@ export default class BookmarkForm extends React.Component<IProps, IState> {
                 <View style={styles.deleteBtn}>
                   <TouchableOpacity
                     onPress={() => {
+                      if (!this.props.webview.url) return
                       this.props.deleteBookmark(this.props.login, this.props.webview.url)
                       Actions.pop()
                     }}

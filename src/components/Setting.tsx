@@ -23,11 +23,9 @@ import {
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
 import Icon from './Icon'
+import { IStateToProps, IDispatchToProps, } from '../containers/Setting'
 
-interface IProps {
-  isLogin: boolean
-  logout: () => void
-}
+type IProps = IStateToProps & IDispatchToProps
 
 const Setting: React.SFC<IProps> = ({ isLogin, logout }) => (
   <Container>
