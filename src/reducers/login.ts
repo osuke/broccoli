@@ -9,7 +9,7 @@ export interface ILoginState {
   userData: {
     token: string
     secret: string
-    urlName: string
+    displayName: string
   } | null
 }
 

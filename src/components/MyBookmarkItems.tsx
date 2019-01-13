@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { IBookmarkItem } from '../reducers/myBookmark'
+import { IBookmarkItem, } from '../reducers/myBookmark'
 import {
   StyleSheet,
   View,
@@ -12,15 +12,9 @@ import {
 import SearchInput from './SearchInput'
 import ErrorMessage from './ErrorMessage'
 import Article from '../containers/Article'
+import { IStateToProps, IDispatchToProps, } from '../containers/MyBookmarkItems'
 
-interface IProps {
-  login: any
-  myBookmark: any
-  getBookmarkArticlesFromApi: any
-  showPage: any
-  getSearchResultFromApi: any
-  fetchBookmarkCache: any
-}
+type IProps = IStateToProps & IDispatchToProps
 
 interface IState {
   refreshing: boolean
@@ -42,7 +36,7 @@ export default class MyBookmarkItems extends React.Component<IProps, IState> {
     this.setState({
       isLoading: true,
     })
-    if (this.props.login.isLogin) {
+    if (this.props.login.isLogin && this.props.login.userData) {
       this.props.getBookmarkArticlesFromApi(this.props.login.userData)
         .then((val: any) => {
           this.setState({
@@ -61,6 +55,7 @@ export default class MyBookmarkItems extends React.Component<IProps, IState> {
 
   onRefreshHandler = () => {
     this.setState({refreshing: true})
+    if (!this.props.login.isLogin || !this.props.login.userData) return
     this.props.getBookmarkArticlesFromApi(this.props.login.userData)
       .then((val: any) => {
         this.setState({isSuccess: true})
@@ -86,7 +81,7 @@ export default class MyBookmarkItems extends React.Component<IProps, IState> {
     )
   }
 
-  getSearchResultFromApi = (keyword: any, userData: any, offset: any) => {
+  getSearchResultFromApi = (keyword: string, userData: any, offset: number) => {
     this.setState({
       isLoading: true,
     })

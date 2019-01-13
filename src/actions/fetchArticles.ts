@@ -48,11 +48,10 @@ export interface IFetchFailed extends Action {
   }
 }
 
-interface IUserData {
+export interface IUserData {
   displayName: string
   secret: string
   token: string
-  urlName: string
 }
 
 export const fetchArticles = createAction(
