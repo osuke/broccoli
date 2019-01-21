@@ -23,6 +23,9 @@
     "typesafe-actions": "^2.1.1"
   },
   "devDependencies": {
+    "@types/crypto-js": "^3.1.43",
+    "@types/qs": "^6.5.1",
+    "@types/query-string": "^6.2.0",
     "@types/react": "^16.7.11",
     "@types/react-native": "^0.57.15",
     "@types/react-native-vector-icons": "^4.6.4",

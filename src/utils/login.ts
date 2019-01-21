@@ -1,3 +1,4 @@
+import { Alert } from 'react-native'
 import crypto from 'crypto-js'
 import Base64 from 'crypto-js/enc-base64'
 import oAuth from 'oauth-1.0a'
@@ -7,8 +8,12 @@ import config from './loginConfig'
 import { Actions } from 'react-native-router-flux'
 
 export default class HatenaLogin {
+  oauth: oAuth
+  requestToken: string = ''
+  tokenSecret: string = ''
+
   constructor () {
-    this.oauth = oAuth({
+    this.oauth = new oAuth({
       consumer: {
         key: config.consumerKey,
         secret: config.consumerSecret
@@ -21,22 +26,31 @@ export default class HatenaLogin {
   }
 
   getRequestToken () {
-    const requestData = {
+    interface IRequestData {
+      url: string
+      method: 'POST'
+      data: {
+        oauth_callback: string
+      }
+      headers?: any
+    }
+
+    const requestData: IRequestData = {
       url: 'https://www.hatena.com/oauth/initiate?scope=read_public,write_public,read_private,write_private',
       method: 'POST',
       data: {
-        oauth_callback: config.callbackUrl
-      }
+        oauth_callback: config.callbackUrl,
+      },
     }
 
-    requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData, {}))
+    requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData))
     requestData.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     return fetch(requestData.url, {
       method: requestData.method,
       headers: requestData.headers,
-    }).then(res => {
-      let tokenData = this.getTokenData(res._bodyText)
+    }).then((res: any) => {
+      let tokenData: any = this.getTokenData(res._bodyText)
       console.log(tokenData)
       tokenData.requestToken = encodeURIComponent(tokenData.requestToken)
       tokenData.tokenSecret = encodeURIComponent(tokenData.tokenSecret)
@@ -47,11 +61,20 @@ export default class HatenaLogin {
     })
   }
 
-  getAccessToken (e) {
+  getAccessToken (e: any) {
     Actions.pop()
     const urlArray = e.url.match(/\?oauth_token=([^&]*)&oauth_verifier=([^&]*)/)
 
-    const requestData = {
+    interface IRequestData {
+      url: string
+      method: 'POST'
+      data: {
+        oauth_verifier: string
+      }
+      headers?: any
+    }
+
+    const requestData: IRequestData = {
       url: 'https://www.hatena.com/oauth/token',
       method: 'POST',
       data: {
@@ -64,13 +87,15 @@ export default class HatenaLogin {
       secret: this.tokenSecret,
     }
 
+    if (!token.key || !token.secret) return
+
     requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData, token))
     requestData.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
     return fetch(requestData.url, {
       method: requestData.method,
       headers: requestData.headers
-    }).then(res => {
+    }).then((res: any) => {
       if (res.status === 200) {
         return queryString.parse(res._bodyText)
       } else {
@@ -78,8 +103,13 @@ export default class HatenaLogin {
     })
   }
 
-  getTokenData (text) {
-    let data = {}
+  getTokenData (text: string) {
+    interface IData {
+      requestToken?: string
+      tokenSecret?: string
+    }
+
+    let data: IData = {}
 
     text.split('&').map(o => {
       const query = o.split('=')
@@ -96,9 +126,16 @@ export default class HatenaLogin {
     return data
   }
 
-  sendRequest (method, url, accessToken, accessTokenSecret, options = {}) {
+  sendRequest (method: string, url: string, accessToken: string, accessTokenSecret: string, options = {}) {
     return new Promise((resolve, reject) => {
-      const requestData = {
+      interface IRequestData {
+        url: string
+        method: string
+        data: any
+        headers?: any
+      }
+
+      const requestData: IRequestData = {
         url,
         method,
         data: options,
@@ -109,6 +146,8 @@ export default class HatenaLogin {
         secret: accessTokenSecret,
       }
 
+      if (!token.key.length || !token.secret.length) return
+
       requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData, token))
 
       if (method.toUpperCase() !== 'GET') {
@@ -116,7 +155,13 @@ export default class HatenaLogin {
         requestData.headers['Access-Control-Allow-Methods'] = 'GET,POST,DELETE,HEAD,OPTIONS'
       }
 
-      const obj = {
+      interface IObj {
+        method: string
+        headers: any
+        body?: string
+      }
+
+      const obj: IObj = {
         method: requestData.method,
         headers: requestData.headers
       }
@@ -125,9 +170,9 @@ export default class HatenaLogin {
         obj.body = qs.stringify(options)
       }
 
-      return fetch(url, obj).then(resp => {
+      return fetch(url, obj).then((resp: any) => {
         if (resp._bodyText.match(/^401 Unauthorized/)) {
-          alert('認証の有効期限が切れました。')
+          Alert.alert('認証の有効期限が切れました。')
           Actions.login()
 
           resolve({})
@@ -141,7 +186,7 @@ export default class HatenaLogin {
       }).catch(e => {
         console.log(e)
         console.log('Error Occuered: request')
-        alert('しばらく時間を空けてから、もう一度お試しください')
+        Alert.alert('しばらく時間を空けてから、もう一度お試しください')
       })
     })
   }
