@@ -57,7 +57,7 @@ const Root: React.SFC<IProps> = ({ category, order }) => {
           activeTabStyle={styles.tab as any}
         >
           <Container style={styles.tabContent as any}>
-            <NewEntryItems data={items[key]} index={key} key={key} />
+            <NewEntryItems index={key} url={items[key].url} key={key} />
           </Container>
         </Tab>
       )

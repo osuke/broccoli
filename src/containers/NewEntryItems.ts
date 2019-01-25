@@ -1,17 +1,22 @@
 import { connect, } from 'react-redux'
+import { Dispatch, } from 'redux'
 import { ThunkDispatch, } from 'redux-thunk'
 import NewEntryItems from '../components/NewEntryItems'
-import { getArticlesFromApi } from '../actions/fetchArticles'
+import { loadHotentry, } from '../actions/fetchArticles'
 import { IAppState, } from '../reducers/app'
 
 export interface IDispatchToProps {
-  getArticlesFromApi: (url: string, index: string) => any
+  loadHotentry: (url: string, index: string) => void
+}
+
+const mapStateToProps = (state: IAppState): IAppState => {
+  return state
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, undefined, any>): IDispatchToProps => {
   return {
-    getArticlesFromApi: (url, index) => dispatch(getArticlesFromApi(url, index)),
+    loadHotentry: (url, index) => dispatch(loadHotentry(url, index)),
   }
 }
 
-export default connect(null, mapDispatchToProps)(NewEntryItems)
+export default connect<IAppState, IDispatchToProps, {}, IAppState>(mapStateToProps, mapDispatchToProps)(NewEntryItems)

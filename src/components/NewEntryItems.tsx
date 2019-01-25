@@ -4,19 +4,18 @@ import { View, Text, FlatList, RefreshControl, StyleSheet } from 'react-native'
 import Article from '../containers/Article'
 import { Spinner } from 'native-base'
 import { IDispatchToProps, } from '../containers/NewEntryItems'
-import { ICategory, } from '../reducers/category'
+import { IAppState, } from '../reducers/app'
 
 interface IState {
   refreshing: boolean
-  isLoading: boolean
-  isSuccess: boolean
-}
-interface IOwnProps {
-  data: ICategory
-  index: string
 }
 
-type IProps = IDispatchToProps & IOwnProps
+interface IOwnProps {
+  index: string
+  url: string
+}
+
+type IProps = IAppState & IDispatchToProps & IOwnProps
 
 
 export default class NewEntryItems extends React.Component<IProps, IState> {
@@ -24,48 +23,30 @@ export default class NewEntryItems extends React.Component<IProps, IState> {
     super(props)
     this.state = {
       refreshing: false,
-      isLoading: true,
-      isSuccess: true,
     }
   }
 
   componentDidMount () {
-    this.props.getArticlesFromApi(this.props.data.url, this.props.index)
-      .then(() => {
-        this.setState({isSuccess: true})
-        this.setState({isLoading: false})
-      })
-      .catch(() => {
-        this.setState({isSuccess: false})
-        this.setState({isLoading: false})
-      })
-
+    this.props.loadHotentry(this.props.url, this.props.index)
   }
 
   onRefreshHandler () {
-    this.setState({refreshing: true})
-    this.props.getArticlesFromApi(this.props.data.url, this.props.index)
-      .then(() => {
-        this.setState({isSuccess: true})
-        this.setState({refreshing: false})
-      })
-      .catch(() => {
-        this.setState({isSuccess: false})
-        this.setState({refreshing: false})
-      })
+    this.props.loadHotentry(this.props.url, this.props.index)
   }
 
   render () {
+    const status = this.props.category.items[this.props.index].status
+
     return (
       <View style={styles.wrap}>
-        {!this.state.refreshing && !this.state.isSuccess &&
+        {status === 'fail' &&
           <View style={styles.error}>
             <Text style={styles.errorText}>しばらく時間を空けてから、もう一度お試しください</Text>
           </View>
         }
         <FlatList<ICategoryItem>
           style={styles.flatList}
-          data={this.props.data.items}
+          data={this.props.category.items[this.props.index].items}
           renderItem={({item}) => {
             return (
               <Article
@@ -85,7 +66,7 @@ export default class NewEntryItems extends React.Component<IProps, IState> {
             />
           }
           ListEmptyComponent={() => {
-            if (this.state.isLoading) {
+            if (status === 'loading') {
               return (
                 <Spinner
                   color="#000"

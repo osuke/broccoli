@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "crypto-js": "^3.1.9-1",
     "native-base": "^2.8.1",
     "oauth-1.0a": "^2.2.5",
@@ -23,6 +24,7 @@
     "typesafe-actions": "^2.1.1"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/crypto-js": "^3.1.43",
     "@types/qs": "^6.5.1",
     "@types/query-string": "^6.2.0",
@@ -35,6 +37,7 @@
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.48.1",
     "react-test-renderer": "16.6.0-alpha.8af6728",
+    "redux-devtools-extension": "^2.13.7",
     "typescript": "^3.2.1"
   },
   "jest": {

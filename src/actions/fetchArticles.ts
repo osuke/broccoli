@@ -1,4 +1,5 @@
-import { createAction } from 'typesafe-actions'
+import axios from 'axios'
+import { createAction, createAsyncAction, } from 'typesafe-actions'
 import { parseString } from 'react-native-xml2js'
 import { Action, Dispatch } from 'redux'
 import { ThunkDispatch, } from 'redux-thunk'
@@ -54,6 +55,41 @@ export interface IUserData {
   token: string
 }
 
+export interface IHotentrySuccess {
+  items: IArticle[]
+  index: string
+}
+
+const fetchHotentry = createAsyncAction(
+  'FETCH_HOTENTRY_REQUEST',
+  'FETCH_HOTENTRY_SUCCESS',
+  'FETCH_HOTENTRY_FAILURE',
+)<{ index: string }, IHotentrySuccess, { index: string }>()
+
+export const loadHotentry = (url: string, indexName: string): (dispatch: ThunkDispatch<IAppState, undefined, any>) => void => (
+  dispatch => {
+    dispatch(fetchHotentry.request({ index: indexName, }))
+    return (
+      axios.get(url, { timeout: 5000 })
+        .then((res: any) => {
+          console.log(res)
+          parseString(res.data, (err: any, result: any) => {
+            let items = result['rdf:RDF'].item
+            items.map((data: any, index: number) => {
+              items[index].link = data.link[0]
+              items[index].title = data.title[0]
+              items[index].bookmarkcount = parseInt(data['hatena:bookmarkcount'][0])
+            })
+            dispatch(fetchHotentry.success({ items: items, index: indexName, }))
+          })
+        })
+        .catch(error => {
+          dispatch(fetchHotentry.failure({ index: indexName }))
+        })
+    )
+  }
+)
+
 export const fetchArticles = createAction(
   FETCH_ARTICLES,
   resolve => (items: IArticle[] , index: string) => resolve({ items, index }),
@@ -90,38 +126,8 @@ export const actions = {
   fetchSearchResult,
   fetchFailed,
   fetchBookmarkFailed,
+  fetchHotentry,
 }
-
-export const getArticlesFromApi = (url: string, indexName: string): (dispatch: ThunkDispatch<IAppState, undefined, any>) => Promise<string> => (
-  dispatch => (
-    new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => {
-        reject(new Error('timeout'))
-      }, 10000)
-
-      fetch(url)
-        .then(((res: any) => {
-          parseString(res._bodyInit, (err: any, result: any) => {
-            let items = result['rdf:RDF'].item
-            items.map((data: any, index: number) => {
-              items[index].link = data.link[0]
-              items[index].title = data.title[0]
-              items[index].bookmarkcount = parseInt(data['hatena:bookmarkcount'][0])
-            })
-            dispatch(fetchArticles(items, indexName))
-            resolve('success')
-          })
-        } ))
-        .catch(error => {
-          dispatch(fetchFailed(indexName))
-          reject(new Error('error'))
-        })
-      })
-  )
-)
-
-type Hoge = (dispatch: Dispatch) => Promise<string>
-export type Huga = (userData: IUserData) => Hoge
 
 export const getBookmarkArticlesFromApi = (userData: IUserData): (dispatch: Dispatch) => Promise<string> => (
   dispatch => (

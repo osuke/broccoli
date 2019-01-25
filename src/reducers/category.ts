@@ -5,6 +5,8 @@ import {
 
 type Actions = ActionType<typeof actions>
 
+type AccessStatus = 'success' | 'fail' | 'loading'
+
 export interface ICategoryItem {
   title: string
   link: string
@@ -13,17 +15,17 @@ export interface ICategoryItem {
   domain: string
 }
 
-interface ICategory {
+export interface ICategory {
   name: string
   url: string
   items: ICategoryItem[]
-  status: string
+  status: AccessStatus
 }
 
 interface IMyBookmark {
   name: string
   items: any[]
-  status: string
+  status: AccessStatus
   offset: number
 }
 
@@ -50,66 +52,66 @@ const initialState: ICategoryState = {
       name: '総合',
       url: 'http://b.hatena.ne.jp/hotentry.rss',
       items: [],
-      status: 'success',
+      status: 'loading',
     },
     general: {
       name: '一般',
       url: 'http://b.hatena.ne.jp/hotentry/general.rss',
       items: [],
-      status: 'success',
+      status: 'loading',
     },
     social: {
       name: '世の中',
       url: 'http://b.hatena.ne.jp/hotentry/social.rss',
       items: [],
-      status: 'success',
+      status: 'loading',
     },
     economics: {
       name: '政治と経済',
       url: 'http://b.hatena.ne.jp/hotentry/economics.rss',
       items: [],
-      status: 'success',
+      status: 'loading',
     },
     life: {
       name: '暮らし',
       url: 'http://b.hatena.ne.jp/hotentry/life.rss',
       items: [],
-      status: 'success',
+      status: 'loading',
     },
     knowledge: {
       name: '学び',
       url: 'http://b.hatena.ne.jp/hotentry/knowledge.rss',
       items: [],
-      status: 'success',
+      status: 'loading',
     },
     it: {
       name: 'テクノロジー',
       url: 'http://b.hatena.ne.jp/hotentry/it.rss',
       items: [],
-      status: 'success',
+      status: 'loading',
     },
     fun: {
       name: 'おもしろ',
       url: 'http://b.hatena.ne.jp/hotentry/fun.rss',
       items: [],
-      status: 'success',
+      status: 'loading',
     },
     entertainment: {
       name: 'エンタメ',
       url: 'http://b.hatena.ne.jp/hotentry/entertainment.rss',
       items: [],
-      status: 'success',
+      status: 'loading',
     },
     game: {
       name: 'アニメとゲーム',
       url: 'http://b.hatena.ne.jp/hotentry/game.rss',
       items: [],
-      status: 'success',
+      status: 'loading',
     },
     myBookmark: {
       name: 'マイブックマーク',
       items: [],
-      status: 'success',
+      status: 'loading',
       offset: 0
     },
   }
@@ -119,7 +121,11 @@ export default (state = initialState, action: Actions) => {
   let newState = state
 
   switch (action.type) {
+    case getType(actions.fetchHotentry.request):
+      newState.items[action.payload.index].status = 'loading'
+      return Object.assign({}, state, newState)
     case getType(actions.fetchArticles):
+    case getType(actions.fetchHotentry.success):
       action.payload.items.map(obj => {
         const domain = obj.link.split('/')[2]
         obj.domain = domain
@@ -130,7 +136,8 @@ export default (state = initialState, action: Actions) => {
       return Object.assign({}, state, newState)
 
     case getType(actions.fetchFailed):
-      newState.items[action.payload.index].status = 'failed'
+    case getType(actions.fetchHotentry.failure):
+      newState.items[action.payload.index].status = 'fail'
       newState.items[action.payload.index].items = []
       return Object.assign({}, state, newState)
 
