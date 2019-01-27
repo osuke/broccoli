@@ -37,34 +37,13 @@ export default class MyBookmarkItems extends React.Component<IProps, IState> {
       isLoading: true,
     })
     if (this.props.login.isLogin && this.props.login.userData) {
-      this.props.getBookmarkArticlesFromApi(this.props.login.userData)
-        .then((val: any) => {
-          this.setState({
-            isLoading: false,
-            isSuccess: true,
-          })
-        })
-        .catch((err: any) => {
-          this.setState({
-            isSuccess: false,
-            isLoading: false,
-          })
-        })
+      this.props.loadMyBookmark(this.props.login.userData)
     }
   }
 
   onRefreshHandler = () => {
-    this.setState({refreshing: true})
     if (!this.props.login.isLogin || !this.props.login.userData) return
-    this.props.getBookmarkArticlesFromApi(this.props.login.userData)
-      .then((val: any) => {
-        this.setState({isSuccess: true})
-        this.setState({refreshing: false})
-      })
-      .catch((err: any) => {
-        this.setState({isSuccess: false})
-        this.setState({refreshing: false})
-      })
+    this.props.loadMyBookmark(this.props.login.userData)
   }
 
   onEndReachedHandler = () => {
@@ -104,7 +83,7 @@ export default class MyBookmarkItems extends React.Component<IProps, IState> {
   }
 
   showSpinner = (items: any) => {
-    if (items.length > 0 && this.state.isLoading) {
+    if (items.length > 0 && this.props.myBookmark.status === 'loading') {
       return (
         <Spinner
           color="#000"
@@ -124,7 +103,7 @@ export default class MyBookmarkItems extends React.Component<IProps, IState> {
           getSearchResultFromApi={this.getSearchResultFromApi}
           fetchBookmarkCache={this.props.fetchBookmarkCache}
         />
-        {!this.state.isSuccess && <ErrorMessage />}
+        {this.props.myBookmark.status === 'fail' && <ErrorMessage />}
         <View style={styles.wrap}>
           {this.props.myBookmark.type === 'LATEST' ? (
             <FlatList<IBookmarkItem>
@@ -150,7 +129,7 @@ export default class MyBookmarkItems extends React.Component<IProps, IState> {
                 />
               }
               ListEmptyComponent={() => {
-                if (this.state.isLoading) {
+                if (this.props.myBookmark.items.latest.length === 0 && this.props.myBookmark.status === 'loading') {
                   return (
                     <Spinner
                       color="#000"
@@ -183,7 +162,7 @@ export default class MyBookmarkItems extends React.Component<IProps, IState> {
               onEndReachedThreshold={0}
               ListFooterComponent={() => this.showSpinner(this.props.myBookmark.items.searchResult)}
               ListEmptyComponent={() => {
-                if (this.state.isLoading) {
+                if (this.props.myBookmark.status === 'loading') {
                   return (
                     <Spinner
                       color="#000"

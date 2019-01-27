@@ -1,6 +1,6 @@
 import { ActionType, getType } from 'typesafe-actions'
 import {
-  actions,
+  myBookmarkActions as actions,
 } from '../actions/fetchArticles'
 
 type Actions = ActionType<typeof actions>
@@ -13,6 +13,8 @@ export interface IBookmarkItem {
   domain: string
 }
 
+type AccessStatus = 'success' | 'fail' | 'loading'
+
 export interface IMybookmarkState {
   type: 'LATEST' | 'SEARCH_RESULT'
   items: {
@@ -22,6 +24,7 @@ export interface IMybookmarkState {
   keyword: string
   offset: number
   total: number
+  status: AccessStatus
 }
 
 const initialState: IMybookmarkState = {
@@ -33,12 +36,20 @@ const initialState: IMybookmarkState = {
   keyword: '',
   offset: 0,
   total: 20,
+  status: 'loading',
 }
 
 export default (state = initialState, action: Actions) => {
   switch (action.type) {
-    case getType(actions.fetchBookmarkArticles):
-      action.payload.items.map(item => {
+    case getType(actions.fetchMyBookamrk.request):
+      return Object.assign({}, state,
+        {
+          status: 'loading',
+        }
+      )
+
+    case getType(actions.fetchMyBookamrk.success):
+      action.payload.map(item => {
         const domain = item.link.split('/')[2]
         item.domain = domain
         item.favicon = `https://www.google.com/s2/favicons?domain=${domain}`
@@ -47,9 +58,10 @@ export default (state = initialState, action: Actions) => {
       return Object.assign({}, state,
         {
           type: 'LATEST',
+          status: 'success',
           items: {
-            latest: action.payload.items,
-            searchResult: state.items.searchResult,
+            latest: [...action.payload],
+            searchResult: [...state.items.searchResult],
             keyword: '',
             offset: 0,
             total: 20,
@@ -77,6 +89,13 @@ export default (state = initialState, action: Actions) => {
       return Object.assign({}, state,
         {
           type: 'LATEST',
+        }
+      )
+
+    case getType(actions.fetchMyBookamrk.failure):
+      return Object.assign({}, state,
+        {
+          status: 'fail',
         }
       )
 

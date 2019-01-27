@@ -2,38 +2,30 @@ import { connect, } from 'react-redux'
 import { ThunkDispatch, } from 'redux-thunk'
 import MyBookmarkItems from '../components/MyBookmarkItems'
 import {
-  getBookmarkArticlesFromApi,
   getSearchResultFromApi,
   fetchBookmarkCache,
-  IUserData, 
+  IUserData,
+  loadMyBookmark,
 } from '../actions/fetchArticles'
 import { showPage, } from '../actions/webview'
 import { IAppState, } from '../reducers/app'
-import { IMybookmarkState, } from '../reducers/myBookmark'
-import { ILoginState, } from '../reducers/login'
 
-export interface IStateToProps {
-  myBookmark: IMybookmarkState
-  login: ILoginState
-}
+export type IStateToProps = IAppState
 
 const mapStateToProps = (state: IAppState): IStateToProps => {
-  return {
-    myBookmark: state.myBookmark,
-    login: state.login,
-  }
+  return state
 }
 
 export interface IDispatchToProps {
-  getBookmarkArticlesFromApi: (userData: IUserData) => any
+  loadMyBookmark: (userData: IUserData) => void
   getSearchResultFromApi: (keyword: string, userData: IUserData, offset: number) => any
   fetchBookmarkCache: () => void
   showPage: (url: string, title: string) => void
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, undefined, any>): IDispatchToProps => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, undefined, any>, hoge: any): IDispatchToProps => {
   return {
-    getBookmarkArticlesFromApi: (userData) => dispatch(getBookmarkArticlesFromApi(userData)),
+    loadMyBookmark: (userData) => dispatch(loadMyBookmark(userData)),
     getSearchResultFromApi: (keyword, userData, offset = 0) => dispatch(getSearchResultFromApi(keyword, userData, offset)),
     fetchBookmarkCache: () => {
       dispatch(fetchBookmarkCache())

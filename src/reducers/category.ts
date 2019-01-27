@@ -124,6 +124,7 @@ export default (state = initialState, action: Actions) => {
     case getType(actions.fetchHotentry.request):
       newState.items[action.payload.index].status = 'loading'
       return Object.assign({}, state, newState)
+
     case getType(actions.fetchArticles):
     case getType(actions.fetchHotentry.success):
       action.payload.items.map(obj => {

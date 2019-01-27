@@ -119,47 +119,48 @@ export const fetchBookmarkFailed = createAction(
   resolve => (index: string) => resolve({ index, }),
 )
 
+const fetchMyBookamrk = createAsyncAction(
+  'FETCH_MY_BOOKMARK_REQUEST',
+  'FETCH_MY_BOOKMARK_SUCCESS',
+  'FETCH_MY_BOOKMARK_FAILURE',
+)<void, IArticle[], void>()
+
 export const actions = {
   fetchArticles,
   fetchBookmarkArticles,
-  fetchBookmarkCache,
-  fetchSearchResult,
   fetchFailed,
   fetchBookmarkFailed,
   fetchHotentry,
 }
 
-export const getBookmarkArticlesFromApi = (userData: IUserData): (dispatch: Dispatch) => Promise<string> => (
-  dispatch => (
-    new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => {
-        reject(new Error('timeout'))
-      }, 10000)
+export const myBookmarkActions = {
+  fetchMyBookamrk,
+  fetchSearchResult,
+  fetchBookmarkCache,
+}
 
-      fetch(`http://b.hatena.ne.jp/${userData.displayName}/rss?d=${Date.now()}`)
+export const loadMyBookmark = (userData: IUserData): (dispatch: ThunkDispatch<IAppState, undefined, any>) => void => (
+  dispatch => {
+    dispatch(fetchMyBookamrk.request())
+
+    return (
+      axios.get(`http://b.hatena.ne.jp/${userData.displayName}/rss?d=${Date.now()}`, { timeout: 5000 })
         .then((res: any) => {
-          parseString(res._bodyInit, ((err: any, result: any) => {
-            console.log('*************')
-            console.log(result)
-            console.log('*************')
+          parseString(res.data, (err: any, result: any) => {
             let items = result['rdf:RDF'].item
-
-            items.map((data: any, index: any) => {
+            items.map((data: any, index: number) => {
               items[index].link = data.link[0]
               items[index].title = data.title[0]
               items[index].bookmarkcount = parseInt(data['hatena:bookmarkcount'][0])
             })
-            dispatch(fetchBookmarkArticles(items))
-            resolve('success')
-          }))
+            dispatch(fetchMyBookamrk.success(items))
+          })
         })
         .catch(error => {
-          //dispatch(fetchBookmarkFailed(index))
-          //dispatch(fetchBookmarkFailed(0))
-          reject(new Error('error'))
+          dispatch(fetchMyBookamrk.failure())
         })
-      })
-  )
+    )
+  }
 )
 
 export const getSearchResultFromApi = (keyword: string, userData: IUserData, offset: number): (dispatch: Dispatch) => Promise<string> => (
@@ -180,9 +181,7 @@ export const getSearchResultFromApi = (keyword: string, userData: IUserData, off
         .then(res => res.json())
         .then(res => {
           let items = res.bookmarks || []
-          console.log('================')
-          console.log(items)
-          console.log('================')
+
           if (items.length > 0) {
             items.map((item: any, index: any) => {
               const domain = item.entry.url.split('/')[2]
@@ -205,7 +204,6 @@ export const getSearchResultFromApi = (keyword: string, userData: IUserData, off
           resolve('success')
         })
         .catch(error => {
-          //dispatch(fetchFailed(index))
           reject(new Error('error'))
         })
       })
