@@ -133,12 +133,6 @@ export const actions = {
   fetchHotentry,
 }
 
-export const myBookmarkActions = {
-  fetchMyBookamrk,
-  fetchSearchResult,
-  fetchBookmarkCache,
-}
-
 export const loadMyBookmark = (userData: IUserData): (dispatch: ThunkDispatch<IAppState, undefined, any>) => void => (
   dispatch => {
     dispatch(fetchMyBookamrk.request())
@@ -163,24 +157,26 @@ export const loadMyBookmark = (userData: IUserData): (dispatch: ThunkDispatch<IA
   }
 )
 
-export const getSearchResultFromApi = (keyword: string, userData: IUserData, offset: number): (dispatch: Dispatch) => Promise<string> => (
-  dispatch => (
-    new Promise((resolve, reject) => {
-      const emptyPayload = {
-        items: [],
-        keyword,
-        offset,
-        total: 0
-      }
-      dispatch(fetchSearchResult(emptyPayload))
+const fetchSearch = createAsyncAction(
+  'FETCH_SEARCH_RESULT_REQUEST',
+  'FETCH_SEARCH_RESULT_SUCCESS',
+  'FETCH_SEARCH_RESULT_FAILURE',
+)<void, ISearchResponse, void>()
 
-      const timeout = setTimeout(() => {
-        reject(new Error('timeout'))
-      }, 10000)
-      fetch(`https://b.hatena.ne.jp/${userData.displayName}/search/json?q=${keyword}&of=${offset}`)
-        .then(res => res.json())
+export const myBookmarkActions = {
+  fetchMyBookamrk,
+  fetchSearch,
+  fetchBookmarkCache,
+}
+
+export const loadSearchResult = (keyword: string, userData: IUserData, offset: number): (dispatch: ThunkDispatch<IAppState, undefined, any>) => void => (
+  dispatch => {
+    dispatch(fetchSearch.request())
+
+    return (
+      axios.get(`https://b.hatena.ne.jp/${userData.displayName}/search/json?q=${keyword}&of=${offset}`)
         .then(res => {
-          let items = res.bookmarks || []
+          let items = res.data.bookmarks || []
 
           if (items.length > 0) {
             items.map((item: any, index: any) => {
@@ -197,15 +193,58 @@ export const getSearchResultFromApi = (keyword: string, userData: IUserData, off
             items,
             keyword,
             offset,
-            total: res.meta.total
+            total: res.data.meta.total
           }
 
-          dispatch(fetchSearchResult(payload))
-          resolve('success')
+          dispatch(fetchSearch.success(payload))
         })
         .catch(error => {
-          reject(new Error('error'))
+          dispatch(fetchSearch.failure())
         })
-      })
-  )
+    )
+  }
+  //dispatch => (
+  //  new Promise((resolve, reject) => {
+  //    const emptyPayload = {
+  //      items: [],
+  //      keyword,
+  //      offset,
+  //      total: 0
+  //    }
+  //    dispatch(fetchSearchResult(emptyPayload))
+
+  //    const timeout = setTimeout(() => {
+  //      reject(new Error('timeout'))
+  //    }, 10000)
+  //    fetch(`https://b.hatena.ne.jp/${userData.displayName}/search/json?q=${keyword}&of=${offset}`)
+  //      .then(res => res.json())
+  //      .then(res => {
+  //        let items = res.bookmarks || []
+
+  //        if (items.length > 0) {
+  //          items.map((item: any, index: any) => {
+  //            const domain = item.entry.url.split('/')[2]
+  //            items[index].link = item.entry.url
+  //            items[index].title = item.entry.title
+  //            items[index].bookmarkcount = item.entry.count
+  //            items[index].domain = domain
+  //            items[index].favicon = `https://www.google.com/s2/favicons?domain=${domain}`
+  //          })
+  //        }
+
+  //        const payload: ISearchResponse = {
+  //          items,
+  //          keyword,
+  //          offset,
+  //          total: res.meta.total
+  //        }
+
+  //        dispatch(fetchSearchResult(payload))
+  //        resolve('success')
+  //      })
+  //      .catch(error => {
+  //        reject(new Error('error'))
+  //      })
+  //    })
+  //)
 )

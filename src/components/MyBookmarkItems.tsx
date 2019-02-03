@@ -12,7 +12,7 @@ import {
 import SearchInput from './SearchInput'
 import ErrorMessage from './ErrorMessage'
 import Article from '../containers/Article'
-import { IStateToProps, IDispatchToProps, } from '../containers/MyBookmarkItems'
+import { IStateToProps, IDispatchToProps, IMergeProps, } from '../containers/MyBookmarkItems'
 
 type IProps = IStateToProps & IDispatchToProps
 
@@ -22,8 +22,8 @@ interface IState {
   isSuccess: boolean
 }
 
-export default class MyBookmarkItems extends React.Component<IProps, IState> {
-  constructor (props: IProps) {
+export default class MyBookmarkItems extends React.Component<IMergeProps, IState> {
+  constructor (props: IMergeProps) {
     super(props)
     this.state = {
       refreshing: false,
@@ -37,49 +37,22 @@ export default class MyBookmarkItems extends React.Component<IProps, IState> {
       isLoading: true,
     })
     if (this.props.login.isLogin && this.props.login.userData) {
-      this.props.loadMyBookmark(this.props.login.userData)
+      this.props.loadMyBookmark()
     }
   }
 
   onRefreshHandler = () => {
     if (!this.props.login.isLogin || !this.props.login.userData) return
-    this.props.loadMyBookmark(this.props.login.userData)
+    this.props.loadMyBookmark()
   }
 
   onEndReachedHandler = () => {
-    if (this.state.isLoading || this.props.myBookmark.offset > this.props.myBookmark.total) return
-
-    this.setState({
-      isLoading: true,
-    })
-
-    this.getSearchResultFromApi(
-      this.props.myBookmark.keyword,
-      this.props.login.userData,
-      this.props.myBookmark.offset + 20,
-    )
-  }
-
-  getSearchResultFromApi = (keyword: string, userData: any, offset: number) => {
-    this.setState({
-      isLoading: true,
-    })
+    if (this.props.myBookmark.offset > this.props.myBookmark.total) return
 
     this.props.getSearchResultFromApi(
-      keyword,
-      userData,
-      offset,
-    ).then((val: any) => {
-      this.setState({
-        isSuccess: true,
-        isLoading: false,
-      })
-    }).catch((err: any) => {
-      this.setState({
-        isSuccess: false,
-        isLoading: false,
-      })
-    })
+      this.props.myBookmark.keyword,
+      this.props.myBookmark.offset + 20,
+    )
   }
 
   showSpinner = (items: any) => {
@@ -100,7 +73,7 @@ export default class MyBookmarkItems extends React.Component<IProps, IState> {
       <View style={styles.wrap}>
         <SearchInput
           userData={this.props.login.userData}
-          getSearchResultFromApi={this.getSearchResultFromApi}
+          getSearchResultFromApi={this.props.getSearchResultFromApi}
           fetchBookmarkCache={this.props.fetchBookmarkCache}
         />
         {this.props.myBookmark.status === 'fail' && <ErrorMessage />}

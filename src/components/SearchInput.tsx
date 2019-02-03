@@ -30,7 +30,7 @@ export default class SearchInput extends React.Component<IProps, IState> {
 
   searchBookmark = (): void => {
     if (this.state.text.length > 0) {
-      this.props.getSearchResultFromApi(this.state.text, this.props.userData, 0)
+      this.props.getSearchResultFromApi(this.state.text, 0)
     }
   }
 

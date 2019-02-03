@@ -42,6 +42,7 @@ const initialState: IMybookmarkState = {
 export default (state = initialState, action: Actions) => {
   switch (action.type) {
     case getType(actions.fetchMyBookamrk.request):
+    case getType(actions.fetchSearch.request):
       return Object.assign({}, state,
         {
           status: 'loading',
@@ -60,8 +61,8 @@ export default (state = initialState, action: Actions) => {
           type: 'LATEST',
           status: 'success',
           items: {
-            latest: [...action.payload],
-            searchResult: [...state.items.searchResult],
+            latest: action.payload,
+            searchResult: state.items.searchResult,
             keyword: '',
             offset: 0,
             total: 20,
@@ -69,12 +70,13 @@ export default (state = initialState, action: Actions) => {
         }
       )
 
-    case getType(actions.fetchSearchResult):
+    case getType(actions.fetchSearch.success):
       let items = action.payload.offset === 0 ? [] : state.items.searchResult
 
       return Object.assign({}, state,
         {
           type: 'SEARCH_RESULT',
+          status: 'success',
           items: {
             latest: state.items.latest,
             searchResult: [...items, ...action.payload.items]
