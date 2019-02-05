@@ -42,9 +42,16 @@ const initialState: IMybookmarkState = {
 export default (state = initialState, action: Actions) => {
   switch (action.type) {
     case getType(actions.fetchMyBookamrk.request):
+      return Object.assign({}, state,
+        {
+          status: 'loading',
+        }
+      )
+
     case getType(actions.fetchSearch.request):
       return Object.assign({}, state,
         {
+          type: 'SEARCH_RESULT',
           status: 'loading',
         }
       )
@@ -91,6 +98,10 @@ export default (state = initialState, action: Actions) => {
       return Object.assign({}, state,
         {
           type: 'LATEST',
+          items: {
+            latest: state.items.latest,
+            searchResult: [],
+          },
         }
       )
 

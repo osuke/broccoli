@@ -1,6 +1,6 @@
 import { ActionType, getType } from 'typesafe-actions'
 import {
-  actions,
+  hotentryActions as actions,
 } from '../actions/fetchArticles'
 
 type Actions = ActionType<typeof actions>
@@ -125,7 +125,6 @@ export default (state = initialState, action: Actions) => {
       newState.items[action.payload.index].status = 'loading'
       return Object.assign({}, state, newState)
 
-    case getType(actions.fetchArticles):
     case getType(actions.fetchHotentry.success):
       action.payload.items.map(obj => {
         const domain = obj.link.split('/')[2]
@@ -136,14 +135,10 @@ export default (state = initialState, action: Actions) => {
       newState.items[action.payload.index].status = 'success'
       return Object.assign({}, state, newState)
 
-    case getType(actions.fetchFailed):
     case getType(actions.fetchHotentry.failure):
       newState.items[action.payload.index].status = 'fail'
       newState.items[action.payload.index].items = []
       return Object.assign({}, state, newState)
-
-    case getType(actions.fetchBookmarkFailed):
-      return state
 
     default:
       return state

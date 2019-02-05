@@ -12,14 +12,10 @@ import {
 import SearchInput from './SearchInput'
 import ErrorMessage from './ErrorMessage'
 import Article from '../containers/Article'
-import { IStateToProps, IDispatchToProps, IMergeProps, } from '../containers/MyBookmarkItems'
-
-type IProps = IStateToProps & IDispatchToProps
+import { IMergeProps, } from '../containers/MyBookmarkItems'
 
 interface IState {
   refreshing: boolean
-  isLoading: boolean
-  isSuccess: boolean
 }
 
 export default class MyBookmarkItems extends React.Component<IMergeProps, IState> {
@@ -27,35 +23,23 @@ export default class MyBookmarkItems extends React.Component<IMergeProps, IState
     super(props)
     this.state = {
       refreshing: false,
-      isLoading: false,
-      isSuccess: true,
     }
   }
 
   componentDidMount () {
-    this.setState({
-      isLoading: true,
-    })
-    if (this.props.login.isLogin && this.props.login.userData) {
-      this.props.loadMyBookmark()
-    }
-  }
-
-  onRefreshHandler = () => {
-    if (!this.props.login.isLogin || !this.props.login.userData) return
     this.props.loadMyBookmark()
   }
 
   onEndReachedHandler = () => {
     if (this.props.myBookmark.offset > this.props.myBookmark.total) return
 
-    this.props.getSearchResultFromApi(
+    this.props.loadSearchResult(
       this.props.myBookmark.keyword,
       this.props.myBookmark.offset + 20,
     )
   }
 
-  showSpinner = (items: any) => {
+  showSpinner = (items: IBookmarkItem[]) => {
     if (items.length > 0 && this.props.myBookmark.status === 'loading') {
       return (
         <Spinner
@@ -73,7 +57,7 @@ export default class MyBookmarkItems extends React.Component<IMergeProps, IState
       <View style={styles.wrap}>
         <SearchInput
           userData={this.props.login.userData}
-          getSearchResultFromApi={this.props.getSearchResultFromApi}
+          loadSearchResult={this.props.loadSearchResult}
           fetchBookmarkCache={this.props.fetchBookmarkCache}
         />
         {this.props.myBookmark.status === 'fail' && <ErrorMessage />}
@@ -98,7 +82,7 @@ export default class MyBookmarkItems extends React.Component<IMergeProps, IState
               refreshControl={
                 <RefreshControl
                   refreshing={this.state.refreshing}
-                  onRefresh={this.onRefreshHandler}
+                  onRefresh={this.props.loadMyBookmark}
                 />
               }
               ListEmptyComponent={() => {

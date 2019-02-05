@@ -4,10 +4,10 @@ import MyBookmarkItems from '../components/MyBookmarkItems'
 import {
   loadSearchResult,
   fetchBookmarkCache,
-  IUserData,
   loadMyBookmark,
 } from '../actions/fetchArticles'
 import { IAppState, } from '../reducers/app'
+import { Alert } from 'react-native';
 
 export type IStateToProps = IAppState
 
@@ -23,7 +23,7 @@ export interface IDispatchToProps {
 
 export interface IMergeProps extends IAppState {
   loadMyBookmark: () => void
-  getSearchResultFromApi: (keyword: string, offset: number) => void
+  loadSearchResult: (keyword: string, offset: number) => void
   fetchBookmarkCache: () => void
 }
 
@@ -36,7 +36,7 @@ const mergeProps = (state: IAppState, { dispatch }: { dispatch: IDispatch }): IM
       dispatch(loadMyBookmark(state.login.userData))
     }
   },
-  getSearchResultFromApi: (keyword, offset) => {
+  loadSearchResult: (keyword, offset) => {
     if (state.login.userData) {
       dispatch(loadSearchResult(keyword, state.login.userData, offset,))
     }

@@ -7,12 +7,13 @@ import {
   Item,
   Input,
 } from 'native-base'
-import { BACKGROUND_COLOR_GRAY } from '../constants/styles'
+import { ILoginData, } from '../reducers/login'
+import { BACKGROUND_COLOR_GRAY, } from '../constants/styles'
 
 interface IProps {
-  userData: any
-  getSearchResultFromApi: any
-  fetchBookmarkCache: any
+  userData?: ILoginData
+  loadSearchResult: (keyword: string, offset: number) => void
+  fetchBookmarkCache: () => void
 }
 
 interface IState {
@@ -30,7 +31,7 @@ export default class SearchInput extends React.Component<IProps, IState> {
 
   searchBookmark = (): void => {
     if (this.state.text.length > 0) {
-      this.props.getSearchResultFromApi(this.state.text, 0)
+      this.props.loadSearchResult(this.state.text, 0)
     }
   }
 

@@ -3,20 +3,20 @@ import { actions, } from '../actions/login'
 
 type Actions = ActionType<typeof actions>
 
+export interface ILoginData {
+  token: string
+  secret: string
+  displayName: string
+}
+
 export interface ILoginState {
   isLogin: boolean
-  url: string | null
-  userData: {
-    token: string
-    secret: string
-    displayName: string
-  } | null
+  url?: string
+  userData?: ILoginData
 }
 
 const initialState: ILoginState = {
   isLogin: false,
-  url: null,
-  userData: null
 }
 
 export default (state = initialState, action: Actions) => {
