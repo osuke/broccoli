@@ -24,26 +24,29 @@ export interface ICategory {
 
 interface IMyBookmark {
   name: string
+  url?: string
   items: any[]
   status: AccessStatus
   offset: number
 }
 
+export interface ICategoryItems {
+  [key: string]: ICategory | IMyBookmark
+  hotentry: ICategory
+  general: ICategory
+  social: ICategory
+  economics: ICategory
+  life: ICategory
+  knowledge: ICategory
+  it: ICategory
+  fun: ICategory
+  entertainment: ICategory
+  game: ICategory
+  myBookmark: IMyBookmark
+}
+
 export interface ICategoryState {
-  items: {
-    [key: string]: ICategory | IMyBookmark
-    hotentry: ICategory
-    general: ICategory
-    social: ICategory
-    economics: ICategory
-    life: ICategory
-    knowledge: ICategory
-    it: ICategory
-    fun: ICategory
-    entertainment: ICategory
-    game: ICategory
-    myBookmark: IMyBookmark
-  }
+  items: ICategoryItems
 }
 
 const initialState: ICategoryState = {
