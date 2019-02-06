@@ -8,7 +8,7 @@ export const FETCH_BOOKMARK_CACHE = 'FETCH_BOOKMARK_CACHE'
 interface IArticle {
   link: string
   title: string
-  bookmarkcount: number
+  'hatena:bookmarkcount': number[]
   domain: string
   favicon: string
 }
@@ -49,7 +49,7 @@ export const loadHotentry = (url: string, indexName: string): (dispatch: ThunkDi
             items.map((data: IArticle, index: number) => {
               items[index].link = data.link[0]
               items[index].title = data.title[0]
-              items[index].bookmarkcount = data.bookmarkcount
+              items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
             })
             dispatch(fetchHotentry.success({ items: items, index: indexName, }))
           })
@@ -88,7 +88,7 @@ export const loadMyBookmark = (userData: IUserData): (dispatch: ThunkDispatch<IA
             items.map((data: IArticle, index: number) => {
               items[index].link = data.link[0]
               items[index].title = data.title[0]
-              items[index].bookmarkcount = data.bookmarkcount
+              items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
             })
             dispatch(fetchMyBookamrk.success(items))
           })
