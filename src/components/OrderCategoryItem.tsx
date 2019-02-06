@@ -10,8 +10,13 @@ import { TITLE_COLOR_PRIMARY } from '../constants/styles'
 import Icon from './Icon'
 
 interface IProps {
-  sortHandlers?: any
-  data: any
+  sortHandlers?: {
+    onLongPress: () => void
+    onPressOut: () => void
+  }
+  data: {
+    name: string
+  }
 }
 
 const OrderCategoryItem: React.SFC<IProps> = ({ sortHandlers, data }) => {
