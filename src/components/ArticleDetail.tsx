@@ -60,7 +60,8 @@ export default class ArticleDetail extends React.Component<IProps, {}> {
           />
         }
         <TabBar
-          {...this.props.webview}
+          url={this.props.webview.url}
+          title={this.props.webview.title}
           login={this.props.login}
           getCommentsFromApi={this.props.getCommentsFromApi}
           fetchBookmarkData={this.props.fetchBookmarkData}

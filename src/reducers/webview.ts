@@ -6,15 +6,13 @@ import {
 type Actions = ActionType<typeof actions>
 
 export interface IWebviewState {
-  url: string | null
-  title: string | null
+  url?: string
+  title?: string
   visible: boolean
   isLoading: boolean
 }
 
 const initialState: IWebviewState = {
-  url: null,
-  title: null,
   visible: false,
   isLoading: false
 }
