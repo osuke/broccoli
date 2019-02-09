@@ -7,6 +7,22 @@ import qs from 'qs'
 import config from './loginConfig'
 import { Actions } from 'react-native-router-flux'
 
+interface IRequestData {
+  url: string
+  method: 'POST'
+  data: {
+    oauth_callback: string
+  } | {
+    oauth_verifier: string
+  }
+  headers?: any
+}
+
+interface ITokenData {
+  requestToken: string
+  tokenSecret: string
+}
+
 export default class HatenaLogin {
   oauth: oAuth
   requestToken: string = ''
@@ -26,15 +42,6 @@ export default class HatenaLogin {
   }
 
   getRequestToken () {
-    interface IRequestData {
-      url: string
-      method: 'POST'
-      data: {
-        oauth_callback: string
-      }
-      headers?: any
-    }
-
     const requestData: IRequestData = {
       url: 'https://www.hatena.com/oauth/initiate?scope=read_public,write_public,read_private,write_private',
       method: 'POST',
@@ -50,8 +57,7 @@ export default class HatenaLogin {
       method: requestData.method,
       headers: requestData.headers,
     }).then((res: any) => {
-      let tokenData: any = this.getTokenData(res._bodyText)
-      console.log(tokenData)
+      let tokenData = this.getTokenData(res._bodyText)
       tokenData.requestToken = encodeURIComponent(tokenData.requestToken)
       tokenData.tokenSecret = encodeURIComponent(tokenData.tokenSecret)
       this.requestToken = decodeURIComponent(tokenData.requestToken)
@@ -64,15 +70,6 @@ export default class HatenaLogin {
   getAccessToken (e: any) {
     Actions.pop()
     const urlArray = e.url.match(/\?oauth_token=([^&]*)&oauth_verifier=([^&]*)/)
-
-    interface IRequestData {
-      url: string
-      method: 'POST'
-      data: {
-        oauth_verifier: string
-      }
-      headers?: any
-    }
 
     const requestData: IRequestData = {
       url: 'https://www.hatena.com/oauth/token',
@@ -102,11 +99,14 @@ export default class HatenaLogin {
 
   getTokenData (text: string) {
     interface IData {
-      requestToken?: string
-      tokenSecret?: string
+      requestToken: string
+      tokenSecret: string
     }
 
-    let data: IData = {}
+    let data: IData = {
+      requestToken: '',
+      tokenSecret: '',
+    }
 
     text.split('&').map(o => {
       const query = o.split('=')

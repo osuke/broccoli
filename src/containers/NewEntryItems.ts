@@ -1,5 +1,4 @@
 import { connect, } from 'react-redux'
-import { Dispatch, } from 'redux'
 import { ThunkDispatch, } from 'redux-thunk'
 import NewEntryItems from '../components/NewEntryItems'
 import { loadHotentry, } from '../actions/fetchArticles'

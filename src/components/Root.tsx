@@ -27,7 +27,7 @@ import { IStateToProps, } from '../containers/Root'
 type IProps =  IStateToProps
 
 const Root: React.SFC<IProps> = ({ category, order }) => {
-  const items: any = category.items
+  const items = category.items
   let tabs: React.ReactNode[] = []
 
   Object.keys(order.items).forEach((key, index) => {

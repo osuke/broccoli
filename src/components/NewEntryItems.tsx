@@ -12,7 +12,7 @@ interface IState {
 
 interface IOwnProps {
   index: string
-  url: string
+  url?: string
 }
 
 type IProps = IAppState & IDispatchToProps & IOwnProps
@@ -27,10 +27,12 @@ export default class NewEntryItems extends React.Component<IProps, IState> {
   }
 
   componentDidMount () {
+    if (!this.props.url) return
     this.props.loadHotentry(this.props.url, this.props.index)
   }
 
   onRefreshHandler () {
+    if (!this.props.url) return
     this.props.loadHotentry(this.props.url, this.props.index)
   }
 
