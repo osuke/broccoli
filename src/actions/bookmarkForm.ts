@@ -86,7 +86,7 @@ export const fetchBookmarkData = (loginData: ILoginState, url: string): (dispatc
       `http://b.hatena.ne.jp/entry/jsonlite/?url=${url}&date=${Date.now()}broccoli`,
       loginData.userData.token,
       loginData.userData.secret,
-    ).then(data => {
+    ).then((data: any) => {
       let obj: IBookmarkData = {
         comment: '',
         isBookmark: false,
@@ -94,7 +94,7 @@ export const fetchBookmarkData = (loginData: ILoginState, url: string): (dispatc
       }
 
       data.bookmarks.map((val: IBookmarkData) => {
-        if (loginData.userData && val.user === loginData.userData.urlName) {
+        if (loginData.userData && val.user === loginData.userData.displayName) {
           obj.comment = val.comment
           obj.isBookmark = true
           obj.tags = val.tags

@@ -87,8 +87,6 @@ export default class HatenaLogin {
       secret: this.tokenSecret,
     }
 
-    if (!token.key || !token.secret) return
-
     requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData, token))
     requestData.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
@@ -98,7 +96,6 @@ export default class HatenaLogin {
     }).then((res: any) => {
       if (res.status === 200) {
         return queryString.parse(res._bodyText)
-      } else {
       }
     })
   }

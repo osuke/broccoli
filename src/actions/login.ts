@@ -52,8 +52,10 @@ export const getRequestToken = (): (dispatch: Dispatch) => void => (
 export const getAccessToken = (e: NavState): (dispatch: Dispatch) => void => (
   (dispatch: Dispatch) => {
     if (e.url && e.url.indexOf('oauth_token') !== -1 && e.url.indexOf('oauth_verifier') !== -1) {
-      hatenaLogin.getAccessToken(e).then(res => {
-        if (typeof res === 'object') {
+      if (typeof hatenaLogin.getAccessToken(e) === 'undefined') return
+
+      hatenaLogin.getAccessToken(e).then((res: any) => {
+        if (typeof res !== 'object') {
           const userData: IUserData = {
             displayName: res.display_name,
             urlName: res.url_name,
@@ -62,7 +64,6 @@ export const getAccessToken = (e: NavState): (dispatch: Dispatch) => void => (
           }
 
           dispatch(setUserData(userData))
-          console.log(userData)
         }
       })
     }
