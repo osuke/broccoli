@@ -1,7 +1,6 @@
 import { createAction } from 'typesafe-actions'
 import { Dispatch } from 'redux'
 export const SHOW_COMMENTS = 'SHOW_COMMENTS'
-export const CLOSE_COMMENTS = 'CLOSE_COMMENTS'
 const apiUrl = 'https://b.hatena.ne.jp/entry/jsonlite/?url='
 
 export interface IBookmark {
