@@ -3,10 +3,11 @@ import { Dispatch, Action } from 'redux'
 import HatenaLogin from '../utils/login'
 import { ILoginState, } from '../reducers/login'
 const hatenaLogin = new HatenaLogin()
-
-export const ADD_BOOKMARK = 'ADD_BOOKMARK'
-export const CLOSE_BOOKMARK = 'CLOSE_BOOKMARK'
-export const SHOW_BOOKMARK_DATA = 'SHOW_BOOKMARK_DATA'
+import {
+  BOOKMARK_ADD,
+  BOOKMARK_CLOSE,
+  BOOKMARK_SHOW_DATA,
+} from '../constants/actionTypes'
 
 export interface IBookmarkData {
   comment: string
@@ -20,15 +21,15 @@ export interface IShowBookmarkData extends Action<string> {
 }
 
 export const addBookmark = createAction(
-  ADD_BOOKMARK, 
+  BOOKMARK_ADD, 
 )
 
 export const closeBookmark = createAction(
-  CLOSE_BOOKMARK, 
+  BOOKMARK_CLOSE, 
 )
 
 const showBookmarkData = createAction(
-  SHOW_BOOKMARK_DATA, 
+  BOOKMARK_SHOW_DATA, 
   resolve => (obj: IBookmarkData) => {
     return resolve({
       comment: obj.comment,

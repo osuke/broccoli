@@ -3,9 +3,11 @@ import { createAction } from 'typesafe-actions'
 import { Dispatch, } from 'redux'
 import HatenaLogin from '../utils/login'
 const hatenaLogin = new HatenaLogin()
-export const SET_REQUEST_TOKEN = 'SET_REQUEST_TOKEN'
-export const SET_USER_DATA = 'SET_USER_DATA'
-export const LOGOUT = 'LOGOUT'
+import {
+  LOGIN_SET_REQUEST_TOKEN,
+  LOGIN_SET_USER_DATA,
+  LOGIN_LOGOUT,
+} from '../constants/actionTypes'
 
 export interface IUserData {
   displayName: string
@@ -20,12 +22,12 @@ export interface ITokenData {
 }
 
 export const setRequestToken = createAction(
-  SET_REQUEST_TOKEN, 
+  LOGIN_SET_REQUEST_TOKEN, 
   resolve => (tokenData: ITokenData) => resolve({ url: `https://www.hatena.ne.jp/oauth/authorize?oauth_token=${tokenData.requestToken}`}),
 )
 
 export const setUserData = createAction(
-  SET_USER_DATA, 
+  LOGIN_SET_USER_DATA, 
   resolve => (userData: IUserData) => {
     return resolve({
       isLogin: true,
@@ -36,7 +38,7 @@ export const setUserData = createAction(
 )
 
 export const logout = createAction(
-  LOGOUT, 
+  LOGIN_LOGOUT, 
 )
 
 export const actions = { setRequestToken, setUserData, logout, }

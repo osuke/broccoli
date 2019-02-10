@@ -3,7 +3,18 @@ import { createAction, createAsyncAction, } from 'typesafe-actions'
 import { parseString, } from 'react-native-xml2js'
 import { ThunkDispatch, } from 'redux-thunk'
 import { IAppState, } from '../reducers/app'
-export const FETCH_BOOKMARK_CACHE = 'FETCH_BOOKMARK_CACHE'
+import {
+  FETCH_BOOKMARK_CACHE,
+  FETCH_HOTENTRY_REQUEST,
+  FETCH_HOTENTRY_SUCCESS,
+  FETCH_HOTENTRY_FAILURE,
+  FETCH_MY_BOOKMARK_REQUEST,
+  FETCH_MY_BOOKMARK_SUCCESS,
+  FETCH_MY_BOOKMARK_FAILURE,
+  FETCH_SEARCH_RESULT_REQUEST,
+  FETCH_SEARCH_RESULT_SUCCESS,
+  FETCH_SEARCH_RESULT_FAILURE,
+} from '../constants/actionTypes'
 
 interface IArticle {
   link: string
@@ -32,9 +43,9 @@ export interface IHotentrySuccess {
 }
 
 const fetchHotentry = createAsyncAction(
-  'FETCH_HOTENTRY_REQUEST',
-  'FETCH_HOTENTRY_SUCCESS',
-  'FETCH_HOTENTRY_FAILURE',
+  FETCH_HOTENTRY_REQUEST,
+  FETCH_HOTENTRY_SUCCESS,
+  FETCH_HOTENTRY_FAILURE,
 )<{ index: string }, IHotentrySuccess, { index: string }>()
 
 export const loadHotentry = (url: string, indexName: string): (dispatch: ThunkDispatch<IAppState, undefined, any>) => void => (
@@ -71,9 +82,9 @@ export const fetchBookmarkCache = createAction(
 )
 
 const fetchMyBookamrk = createAsyncAction(
-  'FETCH_MY_BOOKMARK_REQUEST',
-  'FETCH_MY_BOOKMARK_SUCCESS',
-  'FETCH_MY_BOOKMARK_FAILURE',
+  FETCH_MY_BOOKMARK_REQUEST,
+  FETCH_MY_BOOKMARK_SUCCESS,
+  FETCH_MY_BOOKMARK_FAILURE,
 )<void, IArticle[], void>()
 
 export const loadMyBookmark = (userData: IUserData): (dispatch: ThunkDispatch<IAppState, undefined, any>) => void => (
@@ -101,9 +112,9 @@ export const loadMyBookmark = (userData: IUserData): (dispatch: ThunkDispatch<IA
 )
 
 const fetchSearch = createAsyncAction(
-  'FETCH_SEARCH_RESULT_REQUEST',
-  'FETCH_SEARCH_RESULT_SUCCESS',
-  'FETCH_SEARCH_RESULT_FAILURE',
+  FETCH_SEARCH_RESULT_REQUEST,
+  FETCH_SEARCH_RESULT_SUCCESS,
+  FETCH_SEARCH_RESULT_FAILURE,
 )<void, ISearchResponse, void>()
 
 export const myBookmarkActions = {

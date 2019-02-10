@@ -1,9 +1,8 @@
-import { createAction } from 'typesafe-actions'
-
-export const UPDATE_ORDER = 'UPDATE_ORDER'
+import { createAction, } from 'typesafe-actions'
+import { ORDER_UPDATE, } from '../constants/actionTypes'
 
 export const updateOrder = createAction(
-  UPDATE_ORDER, 
+  ORDER_UPDATE, 
   resolve => (order: string[]) => resolve({ order, }),
 )
 

@@ -1,24 +1,26 @@
 import { createAction } from 'typesafe-actions'
-export const SHOW_PAGE = 'SHOW_PAGE'
-export const HIDE_PAGE = 'HIDE_PAGE'
-export const SHOW_SPINNER = 'SHOW_SPINNER'
-export const HIDE_SPINNER = 'HIDE_SPINNER'
+import {
+  WEBVIEW_SHOW_PAGE,
+  WEBVIEW_HIDE_PAGE,
+  WEBVIEW_SHOW_SPINNER,
+  WEBVIEW_HIDE_SPINNER,
+} from '../constants/actionTypes'
 
 export const showPage = createAction(
-  SHOW_PAGE, 
+  WEBVIEW_SHOW_PAGE, 
   resolve => (url: string, title: string) => resolve({ url, title, }),
 )
 
 export const hidePage = createAction(
-  HIDE_PAGE, 
+  WEBVIEW_HIDE_PAGE, 
 )
 
 export const showSpinner = createAction(
-  SHOW_SPINNER, 
+  WEBVIEW_SHOW_SPINNER, 
 )
 
 export const hideSpinner = createAction(
-  HIDE_SPINNER, 
+  WEBVIEW_HIDE_SPINNER, 
 )
 
 export const actions = { showPage, hidePage, showSpinner, hideSpinner, }
