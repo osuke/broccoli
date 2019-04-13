@@ -29,6 +29,7 @@ export default (state = initialState, action: Actions) => {
       )
 
     case getType(actions.setUserData):
+      console.log('piyo')
       return Object.assign({}, state,
         {
           isLogin: action.payload.isLogin,

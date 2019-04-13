@@ -1,6 +1,7 @@
 import { NavState } from 'react-native'
 import { createAction } from 'typesafe-actions'
 import { Dispatch, } from 'redux'
+import queryString from 'query-string'
 import HatenaLogin from '../utils/login'
 const hatenaLogin = new HatenaLogin()
 import {
@@ -54,20 +55,25 @@ export const getRequestToken = (): (dispatch: Dispatch) => void => (
 export const getAccessToken = (e: NavState): (dispatch: Dispatch) => void => (
   (dispatch: Dispatch) => {
     if (e.url && e.url.indexOf('oauth_token') !== -1 && e.url.indexOf('oauth_verifier') !== -1) {
-      if (typeof hatenaLogin.getAccessToken(e) === 'undefined') return
-
       hatenaLogin.getAccessToken(e).then((res: any) => {
-        if (typeof res !== 'object') {
-          const userData: IUserData = {
-            displayName: res.display_name,
-            urlName: res.url_name,
-            token: decodeURIComponent(res.oauth_token),
-            secret: decodeURIComponent(res.oauth_token_secret),
-          }
+        const dataArr = res._bodyText.split('&')
+        const dataObj: any = {}
 
-          dispatch(setUserData(userData))
+        for (const item of dataArr) {
+          const tmp = item.split('=')
+          dataObj[tmp[0]] = tmp[1]
         }
-      })
+
+        const userData: IUserData = {
+          displayName: dataObj.display_name,
+          urlName: dataObj.url_name,
+          token: decodeURIComponent(dataObj.oauth_token),
+          secret: decodeURIComponent(dataObj.oauth_token_secret),
+        }
+
+        dispatch(setUserData(userData))
+      }).catch(() => {
+      });
     }
   }
 )

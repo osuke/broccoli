@@ -13,7 +13,7 @@ import { Actions } from 'react-native-router-flux'
 import {
   BORDER_WIDTH_PRIMARY,
   BORDER_COLOR_SECONDARY,
-} from '../constants/styles.js'
+} from '../constants/styles'
 import Icon from './Icon'
 import { ILoginState, } from '../reducers/login';
 

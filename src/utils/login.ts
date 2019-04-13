@@ -68,6 +68,7 @@ export default class HatenaLogin {
   }
 
   getAccessToken (e: any) {
+    console.log('acc')
     Actions.pop()
     const urlArray = e.url.match(/\?oauth_token=([^&]*)&oauth_verifier=([^&]*)/)
 
@@ -90,10 +91,6 @@ export default class HatenaLogin {
     return fetch(requestData.url, {
       method: requestData.method,
       headers: requestData.headers
-    }).then((res: any) => {
-      if (res.status === 200) {
-        return queryString.parse(res._bodyText)
-      }
     })
   }
 

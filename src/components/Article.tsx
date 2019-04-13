@@ -11,7 +11,7 @@ import {
 import {
   BORDER_WIDTH_PRIMARY,
   BORDER_COLOR_PRIMARY,
-} from '../constants/styles.js'
+} from '../constants/styles'
 
 interface IProps {
   showPage: (link: string, title: string) => void

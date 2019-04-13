@@ -43,7 +43,12 @@ export default class OAuth extends React.Component<IProps> {
           </StyledHeader>
           <WebView
             source={{ uri: this.props.url }}
-            onNavigationStateChange={e => { this.props.getAccessToken(e) }}
+            onNavigationStateChange={e => {
+              console.log(e)
+              if (e.loading === false) {
+                this.props.getAccessToken(e)
+              }
+            }}
           />
         </Container>
       )

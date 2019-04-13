@@ -5,7 +5,7 @@ import {
 } from 'native-base'
 import {
   TITLE_COLOR_PRIMARY,
-} from '../constants/styles.js'
+} from '../constants/styles'
 
 interface IProps {
   children: React.ReactNode

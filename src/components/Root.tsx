@@ -16,7 +16,7 @@ import {
   BORDER_COLOR_SECONDARY,
   BACKGROUND_COLOR_GRAY,
   TAB_COLOR_PRIMARY,
-} from '../constants/styles.js'
+} from '../constants/styles'
 import NewEntryItems from '../containers/NewEntryItems'
 import MyBookmark from '../containers/MyBookmark'
 import Icon from './Icon'
