@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 import { IAppState, } from '../reducers/app'
+import { ThunkDispatch } from 'redux-thunk'
 import { ICommentState, } from '../reducers/commentList'
-import { IBookmark, } from '../actions/commentList'
+import { IBookmark, hideComments } from '../actions/commentList'
 import CommentList from '../components/CommentList'
 
 export type IStateToProps = ICommentState
@@ -12,6 +13,15 @@ const mapStateToProps = (state: IAppState): IStateToProps => {
   }
 }
 
+export interface IDispatchToProps {
+  hideComments: () => void
+}
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, undefined, any>): IDispatchToProps => {
+  return {
+    hideComments: () => { dispatch(hideComments()) },
+  }
+}
 const getCommentItems = (items: IBookmark[]) => {
   let comments: IBookmark[] = []
 
@@ -24,4 +34,4 @@ const getCommentItems = (items: IBookmark[]) => {
   return comments
 }
 
-export default connect(mapStateToProps, null)(CommentList)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentList)

@@ -20,50 +20,53 @@ import Comment from './Comment'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
 import Icon from './Icon'
-import { IStateToProps, } from '../containers/CommentList'
+import { IStateToProps, IDispatchToProps, } from '../containers/CommentList'
 
-type IProps = IStateToProps
+type IProps = IStateToProps & IDispatchToProps
 
-const CommentList: React.SFC<IProps> = ({ items }) => {
-  return (
-    <Container>
-      <StyledHeader>
-        <Left>
-          <Button
-            transparent
-            onPress={Actions.pop}
-          >
-            <Icon
-              name="close"
-            />
-          </Button>
-        </Left>
-        <Body>
-          <StyledTitle>コメント</StyledTitle>
-        </Body>
-        <Right />
-      </StyledHeader>
-      <FlatList
-        style={styles.wrap}
-        data={items}
-        ListEmptyComponent={() => {
-          if (items.length > 0) {
+export default class CommentList extends React.Component<IProps, {}> {
+  componentWillUnmount () {
+    this.props.hideComments()
+  }
+
+  render () {
+    const { items } = this.props
+    return (
+      <Container>
+        <StyledHeader>
+          <Left>
+            <Button
+              transparent
+              onPress={Actions.pop}
+            >
+              <Icon
+                name="close"
+              />
+            </Button>
+          </Left>
+          <Body>
+            <StyledTitle>コメント</StyledTitle>
+          </Body>
+          <Right />
+        </StyledHeader>
+        <FlatList
+          style={styles.wrap}
+          data={items}
+          ListEmptyComponent={() => {
             return (
               <View style={styles.noResult}>
                 <Text style={styles.noResultText}>コメントはありません</Text>
               </View>
             )
-          } else {
-            return null
-          }
-        }}
-        renderItem={({item}) => {
-          return <Comment {...item} />
-        }}
-        keyExtractor={(item, index) => `comment-${index}`}
-      />
-    </Container>
-  )
+          }}
+          renderItem={({item}) => {
+            return <Comment {...item} />
+          }}
+          keyExtractor={(item, index) => `comment-${index}`}
+        />
+      </Container>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -77,5 +80,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 })
-
-export default CommentList

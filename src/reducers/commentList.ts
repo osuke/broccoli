@@ -22,6 +22,13 @@ export default (state = initialState, action: Actions) => {
         }
       )
 
+    case getType(actions.hideComments):
+      return Object.assign({}, state,
+        {
+          items: [],
+        }
+      )
+
     default:
       return state
   }
