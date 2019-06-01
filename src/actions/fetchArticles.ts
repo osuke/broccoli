@@ -95,13 +95,19 @@ export const loadMyBookmark = (userData: IUserData): (dispatch: ThunkDispatch<IA
       axios.get(`http://b.hatena.ne.jp/${userData.displayName}/rss?d=${Date.now()}`, { timeout: 5000 })
         .then(res => {
           parseString(res.data, (err: Error, result: any) => {
+            console.log(result)
             let items = result['rdf:RDF'].item
-            items.map((data: IArticle, index: number) => {
-              items[index].link = data.link[0]
-              items[index].title = data.title[0]
-              items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
-            })
-            dispatch(fetchMyBookamrk.success(items))
+
+            if (items) {
+              items.map((data: IArticle, index: number) => {
+                items[index].link = data.link[0]
+                items[index].title = data.title[0]
+                items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
+              })
+              dispatch(fetchMyBookamrk.success(items))
+            } else {
+              dispatch(fetchMyBookamrk.success([]))
+            }
           })
         })
         .catch(error => {

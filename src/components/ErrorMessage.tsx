@@ -5,9 +5,13 @@ import {
   StyleSheet,
 } from 'react-native'
 
-const ErrorMessage: React.SFC<{}> = () => (
+interface IProps {
+  text?: string
+}
+
+const ErrorMessage: React.SFC<IProps> = ({ text }) => (
   <View style={styles.error}>
-    <Text style={styles.errorText}>しばらく時間を空けてから、もう一度お試しください</Text>
+    <Text style={styles.errorText}>{ text ? text : 'しばらく時間を空けてから、もう一度お試しください'}</Text>
   </View>
 )
 
