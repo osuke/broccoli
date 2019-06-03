@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   body: {
+    flex: 1,
     borderBottomWidth: BORDER_WIDTH_PRIMARY,
     borderBottomColor: BORDER_COLOR_PRIMARY,
     paddingTop: 9,
