@@ -2,9 +2,8 @@ import { Alert } from 'react-native'
 import crypto from 'crypto-js'
 import Base64 from 'crypto-js/enc-base64'
 import oAuth from 'oauth-1.0a'
-import queryString from 'query-string'
 import qs from 'qs'
-import config from './loginConfig'
+import config from '../../token.json'
 import { Actions } from 'react-native-router-flux'
 
 interface IRequestData {
