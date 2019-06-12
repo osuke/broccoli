@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import MyBookmark from '../components/MyBookmark'
-import { IAppState } from '../reducers/app';
+import { IAppState } from '../reducers/app'
 
 interface IStateToProps {
   isLogin: boolean

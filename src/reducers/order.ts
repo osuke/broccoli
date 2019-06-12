@@ -1,4 +1,4 @@
-import { ActionType, getType, } from 'typesafe-actions'
+import { ActionType, getType } from 'typesafe-actions'
 import { actions } from '../actions/order'
 
 type Actions = ActionType<typeof actions>
@@ -60,7 +60,7 @@ const initialState: IOrderState = {
     },
     myBookmark: {
       name: 'マイブックマーク'
-    },
+    }
   }
 }
 

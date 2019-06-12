@@ -1,11 +1,11 @@
 import * as React from 'react'
 import {
   StyleSheet,
-  Alert,
+  Alert
 } from 'react-native'
 import {
   Button,
-  Text,
+  Text
 } from 'native-base'
 
 interface IProps {
@@ -22,8 +22,8 @@ const Tag: React.SFC<IProps> = ({ tag, index, deleteTag }) => (
         'タグの削除',
         '実行しますか？',
         [
-          {text: 'OK', onPress: () => { deleteTag(index) }},
-          {text: 'CANCEL'},
+          { text: 'OK', onPress: () => { deleteTag(index) } },
+          { text: 'CANCEL' }
         ]
       )
     }}
@@ -37,13 +37,13 @@ const styles = StyleSheet.create({
     borderRadius: 23,
     height: 30,
     backgroundColor: '#dbdbdb',
-    marginRight: 8,
+    marginRight: 8
   },
   tagText: {
     lineHeight: 16,
     color: '#6b6b6b',
-    fontSize: 16,
-  },
+    fontSize: 16
+  }
 })
 
 export default Tag

@@ -1,6 +1,6 @@
 import { ActionType, getType } from 'typesafe-actions'
 import {
-  myBookmarkActions as actions,
+  myBookmarkActions as actions
 } from '../actions/fetchArticles'
 
 type Actions = ActionType<typeof actions>
@@ -31,12 +31,12 @@ const initialState: IMybookmarkState = {
   type: 'LATEST',
   items: {
     latest: [],
-    searchResult: [],
+    searchResult: []
   },
   keyword: '',
   offset: 0,
   total: 20,
-  status: 'loading',
+  status: 'loading'
 }
 
 export default (state = initialState, action: Actions) => {
@@ -44,7 +44,7 @@ export default (state = initialState, action: Actions) => {
     case getType(actions.fetchMyBookamrk.request):
       return Object.assign({}, state,
         {
-          status: 'loading',
+          status: 'loading'
         }
       )
 
@@ -52,7 +52,7 @@ export default (state = initialState, action: Actions) => {
       return Object.assign({}, state,
         {
           type: 'SEARCH_RESULT',
-          status: 'loading',
+          status: 'loading'
         }
       )
 
@@ -72,8 +72,8 @@ export default (state = initialState, action: Actions) => {
             searchResult: state.items.searchResult,
             keyword: '',
             offset: 0,
-            total: 20,
-          },
+            total: 20
+          }
         }
       )
 
@@ -90,7 +90,7 @@ export default (state = initialState, action: Actions) => {
           },
           keyword: action.payload.keyword,
           offset: action.payload.offset,
-          total: action.payload.total,
+          total: action.payload.total
         }
       )
 
@@ -100,15 +100,15 @@ export default (state = initialState, action: Actions) => {
           type: 'LATEST',
           items: {
             latest: state.items.latest,
-            searchResult: [],
-          },
+            searchResult: []
+          }
         }
       )
 
     case getType(actions.fetchMyBookamrk.failure):
       return Object.assign({}, state,
         {
-          status: 'fail',
+          status: 'fail'
         }
       )
 

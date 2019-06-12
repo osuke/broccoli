@@ -2,7 +2,7 @@ import * as React from 'react'
 import {
   View,
   WebView,
-  StyleSheet,
+  StyleSheet
 } from 'react-native'
 import {
   Container,
@@ -16,7 +16,7 @@ import { Actions } from 'react-native-router-flux'
 import Icon from './Icon'
 import StyledHeader from './StyledHeader'
 import TabBar from './TabBar'
-import { IStateToProps, IDispatchToProps, } from '../containers/ArticleDetail'
+import { IStateToProps, IDispatchToProps } from '../containers/ArticleDetail'
 
 type IProps = IStateToProps & IDispatchToProps
 
@@ -53,7 +53,7 @@ export default class ArticleDetail extends React.Component<IProps, {}> {
         </StyledHeader>
         {this.props.webview.url &&
           <WebView
-            source={{uri: this.props.webview.url}}
+            source={{ uri: this.props.webview.url }}
             onLoadStart={this.props.showSpinner}
             onLoadEnd={this.props.hideSpinner}
             renderError={() => <View />}

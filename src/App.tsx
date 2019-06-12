@@ -29,7 +29,7 @@ export default App
 
 const getSceneStyle = () => {
   const style = {
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   }
   return style
 }

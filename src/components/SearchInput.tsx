@@ -1,14 +1,14 @@
 import * as React from 'react'
 import {
   StyleSheet,
-  Keyboard,
+  Keyboard
 } from 'react-native'
-import { 
+import {
   Item,
-  Input,
+  Input
 } from 'native-base'
-import { ILoginData, } from '../reducers/login'
-import { BACKGROUND_COLOR_GRAY, } from '../constants/styles'
+import { ILoginData } from '../reducers/login'
+import { BACKGROUND_COLOR_GRAY } from '../constants/styles'
 
 interface IProps {
   userData?: ILoginData
@@ -23,9 +23,8 @@ interface IState {
 export default class SearchInput extends React.Component<IProps, IState> {
   constructor (props: IProps) {
     super(props)
-  
     this.state = {
-      text: '',
+      text: ''
     }
   }
 
@@ -66,13 +65,13 @@ export default class SearchInput extends React.Component<IProps, IState> {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: '#fff',
-    padding: 12,
+    padding: 12
   },
   input: {
     height: 40,
     backgroundColor: BACKGROUND_COLOR_GRAY,
     borderRadius: 20,
     paddingLeft: 12,
-    paddingRight: 12,
-  },
+    paddingRight: 12
+  }
 })

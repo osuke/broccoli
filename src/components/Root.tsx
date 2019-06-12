@@ -8,23 +8,23 @@ import {
   Tabs,
   Tab,
   ScrollableTab,
-  Button,
+  Button
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import {
   BORDER_WIDTH_PRIMARY,
   BORDER_COLOR_SECONDARY,
   BACKGROUND_COLOR_GRAY,
-  TAB_COLOR_PRIMARY,
+  TAB_COLOR_PRIMARY
 } from '../constants/styles'
 import NewEntryItems from '../containers/NewEntryItems'
 import MyBookmark from '../containers/MyBookmark'
 import Icon from './Icon'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
-import { IStateToProps, } from '../containers/Root'
+import { IStateToProps } from '../containers/Root'
 
-type IProps =  IStateToProps
+type IProps = IStateToProps
 
 const Root: React.SFC<IProps> = ({ category, order }) => {
   const items = category.items
@@ -99,29 +99,29 @@ export default Root
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: BACKGROUND_COLOR_GRAY,
+    backgroundColor: BACKGROUND_COLOR_GRAY
   },
   tabs: {
     height: 40,
     borderBottomColor: BORDER_COLOR_SECONDARY,
-    borderBottomWidth: BORDER_WIDTH_PRIMARY,
+    borderBottomWidth: BORDER_WIDTH_PRIMARY
   },
   tab: {
     backgroundColor: '#fff',
-    borderBottomColor: '#fff',
+    borderBottomColor: '#fff'
   },
   tabContent: {
-    backgroundColor: BACKGROUND_COLOR_GRAY,
+    backgroundColor: BACKGROUND_COLOR_GRAY
   },
   underline: {
     backgroundColor: TAB_COLOR_PRIMARY,
-    height: 3,
+    height: 3
   },
   tabText: {
     color: TAB_COLOR_PRIMARY,
-    fontSize: 14,
+    fontSize: 14
   },
   settingIcon: {
     color: '#858585'
-  },
+  }
 })

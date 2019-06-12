@@ -8,7 +8,7 @@ import { showPage } from '../actions/webview'
 interface IDispatchToProps {
   showPage: (url: string, title: string) => void
 }
-const actions = { showPage, }
+const actions = { showPage }
 type ActionTypes = ActionType<typeof actions>
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): IDispatchToProps => {
@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): IDispatchToProps =
     showPage: (url, title) => {
       dispatch(showPage(url, title))
       Actions.externalPage()
-    },
+    }
   }
 }
 

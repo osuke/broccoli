@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
-import { ThunkDispatch, } from 'redux-thunk'
+import { ThunkDispatch } from 'redux-thunk'
 import OAuth from '../components/OAuth'
 import { getRequestToken, getAccessToken } from '../actions/login'
-import { NavState } from 'react-native';
-import { IAppState, } from '../reducers/app'
-import { ILoginState, } from '../reducers/login'
+import { NavState } from 'react-native'
+import { IAppState } from '../reducers/app'
+import { ILoginState } from '../reducers/login'
 
 export type IStateToPorps = ILoginState
 

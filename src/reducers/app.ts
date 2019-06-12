@@ -1,10 +1,10 @@
-import category, { ICategoryState, } from './category'
-import webview, { IWebviewState, } from './webview'
-import commentList, { ICommentState, } from './commentList'
-import login, { ILoginState, } from './login'
-import bookmark, { IBookmarkState, } from './bookmark'
-import myBookmark, { IMybookmarkState, } from './myBookmark'
-import order, { IOrderState, } from './order'
+import category, { ICategoryState } from './category'
+import webview, { IWebviewState } from './webview'
+import commentList, { ICommentState } from './commentList'
+import login, { ILoginState } from './login'
+import bookmark, { IBookmarkState } from './bookmark'
+import myBookmark, { IMybookmarkState } from './myBookmark'
+import order, { IOrderState } from './order'
 
 export interface IAppState {
   category: ICategoryState
@@ -23,5 +23,5 @@ export default {
   commentList,
   login,
   bookmark,
-  myBookmark,
+  myBookmark
 }

@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { StyleSheet } from 'react-native'
 import {
-  Title,
+  Title
 } from 'native-base'
 import {
-  TITLE_COLOR_PRIMARY,
+  TITLE_COLOR_PRIMARY
 } from '../constants/styles'
 
 interface IProps {
@@ -17,8 +17,8 @@ const StyledTitle: React.SFC<IProps> = ({ children }) => (
 const styles = StyleSheet.create({
   title: {
     color: TITLE_COLOR_PRIMARY,
-    fontSize: 16,
-  },
+    fontSize: 16
+  }
 })
 
 export default StyledTitle

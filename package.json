@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint -c tslint.json 'src/**/*.ts{,x}'"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -38,6 +39,8 @@
     "metro-react-native-babel-preset": "0.48.1",
     "react-test-renderer": "16.6.0-alpha.8af6728",
     "redux-devtools-extension": "^2.13.7",
+    "tslint": "^5.17.0",
+    "tslint-config-standard": "^8.0.1",
     "typescript": "^3.2.1"
   },
   "jest": {

@@ -1,6 +1,6 @@
 import { ActionType, getType } from 'typesafe-actions'
 import {
-  hotentryActions as actions,
+  hotentryActions as actions
 } from '../actions/fetchArticles'
 
 type Actions = ActionType<typeof actions>
@@ -55,68 +55,68 @@ const initialState: ICategoryState = {
       name: '総合',
       url: 'http://b.hatena.ne.jp/hotentry.rss',
       items: [],
-      status: 'loading',
+      status: 'loading'
     },
     general: {
       name: '一般',
       url: 'http://b.hatena.ne.jp/hotentry/general.rss',
       items: [],
-      status: 'loading',
+      status: 'loading'
     },
     social: {
       name: '世の中',
       url: 'http://b.hatena.ne.jp/hotentry/social.rss',
       items: [],
-      status: 'loading',
+      status: 'loading'
     },
     economics: {
       name: '政治と経済',
       url: 'http://b.hatena.ne.jp/hotentry/economics.rss',
       items: [],
-      status: 'loading',
+      status: 'loading'
     },
     life: {
       name: '暮らし',
       url: 'http://b.hatena.ne.jp/hotentry/life.rss',
       items: [],
-      status: 'loading',
+      status: 'loading'
     },
     knowledge: {
       name: '学び',
       url: 'http://b.hatena.ne.jp/hotentry/knowledge.rss',
       items: [],
-      status: 'loading',
+      status: 'loading'
     },
     it: {
       name: 'テクノロジー',
       url: 'http://b.hatena.ne.jp/hotentry/it.rss',
       items: [],
-      status: 'loading',
+      status: 'loading'
     },
     fun: {
       name: 'おもしろ',
       url: 'http://b.hatena.ne.jp/hotentry/fun.rss',
       items: [],
-      status: 'loading',
+      status: 'loading'
     },
     entertainment: {
       name: 'エンタメ',
       url: 'http://b.hatena.ne.jp/hotentry/entertainment.rss',
       items: [],
-      status: 'loading',
+      status: 'loading'
     },
     game: {
       name: 'アニメとゲーム',
       url: 'http://b.hatena.ne.jp/hotentry/game.rss',
       items: [],
-      status: 'loading',
+      status: 'loading'
     },
     myBookmark: {
       name: 'マイブックマーク',
       items: [],
       status: 'loading',
       offset: 0
-    },
+    }
   }
 }
 

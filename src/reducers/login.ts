@@ -1,5 +1,5 @@
-import { ActionType, getType, } from 'typesafe-actions'
-import { actions, } from '../actions/login'
+import { ActionType, getType } from 'typesafe-actions'
+import { actions } from '../actions/login'
 
 type Actions = ActionType<typeof actions>
 
@@ -16,7 +16,7 @@ export interface ILoginState {
 }
 
 const initialState: ILoginState = {
-  isLogin: false,
+  isLogin: false
 }
 
 export default (state = initialState, action: Actions) => {

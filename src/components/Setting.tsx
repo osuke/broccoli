@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {
-  StyleSheet,
+  StyleSheet
 } from 'react-native'
 import {
   Button,
@@ -11,19 +11,19 @@ import {
   Text,
   Body,
   Right,
-  Left,
+  Left
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import {
   TEXT_COLOR_PRIMARY,
   BORDER_WIDTH_PRIMARY,
   BORDER_COLOR_PRIMARY,
-  BACKGROUND_COLOR_GRAY,
+  BACKGROUND_COLOR_GRAY
 } from '../constants/styles'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
 import Icon from './Icon'
-import { IStateToProps, IDispatchToProps, } from '../containers/Setting'
+import { IStateToProps, IDispatchToProps } from '../containers/Setting'
 
 type IProps = IStateToProps & IDispatchToProps
 
@@ -86,31 +86,31 @@ const Setting: React.SFC<IProps> = ({ isLogin, logout }) => (
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: 16
   },
   content: {
     backgroundColor: BACKGROUND_COLOR_GRAY,
-    paddingTop: 20,
+    paddingTop: 20
   },
   list: {
     borderTopWidth: BORDER_WIDTH_PRIMARY,
     borderTopColor: BORDER_COLOR_PRIMARY,
-    marginBottom: 16,
+    marginBottom: 16
   },
   listItem: {
     backgroundColor: '#fff',
-    marginLeft: 0,
+    marginLeft: 0
   },
   listItemOrderBody: {
-    paddingLeft: 16,
+    paddingLeft: 16
   },
   text: {
-    color: TEXT_COLOR_PRIMARY,
+    color: TEXT_COLOR_PRIMARY
   },
   logoutText: {
     color: TEXT_COLOR_PRIMARY,
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 })
 
 export default Setting

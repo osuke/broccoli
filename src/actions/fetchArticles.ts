@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { createAction, createAsyncAction, } from 'typesafe-actions'
-import { parseString, } from 'react-native-xml2js'
-import { ThunkDispatch, } from 'redux-thunk'
-import { IAppState, } from '../reducers/app'
+import { createAction, createAsyncAction } from 'typesafe-actions'
+import { parseString } from 'react-native-xml2js'
+import { ThunkDispatch } from 'redux-thunk'
+import { IAppState } from '../reducers/app'
 import {
   FETCH_BOOKMARK_CACHE,
   FETCH_HOTENTRY_REQUEST,
@@ -13,7 +13,7 @@ import {
   FETCH_MY_BOOKMARK_FAILURE,
   FETCH_SEARCH_RESULT_REQUEST,
   FETCH_SEARCH_RESULT_SUCCESS,
-  FETCH_SEARCH_RESULT_FAILURE,
+  FETCH_SEARCH_RESULT_FAILURE
 } from '../constants/actionTypes'
 
 interface IArticle {
@@ -45,16 +45,20 @@ export interface IHotentrySuccess {
 const fetchHotentry = createAsyncAction(
   FETCH_HOTENTRY_REQUEST,
   FETCH_HOTENTRY_SUCCESS,
-  FETCH_HOTENTRY_FAILURE,
+  FETCH_HOTENTRY_FAILURE
 )<{ index: string }, IHotentrySuccess, { index: string }>()
 
 export const loadHotentry = (url: string, indexName: string): (dispatch: ThunkDispatch<IAppState, undefined, any>) => void => (
   dispatch => {
-    dispatch(fetchHotentry.request({ index: indexName, }))
+    dispatch(fetchHotentry.request({ index: indexName }))
     return (
       axios.get(url, { timeout: 5000 })
         .then(res => {
           parseString(res.data, (err: Error, result: any) => {
+            if (err) {
+              const error = new Error()
+            }
+
             let items = result['rdf:RDF'].item
 
             items.map((data: IArticle, index: number) => {
@@ -62,10 +66,10 @@ export const loadHotentry = (url: string, indexName: string): (dispatch: ThunkDi
               items[index].title = data.title[0]
               items[index].bookmarkcount = data['hatena:bookmarkcount'][0]
             })
-            dispatch(fetchHotentry.success({ items: items, index: indexName, }))
+            dispatch(fetchHotentry.success({ items: items, index: indexName }))
           })
         })
-        .catch(error => {
+        .catch(() => {
           dispatch(fetchHotentry.failure({ index: indexName }))
         })
     )
@@ -73,18 +77,17 @@ export const loadHotentry = (url: string, indexName: string): (dispatch: ThunkDi
 )
 
 export const hotentryActions = {
-  fetchHotentry,
+  fetchHotentry
 }
 
-
 export const fetchBookmarkCache = createAction(
-  FETCH_BOOKMARK_CACHE,
+  FETCH_BOOKMARK_CACHE
 )
 
 const fetchMyBookamrk = createAsyncAction(
   FETCH_MY_BOOKMARK_REQUEST,
   FETCH_MY_BOOKMARK_SUCCESS,
-  FETCH_MY_BOOKMARK_FAILURE,
+  FETCH_MY_BOOKMARK_FAILURE
 )<void, IArticle[], void>()
 
 export const loadMyBookmark = (userData: IUserData): (dispatch: ThunkDispatch<IAppState, undefined, any>) => void => (
@@ -95,7 +98,10 @@ export const loadMyBookmark = (userData: IUserData): (dispatch: ThunkDispatch<IA
       axios.get(`http://b.hatena.ne.jp/${userData.displayName}/rss?d=${Date.now()}`, { timeout: 5000 })
         .then(res => {
           parseString(res.data, (err: Error, result: any) => {
-            console.log(result)
+            if (err) {
+              const error = new Error()
+            }
+
             let items = result['rdf:RDF'].item
 
             if (items) {
@@ -110,7 +116,7 @@ export const loadMyBookmark = (userData: IUserData): (dispatch: ThunkDispatch<IA
             }
           })
         })
-        .catch(error => {
+        .catch(() => {
           dispatch(fetchMyBookamrk.failure())
         })
     )
@@ -120,13 +126,13 @@ export const loadMyBookmark = (userData: IUserData): (dispatch: ThunkDispatch<IA
 const fetchSearch = createAsyncAction(
   FETCH_SEARCH_RESULT_REQUEST,
   FETCH_SEARCH_RESULT_SUCCESS,
-  FETCH_SEARCH_RESULT_FAILURE,
+  FETCH_SEARCH_RESULT_FAILURE
 )<void, ISearchResponse, void>()
 
 export const myBookmarkActions = {
   fetchMyBookamrk,
   fetchSearch,
-  fetchBookmarkCache,
+  fetchBookmarkCache
 }
 
 export const loadSearchResult = (keyword: string, userData: IUserData, offset: number): (dispatch: ThunkDispatch<IAppState, undefined, any>) => void => (
@@ -158,7 +164,7 @@ export const loadSearchResult = (keyword: string, userData: IUserData, offset: n
 
           dispatch(fetchSearch.success(payload))
         })
-        .catch(error => {
+        .catch(() => {
           dispatch(fetchSearch.failure())
         })
     )

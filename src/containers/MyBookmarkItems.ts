@@ -1,13 +1,12 @@
-import { connect, } from 'react-redux'
-import { ThunkDispatch, } from 'redux-thunk'
+import { connect } from 'react-redux'
+import { ThunkDispatch } from 'redux-thunk'
 import MyBookmarkItems from '../components/MyBookmarkItems'
 import {
   loadSearchResult,
   fetchBookmarkCache,
-  loadMyBookmark,
+  loadMyBookmark
 } from '../actions/fetchArticles'
-import { IAppState, } from '../reducers/app'
-import { Alert } from 'react-native';
+import { IAppState } from '../reducers/app'
 
 export type IStateToProps = IAppState
 
@@ -38,12 +37,12 @@ const mergeProps = (state: IAppState, { dispatch }: { dispatch: IDispatch }): IM
   },
   loadSearchResult: (keyword, offset) => {
     if (state.login.userData) {
-      dispatch(loadSearchResult(keyword, state.login.userData, offset,))
+      dispatch(loadSearchResult(keyword, state.login.userData, offset))
     }
   },
   fetchBookmarkCache: () => {
     dispatch(fetchBookmarkCache())
-  },
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(MyBookmarkItems)

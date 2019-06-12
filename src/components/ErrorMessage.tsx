@@ -2,7 +2,7 @@ import * as React from 'react'
 import {
   View,
   Text,
-  StyleSheet,
+  StyleSheet
 } from 'react-native'
 
 interface IProps {
@@ -17,12 +17,12 @@ const ErrorMessage: React.SFC<IProps> = ({ text }) => (
 
 const styles = StyleSheet.create({
   error: {
-    paddingTop: 24,
+    paddingTop: 24
   },
   errorText: {
     fontSize: 14,
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 })
 
 export default ErrorMessage

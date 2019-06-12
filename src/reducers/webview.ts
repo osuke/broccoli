@@ -1,6 +1,6 @@
 import { ActionType, getType } from 'typesafe-actions'
 import {
-  actions,
+  actions
 } from '../actions/webview'
 
 type Actions = ActionType<typeof actions>

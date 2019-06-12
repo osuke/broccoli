@@ -1,6 +1,6 @@
-import { createAction, } from 'typesafe-actions'
-import { Dispatch, } from 'redux'
-import { COMMENT_SHOW, COMMENT_HIDE, } from '../constants/actionTypes'
+import { createAction } from 'typesafe-actions'
+import { Dispatch } from 'redux'
+import { COMMENT_SHOW, COMMENT_HIDE } from '../constants/actionTypes'
 
 const apiUrl = 'https://b.hatena.ne.jp/entry/jsonlite/?url='
 
@@ -12,13 +12,13 @@ export interface IBookmark {
 }
 
 const showComments = createAction(
-  COMMENT_SHOW, 
-  resolve => (bookmarks: IBookmark[]) => resolve({ bookmarks }),
+  COMMENT_SHOW,
+  resolve => (bookmarks: IBookmark[]) => resolve({ bookmarks })
 )
 
 export const hideComments = createAction(
-  COMMENT_HIDE, 
-  resolve => () => resolve({ bookmarks: [] }),
+  COMMENT_HIDE,
+  resolve => () => resolve({ bookmarks: [] })
 )
 
 export const actions = { showComments, hideComments }

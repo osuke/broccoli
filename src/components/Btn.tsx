@@ -1,11 +1,11 @@
 import * as React from 'react'
 import {
-  StyleSheet,
+  StyleSheet
 } from 'react-native'
 import {
   Button,
   Text,
-  View,
+  View
 } from 'native-base'
 
 interface IProps {
@@ -27,21 +27,21 @@ const Btn: React.SFC<IProps> = ({ children, onPress }) => (
 
 const styles = StyleSheet.create({
   btnWrap: {
-    height: 46,
+    height: 46
   },
   btn: {
     width: 196,
     borderRadius: 23,
     backgroundColor: '#3dc264',
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   btnText: {
     color: '#fff',
     fontSize: 18,
     marginTop: -4,
-    lineHeight: 41,
-  },
+    lineHeight: 41
+  }
 })
 
 export default Btn

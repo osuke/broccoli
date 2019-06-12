@@ -1,16 +1,16 @@
 import * as React from 'react'
 import {
   StyleSheet,
-  Image,
+  Image
 } from 'react-native'
 import {
   Text,
   ListItem,
-  View,
+  View
 } from 'native-base'
 import {
   BORDER_WIDTH_PRIMARY,
-  BORDER_COLOR_PRIMARY,
+  BORDER_COLOR_PRIMARY
 } from '../constants/styles'
 
 interface IProps {
@@ -38,7 +38,7 @@ export default class Article extends React.Component<IProps> {
           <View style={styles.siteInfo}>
             <Image
               style={styles.favicon}
-              source={{uri: this.props.favicon}}
+              source={{ uri: this.props.favicon }}
             />
             <Text note>{this.props.domain}</Text>
           </View>
@@ -58,11 +58,11 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 0,
     paddingRight: 0,
-    borderBottomWidth: 0,
+    borderBottomWidth: 0
   },
   title: {
     marginBottom: 6,
-    lineHeight: 22,
+    lineHeight: 22
   },
   body: {
     flex: 1,
@@ -71,17 +71,17 @@ const styles = StyleSheet.create({
     paddingTop: 9,
     paddingRight: 12,
     paddingBottom: 12,
-    marginLeft: 16,
+    marginLeft: 16
   },
   siteInfo: {
     flex: 1,
     flexDirection: 'row',
-    marginBottom: 5,
+    marginBottom: 5
   },
   favicon: {
     width: 16,
     height: 16,
     marginTop: 1,
-    marginRight: 6,
-  },
+    marginRight: 6
+  }
 })

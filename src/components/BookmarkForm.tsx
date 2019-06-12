@@ -3,7 +3,7 @@ import {
   StyleSheet,
   View,
   ScrollView,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native'
 import {
   Container,
@@ -20,14 +20,14 @@ import {
   BORDER_COLOR_PRIMARY,
   BACKGROUND_COLOR_GRAY,
   PLACEHOLDER_COLOR,
-  TITLE_COLOR_PRIMARY,
+  TITLE_COLOR_PRIMARY
 } from '../constants/styles'
 import Icon from './Icon'
 import Tag from './Tag'
 import Btn from './Btn'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
-import { IStateToProps, IDispatchToProps, } from '../containers/BookmarkForm'
+import { IStateToProps, IDispatchToProps } from '../containers/BookmarkForm'
 import { Actions } from 'react-native-router-flux'
 
 type IProps = IStateToProps & IDispatchToProps
@@ -44,7 +44,7 @@ export default class BookmarkForm extends React.Component<IProps, IState> {
     this.state = {
       text: this.props.bookmark.comment,
       tagText: '',
-      tags: [],
+      tags: []
     }
   }
 
@@ -56,7 +56,7 @@ export default class BookmarkForm extends React.Component<IProps, IState> {
 
     this.setState({
       tagText: '',
-      tags,
+      tags
     })
   }
 
@@ -64,7 +64,7 @@ export default class BookmarkForm extends React.Component<IProps, IState> {
     let tags = this.state.tags
     tags.splice(index, 1)
     this.setState({
-      tags,
+      tags
     })
   }
 
@@ -110,7 +110,7 @@ export default class BookmarkForm extends React.Component<IProps, IState> {
   componentDidMount () {
     this.setState({
       text: this.props.bookmark.comment,
-      tags: this.props.bookmark.tags,
+      tags: this.props.bookmark.tags
     })
   }
 
@@ -161,7 +161,7 @@ export default class BookmarkForm extends React.Component<IProps, IState> {
               multiline={true}
               numberOfLines={6}
               style={styles.comment}
-              onChangeText={text => { this.setState({text}) }}
+              onChangeText={text => { this.setState({ text }) }}
               value={this.state.text}
               placeholder="コメントを追加"
               placeholderTextColor={PLACEHOLDER_COLOR}
@@ -207,19 +207,19 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: BACKGROUND_COLOR_GRAY,
-    paddingTop: 20,
+    paddingTop: 20
   },
   sec: {
-    marginBottom: 16,
+    marginBottom: 16
   },
   title: {
     marginBottom: 8,
-    paddingLeft: 12,
+    paddingLeft: 12
   },
   titleText: {
     fontSize: 14,
     color: TITLE_COLOR_PRIMARY,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   comment: {
     borderTopWidth: BORDER_WIDTH_PRIMARY,
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     paddingBottom: 12,
     fontSize: 16,
-    height: 160,
+    height: 160
   },
   btn: {
     borderRadius: 23,
@@ -240,13 +240,13 @@ const styles = StyleSheet.create({
     height: 46,
     backgroundColor: '#3dc264',
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   btnText: {
     color: '#fff',
     fontSize: 18,
     marginTop: -4,
-    lineHeight: 46,
+    lineHeight: 46
   },
   tagSec: {
     backgroundColor: '#fff',
@@ -254,14 +254,14 @@ const styles = StyleSheet.create({
     borderTopWidth: BORDER_WIDTH_PRIMARY,
     borderTopColor: BORDER_COLOR_PRIMARY,
     borderBottomWidth: BORDER_WIDTH_PRIMARY,
-    borderBottomColor: BORDER_COLOR_PRIMARY,
+    borderBottomColor: BORDER_COLOR_PRIMARY
   },
   tagInputField: {
     paddingLeft: 0,
     paddingTop: 12,
     paddingRight: 12,
     paddingBottom: 12,
-    fontSize: 16,
+    fontSize: 16
   },
   tagList: {
     borderTopWidth: BORDER_WIDTH_PRIMARY,
@@ -269,29 +269,29 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 12,
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   tag: {
     borderRadius: 23,
     height: 30,
     backgroundColor: '#dbdbdb',
-    marginRight: 8,
+    marginRight: 8
   },
   tagText: {
     lineHeight: 16,
     color: TEXT_COLOR_PRIMARY,
-    fontSize: 16,
+    fontSize: 16
   },
   submitArea: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     paddingTop: 16,
-    paddingBottom: 32,
+    paddingBottom: 32
   },
   deleteBtn: {
     flex: 1,
     justifyContent: 'flex-end',
     flexDirection: 'row'
-  },
+  }
 })

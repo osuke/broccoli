@@ -2,12 +2,12 @@ import * as React from 'react'
 import { StyleSheet } from 'react-native'
 import {
   View,
-  Text,
+  Text
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import {
   TEXT_COLOR_PRIMARY,
-  BACKGROUND_COLOR_GRAY,
+  BACKGROUND_COLOR_GRAY
 } from '../constants/styles'
 import Btn from './Btn'
 
@@ -28,19 +28,19 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 24,
     backgroundColor: BACKGROUND_COLOR_GRAY,
-    flex: 1,
+    flex: 1
   },
   text: {
     fontSize: 14,
     color: TEXT_COLOR_PRIMARY,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   submit: {
     paddingTop: 28,
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
-  },
+    justifyContent: 'center'
+  }
 })
 
 export default Login

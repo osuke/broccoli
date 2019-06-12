@@ -5,7 +5,7 @@ import {
   Left,
   Body,
   Right,
-  Button,
+  Button
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import Icon from './Icon'
@@ -13,7 +13,7 @@ import SortableListView from 'react-native-sortable-listview'
 import OrderCategoryItem from './OrderCategoryItem'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
-import { IStateToProps, IDispatchToProps, } from '../containers/OrderCategories'
+import { IStateToProps, IDispatchToProps } from '../containers/OrderCategories'
 
 type IProps = IStateToProps & IDispatchToProps
 
@@ -46,7 +46,7 @@ const OrderCategories: React.SFC<IProps> = ({ items, updateOrder }) => {
           </Button>
         </Left>
         <Body>
-          <StyledTitle>並び替え</StyledTitle>
+          <StyledTitle>並㝳替㝈</StyledTitle>
         </Body>
         <Right />
       </StyledHeader>

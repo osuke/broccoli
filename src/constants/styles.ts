@@ -1,5 +1,5 @@
 import {
-  PixelRatio,
+  PixelRatio
 } from 'react-native'
 
 export const TAB_COLOR_PRIMARY = '#3dc264'

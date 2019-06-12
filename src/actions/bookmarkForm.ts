@@ -1,12 +1,12 @@
 import { createAction } from 'typesafe-actions'
 import { Dispatch, Action } from 'redux'
 import HatenaLogin from '../utils/login'
-import { ILoginState, } from '../reducers/login'
+import { ILoginState } from '../reducers/login'
 const hatenaLogin = new HatenaLogin()
 import {
   BOOKMARK_ADD,
   BOOKMARK_CLOSE,
-  BOOKMARK_SHOW_DATA,
+  BOOKMARK_SHOW_DATA
 } from '../constants/actionTypes'
 
 export interface IBookmarkData {
@@ -21,25 +21,25 @@ export interface IShowBookmarkData extends Action<string> {
 }
 
 export const addBookmark = createAction(
-  BOOKMARK_ADD, 
+  BOOKMARK_ADD
 )
 
 export const closeBookmark = createAction(
-  BOOKMARK_CLOSE, 
+  BOOKMARK_CLOSE
 )
 
 const showBookmarkData = createAction(
-  BOOKMARK_SHOW_DATA, 
+  BOOKMARK_SHOW_DATA,
   resolve => (obj: IBookmarkData) => {
     return resolve({
       comment: obj.comment,
       isBookmark: obj.isBookmark,
       tags: obj.tags
     })
-  },
+  }
 )
 
-export const actions = { addBookmark, closeBookmark, showBookmarkData, }
+export const actions = { addBookmark, closeBookmark, showBookmarkData }
 
 export const saveBookmark = (loginData: ILoginState, url: string, comment = ''): (dispatch: Dispatch) => void => (
   dispatch => {
@@ -86,12 +86,12 @@ export const fetchBookmarkData = (loginData: ILoginState, url: string): (dispatc
       'GET',
       `http://b.hatena.ne.jp/entry/jsonlite/?url=${url}&date=${Date.now()}broccoli`,
       loginData.userData.token,
-      loginData.userData.secret,
+      loginData.userData.secret
     ).then((data: any) => {
       let obj: IBookmarkData = {
         comment: '',
         isBookmark: false,
-        tags: [],
+        tags: []
       }
 
       data.bookmarks.map((val: IBookmarkData) => {

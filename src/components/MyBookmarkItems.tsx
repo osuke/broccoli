@@ -1,18 +1,18 @@
 import * as React from 'react'
-import { IBookmarkItem, } from '../reducers/myBookmark'
+import { IBookmarkItem } from '../reducers/myBookmark'
 import {
   StyleSheet,
   View,
   FlatList,
-  RefreshControl,
+  RefreshControl
 } from 'react-native'
-import { 
-  Spinner ,
+import {
+  Spinner
 } from 'native-base'
 import SearchInput from './SearchInput'
 import ErrorMessage from './ErrorMessage'
 import Article from '../containers/Article'
-import { IMergeProps, } from '../containers/MyBookmarkItems'
+import { IMergeProps } from '../containers/MyBookmarkItems'
 
 interface IState {
   refreshing: boolean
@@ -22,7 +22,7 @@ export default class MyBookmarkItems extends React.Component<IMergeProps, IState
   constructor (props: IMergeProps) {
     super(props)
     this.state = {
-      refreshing: false,
+      refreshing: false
     }
   }
 
@@ -35,7 +35,7 @@ export default class MyBookmarkItems extends React.Component<IMergeProps, IState
 
     this.props.loadSearchResult(
       this.props.myBookmark.keyword,
-      this.props.myBookmark.offset + 20,
+      this.props.myBookmark.offset + 20
     )
   }
 
@@ -68,7 +68,7 @@ export default class MyBookmarkItems extends React.Component<IMergeProps, IState
               style={styles.flatList}
               ref="flatlist"
               data={this.props.myBookmark.items.latest}
-              renderItem={({item}) => {
+              renderItem={({ item }) => {
                 return (
                   <Article
                     title={item.title}
@@ -104,7 +104,7 @@ export default class MyBookmarkItems extends React.Component<IMergeProps, IState
               style={styles.flatList}
               ref="flatlist"
               data={this.props.myBookmark.items.searchResult}
-              renderItem={({item}) => {
+              renderItem={({ item }) => {
                 return (
                   <Article
                     title={item.title}
@@ -141,9 +141,9 @@ export default class MyBookmarkItems extends React.Component<IMergeProps, IState
 
 const styles = StyleSheet.create({
   wrap: {
-    flex: 1,
+    flex: 1
   },
   flatList: {
-    paddingTop: 8,
-  },
+    paddingTop: 8
+  }
 })

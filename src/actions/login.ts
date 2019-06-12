@@ -1,13 +1,12 @@
-import { NavState } from 'react-native'
+import { NavState, Alert } from 'react-native'
 import { createAction } from 'typesafe-actions'
-import { Dispatch, } from 'redux'
-import queryString from 'query-string'
+import { Dispatch } from 'redux'
 import HatenaLogin from '../utils/login'
 const hatenaLogin = new HatenaLogin()
 import {
   LOGIN_SET_REQUEST_TOKEN,
   LOGIN_SET_USER_DATA,
-  LOGIN_LOGOUT,
+  LOGIN_LOGOUT
 } from '../constants/actionTypes'
 
 export interface IUserData {
@@ -23,26 +22,26 @@ export interface ITokenData {
 }
 
 export const setRequestToken = createAction(
-  LOGIN_SET_REQUEST_TOKEN, 
-  resolve => (tokenData: ITokenData) => resolve({ url: `https://www.hatena.ne.jp/oauth/authorize?oauth_token=${tokenData.requestToken}`}),
+  LOGIN_SET_REQUEST_TOKEN,
+  resolve => (tokenData: ITokenData) => resolve({ url: `https://www.hatena.ne.jp/oauth/authorize?oauth_token=${tokenData.requestToken}` })
 )
 
 export const setUserData = createAction(
-  LOGIN_SET_USER_DATA, 
+  LOGIN_SET_USER_DATA,
   resolve => (userData: IUserData) => {
     return resolve({
       isLogin: true,
       url: null,
-      userData: userData,
+      userData: userData
     })
-  },
+  }
 )
 
 export const logout = createAction(
-  LOGIN_LOGOUT, 
+  LOGIN_LOGOUT
 )
 
-export const actions = { setRequestToken, setUserData, logout, }
+export const actions = { setRequestToken, setUserData, logout }
 
 export const getRequestToken = (): (dispatch: Dispatch) => void => (
   (dispatch: Dispatch) => {
@@ -68,12 +67,13 @@ export const getAccessToken = (e: NavState): (dispatch: Dispatch) => void => (
           displayName: dataObj.display_name,
           urlName: dataObj.url_name,
           token: decodeURIComponent(dataObj.oauth_token),
-          secret: decodeURIComponent(dataObj.oauth_token_secret),
+          secret: decodeURIComponent(dataObj.oauth_token_secret)
         }
 
         dispatch(setUserData(userData))
       }).catch(() => {
-      });
+        Alert.alert('エラーが発生しました')
+      })
     }
   }
 )

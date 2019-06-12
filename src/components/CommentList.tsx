@@ -2,7 +2,7 @@ import * as React from 'react'
 import {
   View,
   StyleSheet,
-  FlatList,
+  FlatList
 } from 'react-native'
 import {
   Container,
@@ -10,17 +10,17 @@ import {
   Body,
   Right,
   Text,
-  Button,
+  Button
 } from 'native-base'
-import { Actions, } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import {
-  BACKGROUND_COLOR_GRAY,
+  BACKGROUND_COLOR_GRAY
 } from '../constants/styles'
 import Comment from './Comment'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
 import Icon from './Icon'
-import { IStateToProps, IDispatchToProps, } from '../containers/CommentList'
+import { IStateToProps, IDispatchToProps } from '../containers/CommentList'
 
 type IProps = IStateToProps & IDispatchToProps
 
@@ -59,7 +59,7 @@ export default class CommentList extends React.Component<IProps, {}> {
               </View>
             )
           }}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return <Comment {...item} />
           }}
           keyExtractor={(item, index) => `comment-${index}`}
@@ -71,12 +71,12 @@ export default class CommentList extends React.Component<IProps, {}> {
 
 const styles = StyleSheet.create({
   wrap: {
-    backgroundColor: BACKGROUND_COLOR_GRAY,
+    backgroundColor: BACKGROUND_COLOR_GRAY
   },
   noResult: {
-    paddingTop: 24,
+    paddingTop: 24
   },
   noResultText: {
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 })

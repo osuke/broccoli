@@ -5,7 +5,7 @@ import {
   Thumbnail,
   Body,
   Left,
-  Text,
+  Text
 } from 'native-base'
 
 interface IProps {
@@ -23,12 +23,12 @@ const Comment: React.SFC<IProps> = ({ comment, user }) => {
       >
         <Left
           style={{
-            paddingLeft: 16,
+            paddingLeft: 16
           }}
         >
           <Thumbnail
             small
-            source={{uri: userImage}}
+            source={{ uri: userImage }}
           />
         </Left>
         <Body>
@@ -45,19 +45,19 @@ const Comment: React.SFC<IProps> = ({ comment, user }) => {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: '#fff',
-    marginLeft: 0,
+    marginLeft: 0
   },
   thumbnail: {
-    alignSelf: 'flex-start',
+    alignSelf: 'flex-start'
   },
   user: {
     fontSize: 14,
-    marginBottom: 2,
+    marginBottom: 2
   },
   comment: {
     alignSelf: 'flex-start',
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 20
   }
 })
 

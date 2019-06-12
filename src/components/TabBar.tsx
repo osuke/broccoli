@@ -7,15 +7,15 @@ import {
 import {
   Button,
   Footer,
-  FooterTab,
+  FooterTab
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import {
   BORDER_WIDTH_PRIMARY,
-  BORDER_COLOR_SECONDARY,
+  BORDER_COLOR_SECONDARY
 } from '../constants/styles'
 import Icon from './Icon'
-import { ILoginState, } from '../reducers/login';
+import { ILoginState } from '../reducers/login'
 
 interface IProps {
   login: ILoginState
@@ -79,10 +79,10 @@ const TabBar: React.SFC<IProps> = ({ title, url, login, getCommentsFromApi, fetc
 const styles = StyleSheet.create({
   container: {
     borderTopColor: BORDER_COLOR_SECONDARY,
-    borderTopWidth: BORDER_WIDTH_PRIMARY,
+    borderTopWidth: BORDER_WIDTH_PRIMARY
   },
   footerTab: {
-    backgroundColor: '#fafafa',
+    backgroundColor: '#fafafa'
   }
 })
 

@@ -45,8 +45,8 @@ export default class HatenaLogin {
       url: 'https://www.hatena.com/oauth/initiate?scope=read_public,write_public,read_private,write_private',
       method: 'POST',
       data: {
-        oauth_callback: config.callbackUrl,
-      },
+        oauth_callback: config.callbackUrl
+      }
     }
 
     requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData))
@@ -54,7 +54,7 @@ export default class HatenaLogin {
 
     return fetch(requestData.url, {
       method: requestData.method,
-      headers: requestData.headers,
+      headers: requestData.headers
     }).then((res: any) => {
       let tokenData = this.getTokenData(res._bodyText)
       tokenData.requestToken = encodeURIComponent(tokenData.requestToken)
@@ -81,7 +81,7 @@ export default class HatenaLogin {
 
     const token = {
       key: this.requestToken,
-      secret: this.tokenSecret,
+      secret: this.tokenSecret
     }
 
     requestData.headers = this.oauth.toHeader(this.oauth.authorize(requestData, token))
@@ -101,7 +101,7 @@ export default class HatenaLogin {
 
     let data: IData = {
       requestToken: '',
-      tokenSecret: '',
+      tokenSecret: ''
     }
 
     text.split('&').map(o => {
@@ -131,12 +131,12 @@ export default class HatenaLogin {
       const requestData: IRequestData = {
         url,
         method,
-        data: options,
+        data: options
       }
 
       const token = {
         key: accessToken,
-        secret: accessTokenSecret,
+        secret: accessTokenSecret
       }
 
       if (!token.key.length || !token.secret.length) return

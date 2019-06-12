@@ -39,12 +39,12 @@ const OrderCategoryItem: React.SFC<IProps> = ({ sortHandlers, data }) => {
 const styles = StyleSheet.create({
   listItem: {
     height: 52,
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   text: {
     color: TITLE_COLOR_PRIMARY,
-    fontWeight: 'bold',
-  },
+    fontWeight: 'bold'
+  }
 })
 
 export default OrderCategoryItem

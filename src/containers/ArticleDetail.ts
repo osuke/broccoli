@@ -2,14 +2,14 @@ import { connect } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import ArticleDetail from '../components/ArticleDetail'
 import { getCommentsFromApi } from '../actions/commentList'
-import { fetchBookmarkData, } from '../actions/bookmarkForm'
+import { fetchBookmarkData } from '../actions/bookmarkForm'
 import {
   showSpinner,
-  hideSpinner,
+  hideSpinner
 } from '../actions/webview'
-import { IAppState } from '../reducers/app';
-import { IWebviewState, } from '../reducers/webview';
-import { ILoginState, } from '../reducers/login';
+import { IAppState } from '../reducers/app'
+import { IWebviewState } from '../reducers/webview'
+import { ILoginState } from '../reducers/login'
 
 export interface IStateToProps {
   login: ILoginState
@@ -26,7 +26,7 @@ export interface IDispatchToProps {
 const mapStateToProps = (state: IAppState): IStateToProps => {
   return {
     login: state.login,
-    webview: state.webview,
+    webview: state.webview
   }
 }
 

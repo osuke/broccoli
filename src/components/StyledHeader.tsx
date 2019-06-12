@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { StyleSheet, } from 'react-native'
+import { StyleSheet } from 'react-native'
 import {
-  Header,
+  Header
 } from 'native-base'
 import {
   BORDER_WIDTH_PRIMARY,
-  BORDER_COLOR_SECONDARY,
+  BORDER_COLOR_SECONDARY
 } from '../constants/styles'
 
 interface IProps {
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#fff',
     borderBottomColor: BORDER_COLOR_SECONDARY,
-    borderBottomWidth: BORDER_WIDTH_PRIMARY,
-  },
+    borderBottomWidth: BORDER_WIDTH_PRIMARY
+  }
 })
 
 export default StyledHeader

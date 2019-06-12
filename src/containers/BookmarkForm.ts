@@ -1,16 +1,16 @@
-import { connect, } from 'react-redux'
-import { ThunkDispatch, } from 'redux-thunk'
+import { connect } from 'react-redux'
+import { ThunkDispatch } from 'redux-thunk'
 import BookmarkForm from '../components/BookmarkForm'
 import {
   saveBookmark,
   deleteBookmark,
-  fetchBookmarkData,
+  fetchBookmarkData
 } from '../actions/bookmarkForm'
 
-import { IAppState, } from '../reducers/app'
-import { IBookmarkState, } from '../reducers/bookmark'
-import { IWebviewState, } from '../reducers/webview'
-import { ILoginState, } from '../reducers/login'
+import { IAppState } from '../reducers/app'
+import { IBookmarkState } from '../reducers/bookmark'
+import { IWebviewState } from '../reducers/webview'
+import { ILoginState } from '../reducers/login'
 
 export interface IStateToProps {
   bookmark: IBookmarkState
@@ -22,14 +22,14 @@ const mapStateToProps = (state: IAppState): IStateToProps => {
   return {
     bookmark: state.bookmark,
     webview: state.webview,
-    login: state.login,
+    login: state.login
   }
 }
 
 export interface IDispatchToProps {
-    saveBookmark: (userData: ILoginState, url: string, comment: string) => void
-    deleteBookmark: (userData: ILoginState, url: string) => void
-    fetchBookmarkData: (userData: ILoginState, url: string) => void
+  saveBookmark: (userData: ILoginState, url: string, comment: string) => void
+  deleteBookmark: (userData: ILoginState, url: string) => void
+  fetchBookmarkData: (userData: ILoginState, url: string) => void
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, undefined, any>): IDispatchToProps => {

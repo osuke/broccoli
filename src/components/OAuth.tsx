@@ -11,7 +11,7 @@ import { Actions } from 'react-native-router-flux'
 import Icon from './Icon'
 import StyledHeader from './StyledHeader'
 import StyledTitle from './StyledTitle'
-import { IStateToPorps, IDispatchToProps, } from '../containers/OAuth'
+import { IStateToPorps, IDispatchToProps } from '../containers/OAuth'
 
 type IProps = IStateToPorps & IDispatchToProps
 

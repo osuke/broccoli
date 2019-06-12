@@ -3,8 +3,8 @@ import { ICategoryItem } from '../reducers/category'
 import { View, Text, FlatList, RefreshControl, StyleSheet } from 'react-native'
 import Article from '../containers/Article'
 import { Spinner } from 'native-base'
-import { IDispatchToProps, } from '../containers/NewEntryItems'
-import { IAppState, } from '../reducers/app'
+import { IDispatchToProps } from '../containers/NewEntryItems'
+import { IAppState } from '../reducers/app'
 
 interface IState {
   refreshing: boolean
@@ -17,12 +17,11 @@ interface IOwnProps {
 
 type IProps = IAppState & IDispatchToProps & IOwnProps
 
-
 export default class NewEntryItems extends React.Component<IProps, IState> {
   constructor (props: IProps) {
     super(props)
     this.state = {
-      refreshing: false,
+      refreshing: false
     }
   }
 
@@ -49,7 +48,7 @@ export default class NewEntryItems extends React.Component<IProps, IState> {
         <FlatList<ICategoryItem>
           style={styles.flatList}
           data={this.props.category.items[this.props.index].items}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return (
               <Article
                 title={item.title}
@@ -87,16 +86,16 @@ export default class NewEntryItems extends React.Component<IProps, IState> {
 
 const styles = StyleSheet.create({
   wrap: {
-    flex: 1,
+    flex: 1
   },
   flatList: {
-    paddingTop: 8,
+    paddingTop: 8
   },
   error: {
-    paddingTop: 24,
+    paddingTop: 24
   },
   errorText: {
     fontSize: 14,
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 })
