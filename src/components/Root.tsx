@@ -36,12 +36,12 @@ const Root: React.SFC<IProps> = ({ category, order }) => {
         <Tab
           heading={items[key].name}
           key={`catTab-${index}`}
-          textStyle={styles.tabText as any}
-          activeTextStyle={styles.tabText as any}
-          tabStyle={styles.tab as any}
-          activeTabStyle={styles.tab as any}
+          textStyle={styles.tabText}
+          activeTextStyle={styles.tabText}
+          tabStyle={styles.tab}
+          activeTabStyle={styles.tab}
         >
-          <Container style={styles.tabContent as any}>
+          <Container style={styles.tabContent}>
             <MyBookmark />
           </Container>
         </Tab>
@@ -51,12 +51,12 @@ const Root: React.SFC<IProps> = ({ category, order }) => {
         <Tab
           heading={items[key].name}
           key={`catTab-${index}`}
-          textStyle={styles.tabText as any}
-          activeTextStyle={styles.tabText as any}
-          tabStyle={styles.tab as any}
-          activeTabStyle={styles.tab as any}
+          textStyle={styles.tabText}
+          activeTextStyle={styles.tabText}
+          tabStyle={styles.tab}
+          activeTabStyle={styles.tab}
         >
-          <Container style={styles.tabContent as any}>
+          <Container style={styles.tabContent}>
             <NewEntryItems index={key} url={items[key].url} key={key} />
           </Container>
         </Tab>
@@ -65,7 +65,7 @@ const Root: React.SFC<IProps> = ({ category, order }) => {
   })
 
   return (
-    <Container style={styles.container as any}>
+    <Container style={styles.container}>
       <StyledHeader>
         <Left />
         <Body>
@@ -85,8 +85,9 @@ const Root: React.SFC<IProps> = ({ category, order }) => {
         </Right>
       </StyledHeader>
       <Tabs
-        renderTabBar={() => <ScrollableTab style={styles.tabs as any} />}
-        tabBarUnderlineStyle={styles.underline as any}
+        renderTabBar={() => <ScrollableTab style={styles.tabs} />}
+        tabBarUnderlineStyle={styles.underline}
+        prerenderingSiblingsNumber={Infinity}
       >
         {tabs}
       </Tabs>
