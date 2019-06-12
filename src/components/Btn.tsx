@@ -17,7 +17,7 @@ const Btn: React.SFC<IProps> = ({ children, onPress }) => (
   <View style={styles.btnWrap}>
     <Button
       transparent
-      style={styles.btn as any}
+      style={styles.btn}
       onPress={onPress}
     >
       <Text style={styles.btnText}>{children}</Text>

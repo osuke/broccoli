@@ -45,14 +45,14 @@ const Setting: React.SFC<IProps> = ({ isLogin, logout }) => (
       </Body>
       <Right />
     </StyledHeader>
-    <Content style={styles.content as any}>
+    <Content style={styles.content}>
       <List style={styles.list}>
         <ListItem
           onPress={Actions.order}
           style={styles.listItem}
           icon>
           <Body
-            style={styles.listItemOrderBody as any}
+            style={styles.listItemOrderBody}
           >
             <Text style={styles.text}>カテゴリを並び替える</Text>
           </Body>

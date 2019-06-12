@@ -28,8 +28,8 @@ interface IProps {
 const TabBar: React.SFC<IProps> = ({ title, url, login, getCommentsFromApi, fetchBookmarkData }) => {
   if (url) {
     return (
-      <Footer style={styles.container as any}>
-        <FooterTab style={styles.footerTab as any}>
+      <Footer style={styles.container}>
+        <FooterTab style={styles.footerTab}>
           <Button
             onPress={() => {
               Share.share({

@@ -13,7 +13,7 @@ interface IProps {
 }
 
 const StyledHeader: React.SFC<IProps> = ({ children }) => (
-  <Header style={styles.header as any}>{children}</Header>
+  <Header style={styles.header}>{children}</Header>
 )
 
 const styles = StyleSheet.create({

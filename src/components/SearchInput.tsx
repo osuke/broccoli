@@ -48,7 +48,7 @@ export default class SearchInput extends React.Component<IProps, IState> {
   render () {
     return (
        <Item
-         style={styles.item as any}
+         style={styles.item}
        >
          <Input
            style={styles.input}

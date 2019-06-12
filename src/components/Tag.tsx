@@ -16,7 +16,7 @@ interface IProps {
 
 const Tag: React.SFC<IProps> = ({ tag, index, deleteTag }) => (
   <Button
-    style={styles.tag as any}
+    style={styles.tag}
     onPress={() => {
       Alert.alert(
         'タグの削除',

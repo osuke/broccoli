@@ -11,7 +11,7 @@ interface IProps {
   children: React.ReactNode
 }
 const StyledTitle: React.SFC<IProps> = ({ children }) => (
-  <Title style={styles.title as any}>{children}</Title>
+  <Title style={styles.title}>{children}</Title>
 )
 
 const styles = StyleSheet.create({
