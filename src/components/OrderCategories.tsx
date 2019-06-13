@@ -46,7 +46,7 @@ const OrderCategories: React.SFC<IProps> = ({ items, updateOrder }) => {
           </Button>
         </Left>
         <Body>
-          <StyledTitle>並㝳替㝈</StyledTitle>
+          <StyledTitle>並び替え</StyledTitle>
         </Body>
         <Right />
       </StyledHeader>
