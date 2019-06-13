@@ -60,8 +60,9 @@ export default class MyBookmarkItems extends React.Component<IMergeProps, IState
           loadSearchResult={this.props.loadSearchResult}
           fetchBookmarkCache={this.props.fetchBookmarkCache}
         />
+
         {this.props.myBookmark.status === 'fail' && <ErrorMessage />}
-        {this.props.myBookmark.type === 'LATEST' && this.props.myBookmark.status !== 'loading' && this.props.myBookmark.items.latest.length === 0 && <ErrorMessage text="ブックマークはまだありません" />}
+        {this.props.myBookmark.status !== 'fail' && this.props.myBookmark.type === 'LATEST' && this.props.myBookmark.status !== 'loading' && this.props.myBookmark.items.latest.length === 0 && <ErrorMessage text="ブックマークはまだありません" />}
         <View style={styles.wrap}>
           {this.props.myBookmark.type === 'LATEST' ? (
             <FlatList<IBookmarkItem>
