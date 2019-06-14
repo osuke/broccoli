@@ -53,61 +53,61 @@ const initialState: ICategoryState = {
   items: {
     hotentry: {
       name: '総合',
-      url: 'http://b.hatena.ne.jp/hotentry.rss',
+      url: 'https://b.hatena.ne.jp/hotentry.rss',
       items: [],
       status: 'loading'
     },
     general: {
       name: '一般',
-      url: 'http://b.hatena.ne.jp/hotentry/general.rss',
+      url: 'https://b.hatena.ne.jp/hotentry/general.rss',
       items: [],
       status: 'loading'
     },
     social: {
       name: '世の中',
-      url: 'http://b.hatena.ne.jp/hotentry/social.rss',
+      url: 'https://b.hatena.ne.jp/hotentry/social.rss',
       items: [],
       status: 'loading'
     },
     economics: {
       name: '政治と経済',
-      url: 'http://b.hatena.ne.jp/hotentry/economics.rss',
+      url: 'https://b.hatena.ne.jp/hotentry/economics.rss',
       items: [],
       status: 'loading'
     },
     life: {
       name: '暮らし',
-      url: 'http://b.hatena.ne.jp/hotentry/life.rss',
+      url: 'https://b.hatena.ne.jp/hotentry/life.rss',
       items: [],
       status: 'loading'
     },
     knowledge: {
       name: '学び',
-      url: 'http://b.hatena.ne.jp/hotentry/knowledge.rss',
+      url: 'https://b.hatena.ne.jp/hotentry/knowledge.rss',
       items: [],
       status: 'loading'
     },
     it: {
       name: 'テクノロジー',
-      url: 'http://b.hatena.ne.jp/hotentry/it.rss',
+      url: 'https://b.hatena.ne.jp/hotentry/it.rss',
       items: [],
       status: 'loading'
     },
     fun: {
       name: 'おもしろ',
-      url: 'http://b.hatena.ne.jp/hotentry/fun.rss',
+      url: 'https://b.hatena.ne.jp/hotentry/fun.rss',
       items: [],
       status: 'loading'
     },
     entertainment: {
       name: 'エンタメ',
-      url: 'http://b.hatena.ne.jp/hotentry/entertainment.rss',
+      url: 'https://b.hatena.ne.jp/hotentry/entertainment.rss',
       items: [],
       status: 'loading'
     },
     game: {
       name: 'アニメとゲーム',
-      url: 'http://b.hatena.ne.jp/hotentry/game.rss',
+      url: 'https://b.hatena.ne.jp/hotentry/game.rss',
       items: [],
       status: 'loading'
     },
