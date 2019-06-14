@@ -10,7 +10,8 @@ import {
   Body,
   Right,
   Text,
-  Button
+  Button,
+  Spinner
 } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 import {
@@ -31,6 +32,8 @@ export default class CommentList extends React.Component<IProps, {}> {
 
   render () {
     const { items } = this.props
+    console.log(items)
+
     return (
       <Container>
         <StyledHeader>
@@ -49,21 +52,28 @@ export default class CommentList extends React.Component<IProps, {}> {
           </Body>
           <Right />
         </StyledHeader>
-        <FlatList
-          style={styles.wrap}
-          data={items}
-          ListEmptyComponent={() => {
-            return (
-              <View style={styles.noResult}>
-                <Text style={styles.noResultText}>コメントはありません</Text>
-              </View>
-            )
-          }}
-          renderItem={({ item }) => {
-            return <Comment {...item} />
-          }}
-          keyExtractor={(item, index) => `comment-${index}`}
-        />
+        {items ? (
+          <FlatList
+            style={styles.wrap}
+            data={items}
+            ListEmptyComponent={() => {
+              return (
+                <View style={styles.noResult}>
+                  <Text style={styles.noResultText}>コメントはありません</Text>
+                </View>
+              )
+            }}
+            renderItem={({ item }) => {
+              return <Comment {...item} />
+            }}
+            keyExtractor={(item, index) => `comment-${index}`}
+          />
+        ) : (
+          <Spinner
+            color="#000"
+            size="small"
+          />
+        )}
       </Container>
     )
   }

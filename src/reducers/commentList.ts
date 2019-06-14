@@ -5,10 +5,10 @@ import {
 } from '../actions/commentList'
 
 export interface ICommentState {
-  items: IBookmark[]
+  items?: IBookmark[]
 }
 const initialState: ICommentState = {
-  items: []
+  items: undefined
 }
 
 type Actions = ActionType<typeof actions>
@@ -25,7 +25,7 @@ export default (state = initialState, action: Actions) => {
     case getType(actions.hideComments):
       return Object.assign({}, state,
         {
-          items: []
+          items: undefined
         }
       )
 

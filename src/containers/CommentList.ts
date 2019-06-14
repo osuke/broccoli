@@ -22,16 +22,17 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, undefined, any>):
     hideComments: () => { dispatch(hideComments()) }
   }
 }
-const getCommentItems = (items: IBookmark[]) => {
-  let comments: IBookmark[] = []
+const getCommentItems = (items?: IBookmark[]) => {
+  if (items) {
+    let comments: IBookmark[] = []
 
-  items.map(item => {
-    if (item.comment.length > 0) {
-      comments.push(item)
-    }
-  })
-
-  return comments
+    items.map(item => {
+      if (item.comment.length > 0) {
+        comments.push(item)
+      }
+    })
+    return comments
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentList)
